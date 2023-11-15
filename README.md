@@ -1,1 +1,1 @@
-# web side
+# adamsın mete
