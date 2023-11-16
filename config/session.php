@@ -31,9 +31,9 @@ return [
     |
     */
 
-    'lifetime' => env('SESSION_LIFETIME', 120),
+    'lifetime' => env('SESSION_LIFETIME', 480), //session 480 dk sonra temizlenir
 
-    'expire_on_close' => false,
+    'expire_on_close' => true, //tarayıcı kapatıldığı an session temizlenir
 
     /*
     |--------------------------------------------------------------------------
