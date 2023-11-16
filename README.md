@@ -1,1 +1,0 @@
-# adamsın mete
