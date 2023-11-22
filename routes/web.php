@@ -17,5 +17,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', 'App\Http\Controllers\LoginController@goToLoginPage')->name('login-page');
-Route::post('login/control', 'App\Http\Controllers\LoginController@controlForLogin')->name('login-control-page');
+Route::get('/index', 'App\Http\Controllers\LoginController@goToLoginPage')->name('login-page');
+Route::any('index/begin', 'App\Http\Controllers\LoginController@controlForLogin')->name('home-page');

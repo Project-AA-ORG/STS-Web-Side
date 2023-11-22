@@ -142,9 +142,22 @@ hr {
     color: black;
     position: relative; /* Change from absolute to relative */
     left: 50%; /* Adjust left property */
-    margin-top: 10px;
+    margin-top: 1%;
     transform: translateX(-50%); /* Use translateX for horizontal centering */
 }
+.girisbuton{
+    border-radius: 4px;
+    width: 180px;
+    height: 30px;
+    text-align: center;
+    color: blue;
+    position: relative;
+    left: 50%;
+    margin-top: 7%;
+    transform: translate(-50%, -50%);
+}
+
+
 
 .labeldesign{
     border-radius: 4px;
@@ -154,16 +167,12 @@ hr {
     color: black;
 }
 
-.girisbuton{
-    border-radius: 4px;
-    width: 180px;
-    height: 30px;
+
+.error-message {
+    color: red;
     text-align: center;
-    color: blue;
-    position: relative;
-    left: 50%;
-    margin-top: 30px;
-    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 212px; /* Adjust the top position to place it above verigiris1 */
+    width: 100%; /* Width to fill the container */
+    left: 0; /* Align the text to the center */
 }
-
-

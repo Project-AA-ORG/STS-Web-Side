@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Giriş Ekranı</title>
+    <title>Giris Ekrani</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link href="{{ asset('css/login_tasarım.css') }}" rel="stylesheet">
@@ -20,17 +20,14 @@
             <div class="parent">
                 <img src="/images/download-removebg-preview.png" alt=""">
             </div>
-        <div class=" adminGiris">
+        <div class= "adminGiris">
             
                 <label for="gir" class="giris"><b>
                         <h4>ADMIN GIRISI</h4>
                     </b></label>
                 <br><br>
                 <hr>
-                @if(isset($data['error_message']))
-                <span id="girisError" style="color: red; display: none;">{{$data['error_message']}}</span>
-                @endif
-                <form action="{{route('login-control-page')}}" method="post">
+                <form action="{{route('home-page')}}" method="post">
                     @csrf
 
                     <div class="verigiris1">
@@ -40,14 +37,17 @@
                     </div>
                     <div class="verigiris2">
                         <i class="fa-solid fa-lock" style="margin-left: 10px; color: whitesmoke;"></i>
-                        <input type="text" id="password" name="password" required placeholder="Şifre" class="labeldesign">
+                        <input type="password" id="password" name="password" required placeholder="Şifre" class="labeldesign">
                     </div>
 
                     <div class="girisbuton">
                         <button style="color: blue;" type="submit" class="btn btn-light"><b> GIRIS YAP </b></button>
                     </div>
-                </form>
 
+                    @if(isset($data['error_message']))
+                        <p class="error-message">{{$data['error_message']}}</p>
+                    @endif
+                </form>
 
             </div>
     </div>
@@ -65,31 +65,4 @@
         <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 
 </body>
-<script>
-
-    function controlForLogin(){
-        var username = $("#username").val();
-        var password = $("#password").val();
-
-        $.ajax({
-            type: "GET",
-            url: '{{route("login-control-page")}}',
-            data: {username:username , password:password},
-            success: function(data) {
-                if (data.hasOwnProperty("error_message")) {
-                    $("#girisError").text(data.error_message).show();
-                } else {
-                    if (data.hasOwnProperty("successful")) {
-                        console.log("Başarılı");
-                        window.location.href = data.redirect;
-                    }
-                }
-            },
-
-            error: function(xhr, status, error){
-                console.log(error);
-            }
-        });
-    }
-    </script>
 </html>

@@ -1,15 +1,13 @@
 
 
- /* styles for desktop devices */
-@media only screen and (min-width: 992px) {
+/* @media only screen and (min-width: 992px) {
   body, .duzenle, .yamuk, .bg_ogretmen_duzenle,.photo, .kayıt, .kayıt_design, .LABEL, .INPUT, .Entrance{
-    font-size: 14px;
+    font-size: 16px;
     width: 100%;
-    margin: auto;
+    margin: 0;
   }
 }
 
-/* styles for tablet devices */
 @media only screen and (min-width: 768px) and (max-width: 991px) {
     body, .duzenle, .yamuk, .bg_ogretmen_duzenle,.photo, .kayıt, .kayıt_design, .LABEL, .INPUT, .Entrance {
     font-size: 14px;
@@ -18,14 +16,13 @@
   }
 }
 
-/* styles for mobile devices */
 @media only screen and (max-width: 767px) {
     body, .duzenle, .yamuk, .bg_ogretmen_duzenle,.photo, .kayıt, .kayıt_design, .LABEL, .INPUT, .Entrance {
     font-size: 12px;
     width: 100%;
     margin: 0;
   }
-}
+} */
 
         .bg_ogretmen_duzenle {
             background-color: #C4C4C4;
@@ -117,11 +114,11 @@
             display: inline-block;
             width: 209px;
             height: 65px;
-            padding: 26px 71px 16px 53px;
+            padding: 26px 71px 16px 40px;
             border-radius: 8px;
             background: #F5F4F6;
             margin-top: 20px;
-            text-align: center;
+            text-align: left;
         }
 
         .INPUT {
