@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'admin',
     ],
 
     /*
@@ -38,7 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'admin',
         ],
     ],
 
@@ -60,9 +60,9 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'admin' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\Admin::class,
         ],
 
         // 'users' => [
@@ -110,6 +110,6 @@ return [
     |
     */
 
-    'password_timeout' => 10800,
+    'password_timeout' => 10800, // ne kadar süre(3 saat) sonra oturum otomatik kapanacak
 
 ];
