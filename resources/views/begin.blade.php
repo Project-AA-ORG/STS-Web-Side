@@ -11,8 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-    <link rel="icon" href="/images/square_logo2.png" type="image/x-icon">
-
 
     <style>
         .bg_for_building {
@@ -38,9 +36,73 @@
 <body>
 
     <div class="bg_for_building">
-     <!-- Sidebar tasarımı baslangıc -->
-     @include('sidemenu')
-     <!-- sidebar tasarımı son -->
+        <div class="sidebar">
+            <div class="top">
+                <div class="logo">
+                    <i class="bx bxl-codepen"></i>
+                    <span></span>
+                </div>
+                <i class="fa-solid fa-bars" id="btn" style="color: black;"> </i>
+            </div>
+    
+            <div class="user">
+                <img src="/images/download.jpg" alt="senay" class="user-img">
+                
+                <div>
+                    <p class="bold">Şenay Duran Okulları</p>
+                </div>
+    
+            </div>
+            <hr>
+    
+            <ul>
+                <li>
+                    <a href="ogretmen_duzenle.html">
+                        <i class='fas fa-chalkboard-teacher'></i>
+                        <span class="nav-item">Öğretmenlerimiz</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='fas fa-book-reader'></i>
+                        <span class="nav-item">Öğrencilerimiz</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bx-male-female'></i>
+                        <span class="nav-item">Velilerimiz</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='fas fa-book-open'></i>
+                        <span class="nav-item">Derslerimiz</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa-solid fa-users"></i>
+                        <span class="nav-item">Sınıflarımız</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa-solid fa-bullhorn"></i>
+                        <span class="nav-item">Duyurularımız</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bx-calendar-event'></i>
+                        <span class="nav-item">Etkinliklerimiz</span>
+                    </a>
+                </li>
+    
+    
+            </ul>
+        </div>
+    
     
     </div> 
 

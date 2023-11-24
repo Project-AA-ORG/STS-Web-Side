@@ -40,11 +40,11 @@
             <div class="listele">
 
                 
-                {{-- <?php
+             <?php
                 // bu php kodu databasedeki tüm öğretmenler için bir'er bar oluşturacak
-                foreach ($items as $item) {
-                    $imageSrc = $item['teacher_image']; 
-                    $itemName = $item['name']; 
+                foreach ($data["teachers"] as $item) {
+                    $imageSrc = $item->teacher_image; 
+                    $itemName = $item->name; 
                 ?>
                 <a id="satir" class="ogretmen-satiri" href="#">
                     <img class="ogretmen-satiri-gorseli" src="<?php echo $imageSrc; ?>" alt="teacher">
@@ -53,115 +53,7 @@
                     </div>
                 </a>
 
-                <?php } ?> --}}
-
-
-                <a id="satir" class="ogretmen-satiri" href="#">
-                    <img class="ogretmen-satiri-gorseli" src="/images/image.jpg" alt="teacher">
-                    <div class="ogretmen-satiri-yazisi" for="name">
-                        Ahmet Furkan Ekinci
-                    </div>
-                </a>
-                <a id="satir" class="ogretmen-satiri" href="#">
-                    <img class="ogretmen-satiri-gorseli" src="/images/image.jpg" alt="teacher">
-                    <div class="ogretmen-satiri-yazisi" for="name">
-                        Berke YIlmaz
-                    </div>
-                </a>
-                
-                <a id="satir" class="ogretmen-satiri" href="#">
-                    <img class="ogretmen-satiri-gorseli" src="/images/image.jpg" alt="teacher">
-                    <div class="ogretmen-satiri-yazisi" for="name">
-                        Ahmet Furkan Ekinci
-                    </div>
-                </a>
-                <a id="satir" class="ogretmen-satiri" href="#">
-                    <img class="ogretmen-satiri-gorseli" src="/images/image.jpg" alt="teacher">
-                    <div class="ogretmen-satiri-yazisi" for="name">
-                        Burak Demirkaya
-                    </div>
-                </a>
-                
-                <a id="satir" class="ogretmen-satiri" href="#">
-                    <img class="ogretmen-satiri-gorseli" src="/images/image.jpg" alt="teacher">
-                    <div class="ogretmen-satiri-yazisi" for="name">
-                        Ahmet Furkan Ekinci
-                    </div>
-                </a>
-                <a id="satir" class="ogretmen-satiri" href="#">
-                    <img class="ogretmen-satiri-gorseli" src="/images/image.jpg" alt="teacher">
-                    <div class="ogretmen-satiri-yazisi" for="name">
-                        Kubilay Yazman
-                    </div>
-                </a>
-                <a id="satir" class="ogretmen-satiri" href="#">
-                    <img class="ogretmen-satiri-gorseli" src="/images/image.jpg" alt="teacher">
-                    <div class="ogretmen-satiri-yazisi" for="name">
-                        Kubilay Yazman
-                    </div>
-                </a>
-                <a id="satir" class="ogretmen-satiri" href="#">
-                    <img class="ogretmen-satiri-gorseli" src="/images/image.jpg" alt="teacher">
-                    <div class="ogretmen-satiri-yazisi" for="name">
-                        Kubilay Yazman
-                    </div>
-                </a>
-                <a id="satir" class="ogretmen-satiri" href="#">
-                    <img class="ogretmen-satiri-gorseli" src="/images/image.jpg" alt="teacher">
-                    <div class="ogretmen-satiri-yazisi" for="name">
-                        Kubilay Yazman
-                    </div>
-                </a>
-                <a id="satir" class="ogretmen-satiri" href="#">
-                    <img class="ogretmen-satiri-gorseli" src="/images/image.jpg" alt="teacher">
-                    <div class="ogretmen-satiri-yazisi" for="name">
-                        Kubilay Yazman
-                    </div>
-                </a>
-                <a id="satir" class="ogretmen-satiri" href="#">
-                    <img class="ogretmen-satiri-gorseli" src="/images/image.jpg" alt="teacher">
-                    <div class="ogretmen-satiri-yazisi" for="name">
-                        Kubilay Yazman
-                    </div>
-                </a>
-                <a id="satir" class="ogretmen-satiri" href="#">
-                    <img class="ogretmen-satiri-gorseli" src="/images/image.jpg" alt="teacher">
-                    <div class="ogretmen-satiri-yazisi" for="name">
-                        Kubilay Yazman
-                    </div>
-                </a>
-                <a id="satir" class="ogretmen-satiri" href="#">
-                    <img class="ogretmen-satiri-gorseli" src="/images/image.jpg" alt="teacher">
-                    <div class="ogretmen-satiri-yazisi" for="name">
-                        Kubilay Yazman
-                    </div>
-                </a>
-                <a id="satir" class="ogretmen-satiri" href="#">
-                    <img class="ogretmen-satiri-gorseli" src="/images/image.jpg" alt="teacher">
-                    <div class="ogretmen-satiri-yazisi" for="name">
-                        Kubilay Yazman
-                    </div>
-                </a>
-                <a id="satir" class="ogretmen-satiri" href="#">
-                    <img class="ogretmen-satiri-gorseli" src="/images/image.jpg" alt="teacher">
-                    <div class="ogretmen-satiri-yazisi" for="name">
-                        Kubilay Yazman
-                    </div>
-                </a>
-                <a id="satir" class="ogretmen-satiri" href="#">
-                    <img class="ogretmen-satiri-gorseli" src="/images/image.jpg" alt="teacher">
-                    <div class="ogretmen-satiri-yazisi" for="name">
-                        Kubilay Yazman
-                    </div>
-                </a>
-                <a id="satir" class="ogretmen-satiri" href="#">
-                    <img class="ogretmen-satiri-gorseli" src="/images/image.jpg" alt="teacher">
-                    <div class="ogretmen-satiri-yazisi" for="name">
-                        Kubilay Yazman
-                    </div>
-                </a>
-
-
+                <?php } ?>
 
             </div>
 
