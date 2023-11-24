@@ -18,7 +18,7 @@ class LoginController extends Controller
                 return  view("index"); // giriş yapılmadıysa login ekranına yollanır
             }
         }
-        return  view("index");
+        return  view("ogretmenlerimiz");
     }
 
     // Kullanıcı doğru giriş yapmış mı yapmamış mı kontrolü yapılır.
