@@ -19,3 +19,5 @@ Route::get('/', function () {
 
 Route::get('/index', 'App\Http\Controllers\LoginController@goToLoginPage')->name('login-page');
 Route::any('index/begin', 'App\Http\Controllers\LoginController@controlForLogin')->name('home-page');
+
+Route::get('/deneme', 'App\Http\Controllers\TeacherController@example');
