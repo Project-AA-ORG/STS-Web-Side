@@ -9,6 +9,7 @@ class ParentStudent extends Model
 {
     use HasFactory;
     protected $table = 'parent_student';
+    protected $primaryKey = 'parent_student_id';
 
     public static function getAllParentStudent(){
         return ParentStudent::all();

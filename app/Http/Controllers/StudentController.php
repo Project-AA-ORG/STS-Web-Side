@@ -54,4 +54,10 @@ class StudentController extends Controller
 
         StudentController::deneme($data);
     }
+
+    public function example(){
+        $studentId = 2; // Örnek olarak bir öğretmen ID'si
+        $student = Student::getClassroomWithStudent($studentId);
+        dd($student);
+    }
 }

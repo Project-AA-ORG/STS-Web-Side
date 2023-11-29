@@ -70,4 +70,10 @@ class ParentsController extends Controller
 
         ParentsController::deneme($data);
     }
+
+    public function example(){
+        $parentId = 3; // Örnek olarak bir parent ID'si
+        $parent = Parents::getStudentsWithParent($parentId);
+        dd($parent);
+    }
 }

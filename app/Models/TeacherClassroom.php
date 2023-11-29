@@ -9,6 +9,7 @@ class TeacherClassroom extends Model
 {
     use HasFactory;
     protected $table = 'teacher_classroom';
+    protected $primaryKey = 'teacher_classroom_id';
 
     public static function getAllTeacherClassrooms(){
         return TeacherClassroom::all();
