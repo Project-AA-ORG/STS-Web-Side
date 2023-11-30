@@ -29,9 +29,16 @@ class StudentController extends Controller
 
     //Öğretmenleri liste halinde blade e yollama fonksiyonu
     public function readStudentsFromDB(){
-        $data["students"] = Student::getAllStudents();
-        dd($data);
-        //return view("index", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
+        if (session()->has('login_control')) {
+            if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
+                $data["students"] = Student::getAllStudents();
+                dd($data);
+                //return view("index", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
+            } else {
+                return  view("index"); // giriş yapılmadıysa login ekranına yollanır
+            }
+        }
+        return  view("index"); // Daha önce hiç login yapılmamışsa tarayıcı açıldığından beri direkt login sayfasına yönlendir
     }
 
     public function deneme($request) { //databasedeki teacher table ına yeni eleman ekler.

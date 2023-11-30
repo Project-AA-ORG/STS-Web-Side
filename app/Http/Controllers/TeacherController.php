@@ -37,9 +37,16 @@ class TeacherController extends Controller
 
     //Öğretmenleri liste halinde blade e yollama fonksiyonu
     public function readTeachersFromDB(){
-        $data["teachers"] = Teacher::getAllTeachers();
-        //dd($data);
-        return view("ogretmenlerimiz", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
+        if (session()->has('login_control')) {
+            if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
+                $data["teachers"] = Teacher::getAllTeachers();
+                //dd($data);
+                return view("ogretmenlerimiz", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
+            } else {
+                return  view("index"); // giriş yapılmadıysa login ekranına yollanır
+            }
+        }
+        return  view("index"); // Daha önce hiç login yapılmamışsa tarayıcı açıldığından beri direkt login sayfasına yönlendir
     }
 
     public function deneme($request) { //databasedeki teacher table ına yeni eleman ekler.
@@ -64,11 +71,12 @@ class TeacherController extends Controller
     }
 
     public function deneme2() { //databasedeki teacher table ına yeni eleman ekler.
-        $data["name"] = "talha";
-        $data["username"] = "talhakaya";
+        $data["name"] = "fırat";
+        $data["username"] = "fıratkaya";
         $data["phone"] = "12345";
-        $data["course_id"] = 2;
-        $data["classroom_id"][0] = 4;
+        $data["course_id"] = 3;
+        $data["classroom_id"][0] = 1;
+        $data["classroom_id"][1] = 2;
 
         TeacherController::deneme($data);
     }
