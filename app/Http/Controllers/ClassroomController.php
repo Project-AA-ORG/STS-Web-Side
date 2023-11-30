@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classroom;
+use App\Models\Student;
+use App\Models\Teacher;
+use App\Models\TeacherClassroom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -28,6 +31,12 @@ class ClassroomController extends Controller
             }
         }
         return  view("index"); // Daha önce hiç login yapılmamışsa tarayıcı açıldığından beri direkt login sayfasına yönlendir
+    }
+    
+    public function deleteClassroom($classroomId){
+        Classroom::deleteClassroomInId($classroomId);
+        Student::doNullClassroomColumnInId($classroomId);
+        TeacherClassroom::deleteRowsByClassroomId($classroomId);
     }
 
     public function updateClassroom(Request $request){

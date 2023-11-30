@@ -18,4 +18,8 @@ class Classroom extends Model
     public static function getClassroomInId($classroomId){
         return classroom::where("classroom_id", $classroomId);
     }
+
+    public static function deleteClassroomInId($classroomId){
+        Classroom::where("classroom_id", $classroomId)->delete();
+    }
 }

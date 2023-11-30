@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -33,6 +34,16 @@ class CourseController extends Controller
         $course = Course::getCourseInId($request->course_id);
         $course->classroom_name = $request->course_name;
         $course->save();
+    }
+
+    // public function deleteCourse($courseId){
+    //     Course::deleteCourseInId($courseId);
+    //     Teacher::doNullCourseColumnInId($courseId);
+    // }
+
+    public function deleteCourse(){
+        Course::deleteCourseInId(2);
+        Teacher::doNullCourseColumnInId(2);
     }
 
     public function deneme($request) { //databasedeki course table ına yeni eleman ekler.

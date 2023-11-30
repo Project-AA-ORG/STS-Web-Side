@@ -35,6 +35,10 @@ class Student extends Model
         return student::latest()->first();
     }
 
+    public static function doNullClassroomColumnInId($classroomId){
+        student::where("classroom_id", $classroomId)->update(['classroom_id' => null]);
+    }
+
     public static function deleteStudentInId($studentId){
         student::where("student_id", $studentId)->delete();
     }

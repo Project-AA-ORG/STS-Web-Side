@@ -19,4 +19,7 @@ class Course extends Model
         return course::where("course_id", $courseId);
     }
 
+    public static function deleteCourseInId($courseId){
+        Course::where("course_id", $courseId)->delete();
+    }
 }

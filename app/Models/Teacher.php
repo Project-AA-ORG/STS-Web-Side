@@ -39,6 +39,10 @@ class Teacher extends Model
         return teacher::latest()->first();
     }
 
+    public static function doNullCourseColumnInId($courseId){
+        teacher::where("course_id", $courseId)->update(['course_id' => null]);
+    }
+
     public static function deleteTeacherInId($teacherId){
         Teacher::where("teacher_id", $teacherId)->delete();
     }
