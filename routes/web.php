@@ -26,3 +26,4 @@ Route::any('index/begin', 'App\Http\Controllers\LoginController@controlForLogin'
 // Route::get('/deneme', 'App\Http\Controllers\ParentsController@readParentsFromDB')->name('get-our-parent-page');
 // Route::get('/deneme', 'App\Http\Controllers\ClassroomController@readCoursesFromDB')->name('get-our-course-page');
 // Route::get('/deneme', 'App\Http\Controllers\CourseController@readClassroomsFromDB')->name('get-our-classroom-page');
+

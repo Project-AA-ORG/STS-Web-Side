@@ -19,7 +19,7 @@ class StudentController extends Controller
         $student->username = $request->username;
         $student->classroom_id = $request->classroom_id;
 
-        if (!(Student::searchUserName($request["username"]))) { // daha önce bu username kullanılmış mı kullanılmamış mı diye kontrol ettim.
+        if (!(Student::searchUserName($request->username))) { // daha önce bu username kullanılmış mı kullanılmamış mı diye kontrol ettim.
             $student->save();
         }
         else{

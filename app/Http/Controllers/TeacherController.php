@@ -20,7 +20,7 @@ class TeacherController extends Controller
         $teacher->phone = $request->phone;
         $teacher->course_id = $request->course_id;
 
-        if (!(Teacher::searchUserName($request["username"]))) { // daha önce bu username kullanılmış mı kullanılmamış mı diye kontrol ettim.
+        if (!(Teacher::searchUserName($request->username))) { // daha önce bu username kullanılmış mı kullanılmamış mı diye kontrol ettim.
             $teacher->save();
             $teacher = Teacher::getLastElement();
             foreach($request->classroom_id as $classroom_id){ // teacher_classroom table ına yeni öğretmen ve sınıf ekledim
@@ -88,3 +88,53 @@ class TeacherController extends Controller
         dd($teacher->course);
     }
 }
+
+/*
+Projenizdeki resimleri veritabanında tutmadan kullanmak için, genellikle Laravel'de public dizini içindeki storage dizinini kullanarak resimleri saklarsınız. Bu şekilde, resimlere public olarak erişilebilir ve herhangi bir HTTP sunucusu tarafından doğrudan servis edilebilir. İşte bu yöntemi kullanarak resim eklemenin basit bir örneği:
+
+Resmi Public Dizinine Yükleyin:
+
+İlk olarak, resimleri public dizini içindeki storage dizinine yükleyelim. Bu dizin genellikle projenizin ana dizininde yer alır. Terminal veya komut istemcisinde şu komutu kullanabilirsiniz:
+
+bash
+Copy code
+php artisan storage:link
+Bu komut, public dizini içine bir storage simgesi oluşturur ve bu sayede storage dizinindeki dosyalara public olarak erişebilirsiniz.
+
+Resmi Yükleme ve Kaydetme:
+
+Controller veya başka bir yerde resmi yükleyip kaydedebilirsiniz. Örneğin:
+
+php
+Copy code
+public function addTeacherWithImage(Request $request)
+{
+    $teacher = new Teacher;
+    $teacher->name = $request->input('name');
+    $teacher->description = $request->input('description');
+
+    if ($request->hasFile('image')) {
+        // Resmi yükle ve storage dizinine kaydet
+        $imagePath = $request->file('image')->store('teachers', 'public');
+
+        // Resmin yolunu veritabanına kaydet
+        $teacher->image = $imagePath;
+    }
+
+    $teacher->save();
+
+    return response()->json(['message' => 'Teacher added successfully']);
+}
+Bu örnekte, store fonksiyonu resmi belirtilen dizine (teachers dizini) yükleyecek ve ardından resmin yolunu image sütununa kaydedecektir.
+
+Resmi Gösterme:
+
+Resmi göstermek için, ilgili sayfada veya view'da şu şekilde kullanabilirsiniz:
+
+html
+Copy code
+<img src="{{ asset('storage/' . $teacher->image) }}" alt="Teacher Image">
+asset fonksiyonu, public dizini içindeki storage dizinine yönlendirir ve belirtilen resmin yolunu döndürür. Bu yol, resmin HTTP üzerinden erişilebilen yoludur.
+
+Bu şekilde, resimleri veritabanında saklamadan kullanabilir ve projenizin performansını artırabilirsiniz.
+*/

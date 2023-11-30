@@ -19,7 +19,7 @@ class ParentsController extends Controller
         $parents->username = $request->username;
         $parents->phone = $request->phone;
 
-        if (!(Parents::searchUserName($request["username"]))) { // daha önce bu username kullanılmış mı kullanılmamış mı diye kontrol ettim.
+        if (!(Parents::searchUserName($request->username))) { // daha önce bu username kullanılmış mı kullanılmamış mı diye kontrol ettim.
             $parents->save();
             $parents = Parents::getLastElement();
             foreach($request->student_id as $student_id){ // parent_student table ına yeni öğretmen ve sınıf ekledim
