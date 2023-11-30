@@ -15,4 +15,11 @@ class ParentStudent extends Model
         return ParentStudent::all();
     }
 
+    public static function deleteRowsByStudentId($studentId){
+        ParentStudent::where("student_id", $studentId)->delete();
+    }
+
+    public static function deleteRowsByParentId($parentId){
+        ParentStudent::where("parent_id", $parentId)->delete();
+    }
 }

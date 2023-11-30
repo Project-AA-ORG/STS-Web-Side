@@ -15,4 +15,7 @@ class Classroom extends Model
         return classroom::all();
     }
 
+    public static function getClassroomInId($classroomId){
+        return classroom::where("classroom_id", $classroomId);
+    }
 }

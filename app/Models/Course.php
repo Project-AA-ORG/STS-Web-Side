@@ -15,4 +15,8 @@ class Course extends Model
         return course::all();
     }
 
+    public static function getCourseInId($courseId){
+        return course::where("course_id", $courseId);
+    }
+
 }

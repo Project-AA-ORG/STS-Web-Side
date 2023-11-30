@@ -21,7 +21,9 @@ Route::get('/index', 'App\Http\Controllers\LoginController@goToLoginPage')->name
 Route::any('index/begin', 'App\Http\Controllers\LoginController@controlForLogin')->name('home-page');
 
 
- Route::get('/deneme', 'App\Http\Controllers\TeacherController@readTeachersFromDB')->name('get-our-teacher-page');
+Route::get('/deneme', 'App\Http\Controllers\TeacherController@deneme2')->name('get-our-teacher-page');
+
+// Route::get('/deneme', 'App\Http\Controllers\TeacherController@readTeachersFromDB')->name('get-our-teacher-page');
 // Route::get('/deneme', 'App\Http\Controllers\StudentController@readStudentsFromDB')->name('get-our-student-page');
 // Route::get('/deneme', 'App\Http\Controllers\ParentsController@readParentsFromDB')->name('get-our-parent-page');
 // Route::get('/deneme', 'App\Http\Controllers\ClassroomController@readCoursesFromDB')->name('get-our-course-page');

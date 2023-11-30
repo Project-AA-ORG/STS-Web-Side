@@ -23,11 +23,19 @@ class Student extends Model
         return student::with('classroom')->where("student_id", $studentId)->first();
     }
 
+    public function getStudentInId($studentId){
+        return student::where("student_id", $studentId)->first();
+    }
+
     public static function searchUserName($username){
         return student::where('username', $username)->exists();
     }
 
     public static function getLastElement(){
         return student::latest()->first();
+    }
+
+    public static function deleteStudentInId($studentId){
+        student::where("student_id", $studentId)->delete();
     }
 }

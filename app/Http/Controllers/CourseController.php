@@ -29,6 +29,12 @@ class CourseController extends Controller
         return  view("index"); // Daha önce hiç login yapılmamışsa tarayıcı açıldığından beri direkt login sayfasına yönlendir
     }
 
+    public function updateCourse(Request $request){
+        $course = Course::getCourseInId($request->course_id);
+        $course->classroom_name = $request->course_name;
+        $course->save();
+    }
+
     public function deneme($request) { //databasedeki course table ına yeni eleman ekler.
         $course = new Course();  
         $course->course_name = $request["course_name"];

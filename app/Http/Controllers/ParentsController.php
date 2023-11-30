@@ -22,7 +22,7 @@ class ParentsController extends Controller
         if (!(Parents::searchUserName($request->username))) { // daha önce bu username kullanılmış mı kullanılmamış mı diye kontrol ettim.
             $parents->save();
             $parents = Parents::getLastElement();
-            foreach($request->student_id as $student_id){ // parent_student table ına yeni öğretmen ve sınıf ekledim
+            foreach($request->student_id as $student_id){ // parent_student table ına yeni veli ve öğrenci ekledim
                 $parent_student = new ParentStudent();
                 $parent_student->parent_id = $parents->parent_id;
                 $parent_student->student_id = $student_id;
@@ -46,6 +46,50 @@ class ParentsController extends Controller
             }
         }
         return  view("index"); // Daha önce hiç login yapılmamışsa tarayıcı açıldığından beri direkt login sayfasına yönlendir
+    }
+
+    public function updateParent(Request $request){
+        $parents = Parents::getTeacher($request->parent_id);
+
+        if ($parents->username != $request->username){ //Eğer güncelleme yaparken username değiştirilmişse
+            if (!(Parents::searchUserName($request->username))) { // daha önce bu username kullanılmış mı kullanılmamış mı diye kontrol ettim.
+                ParentStudent::deleteRowsByParentId($request->parent_id);
+
+                $parents->name = $request->name;    
+                $parents->username = $request->username;
+                $parents->phone = $request->phone;
+                $parents->save();
+
+                foreach($request->student_id as $student_id){ // parent_student table ına yeni veli ve öğrenci ekledim
+                    $parent_student = new ParentStudent();
+                    $parent_student->parent_id = $parents->parent_id;
+                    $parent_student->student_id = $student_id;
+                    $parent_student->save();
+                }
+            }
+            else{
+                 // burada tekrar aynı ekleme sayfasına return yapıp o sayfada hata bastırtmalıyız. Bu username daha önce kullanıldı şeklinde
+            }
+        }
+        else{
+            ParentStudent::deleteRowsByParentId($request->parent_id);
+
+            $parents->name = $request->name;    
+            $parents->phone = $request->phone;
+            $parents->save();
+            
+            foreach($request->student_id as $student_id){ // parent_student table ına yeni veli ve öğrenci ekledim
+                $parent_student = new ParentStudent();
+                $parent_student->parent_id = $parents->parent_id;
+                $parent_student->student_id = $student_id;
+                $parent_student->save();
+            }
+        }
+    }
+
+    public function deleteParent($parentId){
+        Parents::deleteParentInId($parentId);
+        ParentStudent::deleteRowsByParentId($parentId);
     }
 
     public function deneme($request) { //databasedeki Parent table ına yeni eleman ekler.
@@ -80,7 +124,7 @@ class ParentsController extends Controller
 
     public function example(){
         $parentId = 3; // Örnek olarak bir parent ID'si
-        $parent = Parents::getStudentsWithParent($parentId);
+        $parent = Parents::getParentWithStudent($parentId);
         dd($parent);
     }
 }

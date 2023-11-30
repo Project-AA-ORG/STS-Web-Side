@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ParentStudent;
 use App\Models\Student;
 use App\Models\TeacherClassroom;
 use Illuminate\Http\Request;
@@ -41,7 +42,33 @@ class StudentController extends Controller
         return  view("index"); // Daha önce hiç login yapılmamışsa tarayıcı açıldığından beri direkt login sayfasına yönlendir
     }
 
-    public function deneme($request) { //databasedeki teacher table ına yeni eleman ekler.
+    public function updateStudent(Request $request){
+        $student = Student::getTeacher($request->student_id);
+
+        if ($student->username != $request->username){ //Eğer güncelleme yaparken username değiştirilmişse
+            if (!(Student::searchUserName($request->username))) { // daha önce bu username kullanılmış mı kullanılmamış mı diye kontrol ettim.
+                $student->name = $request->name;
+                $student->username = $request->username;
+                $student->classroom_id = $request->classroom_id;
+                $student->save();
+            }
+            else{
+                 // burada tekrar aynı ekleme sayfasına return yapıp o sayfada hata bastırtmalıyız. Bu username daha önce kullanıldı şeklinde
+            }
+        }
+        else{
+            $student->name = $request->name;
+            $student->classroom_id = $request->classroom_id;
+            $student->save();
+        }
+    }
+
+    public function deleteStudent($studentId){
+        Student::deleteStudentInId($studentId);
+        ParentStudent::deleteRowsByStudentId($studentId);
+    }
+
+    public function deneme($request) { //databasedeki student table ına yeni eleman ekler.
         $student = new Student();
         $student->name = $request["name"];    
         $password = $request["username"] . "123"; // otomatik şifre ayarladım.
@@ -54,7 +81,7 @@ class StudentController extends Controller
         }
     }
 
-    public function deneme2() { //databasedeki teacher table ına yeni eleman ekler.
+    public function deneme2() { //databasedeki student table ına yeni eleman ekler.
         $data["name"] = "rabia";
         $data["username"] = "rabiabetül";
         $data["classroom_id"] = 2;

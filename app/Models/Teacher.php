@@ -23,6 +23,10 @@ class Teacher extends Model
         return $this->belongsTo(Course::class, 'course_id');
     }
 
+    public static function getTeacher($teacherId){
+        return teacher::where("teacher_id", $teacherId)->first();
+    }
+
     public static function getClassroomsWithTeacher($teacherId){
         return teacher::with(['classrooms', 'course'])->where("teacher_id", $teacherId)->first();
     }
@@ -33,5 +37,9 @@ class Teacher extends Model
 
     public static function getLastElement(){
         return teacher::latest()->first();
+    }
+
+    public static function deleteTeacherInId($teacherId){
+        Teacher::where("teacher_id", $teacherId)->delete();
     }
 }

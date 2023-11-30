@@ -30,6 +30,12 @@ class ClassroomController extends Controller
         return  view("index"); // Daha önce hiç login yapılmamışsa tarayıcı açıldığından beri direkt login sayfasına yönlendir
     }
 
+    public function updateClassroom(Request $request){
+        $classroom = Classroom::getClassroomInId($request->classroom_id);
+        $classroom->classroom_name = $request->classroom_name;
+        $classroom->save();
+    }
+
     public function deneme($request) { //databasedeki classroom table ına yeni eleman ekler.
         $classroom = new Classroom();
 
