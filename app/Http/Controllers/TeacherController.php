@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classroom;
+use App\Models\Course;
 use App\Models\Teacher;
 use App\Models\TeacherClassroom;
 use Illuminate\Http\Request;
@@ -12,26 +14,55 @@ use Illuminate\Support\Facades\Log;
 class TeacherController extends Controller
 {
     public function addNewTeacherToDB(Request $request) { //databasedeki teacher table ına yeni eleman ekler.
-        $teacher = new Teacher();
-        $teacher->name = $request->name;    
-        $password = $request->username . "123"; // otomatik şifre ayarladım.
-        $teacher->password = $password;
-        $teacher->username = $request->username;
-        $teacher->phone = $request->phone;
-        $teacher->course_id = $request->course_id;
+        if ($request->isMethod('post')) {
+            if (session()->has('login_control')) {
+                if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
+                    $teacher = new Teacher();
+                    $teacher->name = $request->name;    
+                    $password = $request->username . "123"; // otomatik şifre ayarladım.
+                    $teacher->password = $password;
+                    $teacher->username = $request->username;
+                    $teacher->phone = $request->phone;
+                    $teacher->course_id = $request->course_id;
 
-        if (!(Teacher::searchUserName($request->username))) { // daha önce bu username kullanılmış mı kullanılmamış mı diye kontrol ettim.
-            $teacher->save();
-            $teacher = Teacher::getLastElement();
-            foreach($request->classroom_id as $classroom_id){ // teacher_classroom table ına yeni öğretmen ve sınıf ekledim
-                $teacher_classroom = new TeacherClassroom();
-                $teacher_classroom->teacher_id = $teacher->teacher_id;
-                $teacher_classroom->classroom_id = $classroom_id;
-                $teacher_classroom->save();
+                    if (!(Teacher::searchUserName($request->username))) { // daha önce bu username kullanılmış mı kullanılmamış mı diye kontrol ettim.
+                        $teacher->save();
+                        $teacher = Teacher::getLastElement();
+                        if (is_iterable($request->classroom_id)){
+                            foreach($request->classroom_id as $classroom_id){ // teacher_classroom table ına yeni öğretmen ve sınıf ekledim
+                                $teacher_classroom = new TeacherClassroom();
+                                $teacher_classroom->teacher_id = $teacher->teacher_id;
+                                $teacher_classroom->classroom_id = $classroom_id;
+                                $teacher_classroom->save();
+                            }
+                        }
+                        else{
+                            $teacher_classroom = new TeacherClassroom();
+                            $teacher_classroom->teacher_id = $teacher->teacher_id;
+                            $teacher_classroom->classroom_id = $request->classroom_id;
+                            $teacher_classroom->save();
+                        }
+                    }
+                    else{
+                        $data["teachers"] = Teacher::getAllTeachers();
+                        $data["classroom"] = Classroom::getAllClassrooms();
+                        $data["course"] = Course::getAllCourses();
+                        $data["error"] = "Bu username daha önce kullanıldı";
+                        return view("ogretmenlerimiz", compact("data"));
+                    }
+                    $data["teachers"] = Teacher::getAllTeachers();
+                    $data["classroom"] = Classroom::getAllClassrooms();
+                    $data["course"] = Course::getAllCourses();
+                    return view("ogretmenlerimiz", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
+                }
+                else {
+                    return  view("index"); // giriş yapılmadıysa login ekranına yollanır
+                }
             }
+            return  view("index"); // Daha önce hiç login yapılmamışsa tarayıcı açıldığından beri direkt login sayfasına yönlendir
         }
         else{
-            // burada tekrar aynı ekleme sayfasına return yapıp o sayfada hata bastırtmalıyız. Bu username daha önce kullanıldı şeklinde
+            TeacherController::readTeachersFromDB();
         }
     }
 
@@ -39,6 +70,8 @@ class TeacherController extends Controller
     public function readTeachersFromDB(){
         if (session()->has('login_control')) {
             if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
+                $data["classroom"] = Classroom::getAllClassrooms();
+                $data["course"] = Course::getAllCourses();
                 $data["teachers"] = Teacher::getAllTeachers();
                 //dd($data);
                 return view("ogretmenlerimiz", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum

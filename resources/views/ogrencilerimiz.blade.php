@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie-edge">
-    <title>Ogretmenlerimiz</title>
+    <title>Ogrencilerimiz</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link href="{{ asset('css/ogretmen_duzenle_tasarım.css') }}" rel="stylesheet">
@@ -54,6 +54,7 @@
             @endforeach
 
         </div>
+{{--                                             --}}
         <!-- Trigger/Open The Modal -->
         <button class="btn btn-light"
             style="display:inline; margin-left: 37%; margin-top: 1%; background-color: #E8D5B9;" id="myBtn">Öğretmen
@@ -72,12 +73,12 @@
                         <form action="{{ route('get-add-new-teacher') }}" method="POST"> 
                             @csrf
                             <div style="display: inline-block; margin-left: 4.5%;">
-                                <label for="isim" class="childbox">Ad Soyad</label>
+                                <label for="isim"class="childbox"  style="border-radius: 8px;" >Ad Soyad</label>
                                 <input type="text" id="name" name="name" required placeholder="giriniz" class="childbox">
                             </div>
 
                             <!-- For 'Sınıf' dropdown -->
-                            {{-- <div style="display: inline-block; margin-left: 4.5%;">
+                            <div style="display: inline-block; margin-left: 4.5%;">
                                 <label for="Sınıf" class="childbox">Sınıf</label>
                                 <div style="display: inline;" class="dropdown">
                                     <button
@@ -102,19 +103,6 @@
                                     
                                     </div>
                                 </div>
-                            </div> --}}
-
-                            <div style="display: inline-block; margin-left: 4.5%;">
-                
-                                <label for="Sınıf" class="childbox">Sınıf</label>
-
-                                <select multiple name="classroom_id[]" id="classroom_id" class="childbox_2 form-control custom-select">
-                                    @foreach ($data['classroom'] as $item)
-                                        printSelectedClassroom({{ $item->classroom_name }},{{ $item->classroom_id }})
-                                        <option value="{{ $item->classroom_id }}">{{ $item->classroom_name }}</option>
-                                    @endforeach
-                                </select>
-                
                             </div>
 
                             <!-- For 'Ders' dropdown -->
@@ -122,7 +110,7 @@
                                 <label for="Ders" class="childbox">Ders</label>
                                 <div style="display: inline;" class="dropdown">
                                     <button
-                                        style="border: solid white 1px; display: inline-block; text-align: center; border-radius: 4px; 
+                                        style="display: inline-block; text-align: center; border-radius: 4px; 
                                         background-color: #F5F4F6; padding: 24px; color: black; width: fit-content; height: 70px; width: 175px;"
                                         class="btn btn-secondary dropdown-toggle btn-sm ders-dropdown" type="button"
                                         id="dersDropdownButton" data-toggle="dropdown" aria-haspopup="true"
@@ -161,7 +149,7 @@
                         
 
                             <button type="submit" class="btn btn-light"
-                                style="background-color: #FF9595; margin-left: 80px;">Tamamla</button>
+                                style="background-color: #FF9595; margin-left: 80px;">Kaydet ve Ekle</button>
                         </form>
                     </div>
 
@@ -215,6 +203,9 @@
         sidebar.classList.toggle('active');
     });
 
+    document.querySelector('.back-btn').addEventListener('click', function() {
+        // Add functionality for the back button if it's missing
+    });
 </script>
 
 <script>
@@ -235,13 +226,13 @@
 
 <script>
     // Activate dropdown menus
-// document.querySelectorAll('.sinif-item').forEach(item => {
-//     item.addEventListener('click', function() {
-//         let selectedText = this.textContent.trim();
-//         let sinifDropdown = document.querySelector('.sinif-dropdown');
-//         sinifDropdown.textContent = selectedText;
-//     });
-// });
+document.querySelectorAll('.sinif-item').forEach(item => {
+    item.addEventListener('click', function() {
+        let selectedText = this.textContent.trim();
+        let sinifDropdown = document.querySelector('.sinif-dropdown');
+        sinifDropdown.textContent = selectedText;
+    });
+});
 
 document.querySelectorAll('.ders-item').forEach(item => {
     item.addEventListener('click', function() {
@@ -251,9 +242,10 @@ document.querySelectorAll('.ders-item').forEach(item => {
     });
 });
 
-function printSelectedClassroom(selected, id) {
+function setSelectedClassroom(selected, id) {
     console.log('Selected classroom:', selected); 
     console.log('Classroom ID:', id); 
+    document.getElementById('classroom_id').value = id;
 }
 
 function setSelectedcourse(selected, id) {
@@ -263,9 +255,9 @@ function setSelectedcourse(selected, id) {
 }
 
 function resetDropdowns() {
-    // document.querySelector('.sinif-dropdown').textContent = 'Seçiniz';
-    // document.getElementById('classroom_id').value = '';
+    document.querySelector('.sinif-dropdown').textContent = 'Seçiniz';
     document.querySelector('.ders-dropdown').textContent = 'Seçiniz';
+    document.getElementById('classroom_id').value = '';
     document.getElementById('course_id').value = '';
 }
 

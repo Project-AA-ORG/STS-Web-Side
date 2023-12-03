@@ -12,7 +12,10 @@
 }
 
 .bigbox {
-    display: flex;
+
+    left: 15%;
+    top:20%;
+    position: absolute;
     background-color: #DFDFDF; 
     width: 400px;
     height: 480px;

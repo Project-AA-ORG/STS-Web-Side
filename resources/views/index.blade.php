@@ -10,12 +10,12 @@
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link href="{{ asset('css/login_tasarım.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    
+    <link rel="icon" href="/images/square_logo2.png" type="image/x-icon">
+
 </head>
 
-<body>
+<body class="bg">
 
-    <div class="bg">
 
             <div class="parent">
                 <img src="/images/download-removebg-preview.png" alt=""">
@@ -50,7 +50,6 @@
                 </form>
 
             </div>
-    </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
