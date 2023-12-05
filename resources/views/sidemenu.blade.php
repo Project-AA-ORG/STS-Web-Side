@@ -1,5 +1,3 @@
-
-
 <div class="sidebar">
         <div class="top">
             <div class="logo">
@@ -21,25 +19,25 @@
 
         <ul>
             <li>
-                <a href="ogretmen_duzenle">
+                <a href="{{ route('get-our-teacher-page')}}">
                     <i class='fas fa-chalkboard-teacher'></i>
                     <span class="nav-item">Öğretmenlerimiz</span>
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="{{ route('get-our-student-page')}}">
                     <i class='fas fa-book-reader'></i>
                     <span class="nav-item">Öğrencilerimiz</span>
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="{{ route('get-our-parent-page')}}">
                     <i class='bx bx-male-female'></i>
                     <span class="nav-item">Velilerimiz</span>
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="{{ route('get-our-course-page')}}">
                     <i class='fas fa-book-open'></i>
                     <span class="nav-item">Derslerimiz</span>
                 </a>

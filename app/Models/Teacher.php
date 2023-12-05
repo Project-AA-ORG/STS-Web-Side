@@ -23,8 +23,19 @@ class Teacher extends Model
         return $this->belongsTo(Course::class, 'course_id');
     }
 
+    public static function classroomsDoNotEnterThisTeacher($teacherId){
+        $teacher = teacher::where("teacher_id", $teacherId)->first();
+        $teacherClassrooms = $teacher->classrooms->pluck('classroom_id')->toArray();
+        // Tüm sınıfları al ve öğretmenin girmediği sınıfları listeleyin
+        return Classroom::whereNotIn('classroom_id', $teacherClassrooms)->get();
+    }
+
     public static function getTeacher($teacherId){
         return teacher::where("teacher_id", $teacherId)->first();
+    }
+
+    public static function getTeacherInCourse($courseId){
+        return teacher::where("course_id", $courseId)->get();
     }
 
     public static function getClassroomsWithTeacher($teacherId){

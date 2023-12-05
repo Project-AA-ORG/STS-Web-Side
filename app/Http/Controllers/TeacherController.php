@@ -50,10 +50,7 @@ class TeacherController extends Controller
                         $data["error"] = "Bu username daha önce kullanıldı";
                         return view("ogretmenlerimiz", compact("data"));
                     }
-                    $data["teachers"] = Teacher::getAllTeachers();
-                    $data["classroom"] = Classroom::getAllClassrooms();
-                    $data["course"] = Course::getAllCourses();
-                    return view("ogretmenlerimiz", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
+                    return redirect()->route('get-our-teacher-page');
                 }
                 else {
                     return  view("index"); // giriş yapılmadıysa login ekranına yollanır
@@ -62,7 +59,7 @@ class TeacherController extends Controller
             return  view("index"); // Daha önce hiç login yapılmamışsa tarayıcı açıldığından beri direkt login sayfasına yönlendir
         }
         else{
-            TeacherController::readTeachersFromDB();
+            return redirect()->route('get-our-teacher-page');
         }
     }
 
@@ -82,132 +79,118 @@ class TeacherController extends Controller
         return  view("index"); // Daha önce hiç login yapılmamışsa tarayıcı açıldığından beri direkt login sayfasına yönlendir
     }
 
-    // Id si verilen öğretmeni güncelleyen fonksiyon
-    public function updateTeacher(Request $request){ 
-        $teacher = Teacher::getTeacher($request->teacher_id);
-        
-        if ($teacher->username != $request->username){ //Eğer güncelleme yaparken username değiştirilmişse
-            if (!(Teacher::searchUserName($request->username))) { // daha önce bu username kullanılmış mı kullanılmamış mı diye kontrol ettim.
-                TeacherClassroom::deleteRowsByTeacherId($request->teacher_id);
-
-                $teacher->name = $request->name;    
-                $teacher->username = $request->username;
-                $teacher->phone = $request->phone;
-                $teacher->course_id = $request->course_id;
-                $teacher->save();
-                
-                foreach($request->classroom_id as $classroom_id){ // teacher_classroom table ına yeni öğretmen ve sınıf ekledim
-                    $teacher_classroom = new TeacherClassroom();
-                    $teacher_classroom->teacher_id = $teacher->teacher_id;
-                    $teacher_classroom->classroom_id = $classroom_id;
-                    $teacher_classroom->save();
-                }
-            }
-            else{
-                // burada tekrar aynı ekleme sayfasına return yapıp o sayfada hata bastırtmalıyız. Bu username daha önce kullanıldı şeklinde
+    // id si verilmiş olan öğretmenin girdiği sınıflar ve verdiği ders dahil tüm bilgilerini ekranda gösterir.
+    public function InformationsToOpenUpdatePage($teacherId){
+        //$teacherId = 10; // Örnek olarak bir öğretmen ID'si
+        if (session()->has('login_control')) {
+            if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
+                $data["teacher"] = Teacher::getClassroomsWithTeacher($teacherId);
+                $data["classroom"] = Teacher::classroomsDoNotEnterThisTeacher($teacherId);
+                $data["courses"] = Course::getAllCourses();
+                return view("ogretmen_duzenle", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
+            } else {
+                return  view("index"); // giriş yapılmadıysa login ekranına yollanır
             }
         }
-        else{//Eğer güncelleme yaparken username değiştirilmemişse
-            TeacherClassroom::deleteRowsByTeacherId($request->teacher_id);
+        return  view("index");
+    }
 
-            $teacher->name = $request->name;    
-            $teacher->phone = $request->phone;
-            $teacher->course_id = $request->course_id;
+    // Id si verilen öğretmeni güncelleyen fonksiyon
+    public function updateTeacher(Request $request){
+        if ($request->isMethod('post')) {
+            if (session()->has('login_control')) {
+                if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
+                    $teacher = Teacher::getTeacher($request->teacher_id);
+                    
+                    if ($teacher->username != $request->username){ //Eğer güncelleme yaparken username değiştirilmişse
+                        if (!(Teacher::searchUserName($request->username))) { // daha önce bu username kullanılmış mı kullanılmamış mı diye kontrol ettim.
+                            TeacherClassroom::deleteRowsByTeacherId($request->teacher_id);
 
-            $teacher->save();
-            foreach($request->classroom_id as $classroom_id){ // teacher_classroom table ına yeni öğretmen ve sınıf ekledim
-                $teacher_classroom = new TeacherClassroom();
-                $teacher_classroom->teacher_id = $teacher->teacher_id;
-                $teacher_classroom->classroom_id = $classroom_id;
-                $teacher_classroom->save();
+                            $teacher->name = $request->name;    
+                            $teacher->username = $request->username;
+                            $teacher->phone = $request->phone;
+                            $teacher->course_id = $request->course_id;
+                            $teacher->save();
+                            
+                            if (isset($request->classroom_id)){
+                                if (is_iterable($request->classroom_id)){
+                                    foreach($request->classroom_id as $classroom_id){ // teacher_classroom table ına yeni öğretmen ve sınıf ekledim
+                                        $teacher_classroom = new TeacherClassroom();
+                                        $teacher_classroom->teacher_id = $teacher->teacher_id;
+                                        $teacher_classroom->classroom_id = $classroom_id;
+                                        $teacher_classroom->save();
+                                    }
+                                }
+                                else{
+                                    $teacher_classroom = new TeacherClassroom();
+                                    $teacher_classroom->teacher_id = $teacher->teacher_id;
+                                    $teacher_classroom->classroom_id = $request->classroom_id;
+                                    $teacher_classroom->save();
+                                }
+                            }
+                            return redirect()->route('get-our-teacher-page');
+                        }
+                        else{
+                            $data["teachers"] = Teacher::getAllTeachers();
+                            $data["classroom"] = Classroom::getAllClassrooms();
+                            $data["course"] = Course::getAllCourses();
+                            $data["error"] = "Bu username daha önce kullanıldı";
+                            return view("ogretmenlerimiz", compact("data"));
+                        }
+                    }
+                    else{//Eğer güncelleme yaparken username değiştirilmemişse
+                        TeacherClassroom::deleteRowsByTeacherId($request->teacher_id);
+
+                        $teacher->name = $request->name;    
+                        $teacher->phone = $request->phone;
+                        $teacher->course_id = $request->course_id;
+                        $teacher->save();
+
+                        if (isset($request->classroom_id)){
+                            if (is_iterable($request->classroom_id)){
+                                foreach($request->classroom_id as $classroom_id){ // teacher_classroom table ına yeni öğretmen ve sınıf ekledim
+                                    $teacher_classroom = new TeacherClassroom();
+                                    $teacher_classroom->teacher_id = $teacher->teacher_id;
+                                    $teacher_classroom->classroom_id = $classroom_id;
+                                    $teacher_classroom->save();
+                                }
+                            } else{
+                                $teacher_classroom = new TeacherClassroom();
+                                $teacher_classroom->teacher_id = $teacher->teacher_id;
+                                $teacher_classroom->classroom_id = $request->classroom_id;
+                                $teacher_classroom->save();
+                            }
+                        }
+                        return redirect()->route('get-our-teacher-page');
+                    }
+                }
+                else {
+                        return  view("index"); // giriş yapılmadıysa login ekranına yollanır
+                }
             }
+            return  view("index"); // Daha önce hiç login yapılmamışsa tarayıcı açıldığından beri direkt login sayfasına yönlendir
+        }
+        else{
+            return redirect()->route('get-our-teacher-page');
         }
     }
 
     //silme işlemi çin örnek fonksiyon
-    public function deleteDeneme($teacherId){
-        TeacherClassroom::deleteRowsByTeacherId($teacherId);
-        Teacher::deleteTeacherInId($teacherId);
-    }
-
-    public function updateDeneme($request){
-        $teacher = Teacher::getTeacher($request["teacher_id"]);
-
-        if ($teacher->username != $request["username"]){ //Eğer güncelleme yaparken username değiştirilmişse
-            if (!(Teacher::searchUserName($request["username"]))) {
-                TeacherClassroom::deleteRowsByTeacherId($request["teacherId"]);
-
-                $teacher->name = $request["name"];
-                $teacher->username = $request["username"];
-                $teacher->phone = $request["phone"];
-                $teacher->course_id = $request["course_id"];
-                $teacher->save();
-                foreach($request["classroom_id"] as $classroom_id){ // teacher_classroom table ına yeni öğretmen ve sınıf ekledim
-                    $teacher_classroom = new TeacherClassroom();
-                    $teacher_classroom->teacher_id = $teacher->teacher_id;
-                    $teacher_classroom->classroom_id = $classroom_id;
-                    $teacher_classroom->save();
-                }
+    public function deleteteTeacher($teacherId){
+        if (session()->has('login_control')) {
+            if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
+                TeacherClassroom::deleteRowsByTeacherId($teacherId);
+                Teacher::deleteTeacherInId($teacherId);
+                $data["teachers"] = Teacher::getAllTeachers();
+                $data["classroom"] = Classroom::getAllClassrooms();
+                $data["course"] = Course::getAllCourses();
+                return view("ogretmenlerimiz", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
             }
-            else{
-                Log::alert("hata bastıracağım...");
-                // burada tekrar aynı ekleme sayfasına return yapıp o sayfada hata bastırtmalıyız. Bu username daha önce kullanıldı şeklinde
+            else {
+                return  view("index"); // giriş yapılmadıysa login ekranına yollanır
             }
         }
-        else{
-            TeacherClassroom::deleteRowsByTeacherId($request["teacherId"]);
-
-            $teacher->name = $request["name"];
-            $teacher->phone = $request["phone"];
-            $teacher->course_id = $request["course_id"];
-            $teacher->save();
-            foreach($request["classroom_id"] as $classroom_id){ // teacher_classroom table ına yeni öğretmen ve sınıf ekledim
-                $teacher_classroom = new TeacherClassroom();
-                $teacher_classroom->teacher_id = $teacher->teacher_id;
-                $teacher_classroom->classroom_id = $classroom_id;
-                $teacher_classroom->save();
-            }
-        }
-    }
-
-    public function deneme($request) { //databasedeki teacher table ına yeni eleman ekler.
-        $teacher = new Teacher();
-        $teacher->name = $request["name"];    
-        $password = $request["username"] . "123"; // otomatik şifre ayarladım.
-        $teacher->password = $password;
-        $teacher->username = $request["username"];
-        $teacher->phone = $request["phone"];
-        $teacher->course_id = $request["course_id"];
-
-        if (!(Teacher::searchUserName($request["username"]))) { // daha önce bu username kullanılmış mı kullanılmamış mı diye kontrol ettim.
-            $teacher->save();
-            $teacher = Teacher::getLastElement();
-            foreach($request["classroom_id"] as $classroom_id){ // teacher_classroom table ına yeni öğretmen ve sınıf ekledim
-                $teacher_classroom = new TeacherClassroom();
-                $teacher_classroom->teacher_id = $teacher->teacher_id;
-                $teacher_classroom->classroom_id = $classroom_id;
-                $teacher_classroom->save();
-            }
-        }
-    }
-
-    public function deneme2() { //databasedeki teacher table ına yeni eleman ekler.
-        $data["name"] = "mehlika";
-        $data["username"] = "mehlikaekinci";
-        $data["phone"] = "456789123";
-        $data["course_id"] = 4;
-        $data["classroom_id"][0] = 1;
-        $data["classroom_id"][1] = 4;
-        $data["teacher_id"] = 10;
-
-        TeacherController::updateDeneme($data);
-    }
-
-    // id si verilmiş olan öğretmenin girdiği sınıflar ve verdiği ders dahil tüm bilgilerini ekranda gösterir.
-    public function example(){
-        $teacherId = 10; // Örnek olarak bir öğretmen ID'si
-        $teacher = Teacher::getClassroomsWithTeacher($teacherId);
-        dd($teacher->course);
+        return  view("index"); // Daha önce hiç login yapılmamışsa tarayıcı açıldığından beri direkt login sayfasına yönlendir
     }
 }
 

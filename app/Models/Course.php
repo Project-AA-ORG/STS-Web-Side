@@ -16,7 +16,7 @@ class Course extends Model
     }
 
     public static function getCourseInId($courseId){
-        return course::where("course_id", $courseId);
+        return course::where("course_id", $courseId)->first();
     }
 
     public static function deleteCourseInId($courseId){

@@ -11,27 +11,6 @@
 
 }
 
-.bigbox {
-
-    left: 15%;
-    top:20%;
-    position: absolute;
-    background-color: #DFDFDF; 
-    width: 400px;
-    height: 480px;
-    padding: 1%;
-    border-radius: 8px; 
-}
-
-.childbox {
-    width: 175px;
-    height: 70px;
-    border-radius: 4px;
-    background-color: #F5F4F6; 
-    text-align: center;
-    padding: 24px;
-}
-
 ul li {
         display: block;
         padding: 15px;

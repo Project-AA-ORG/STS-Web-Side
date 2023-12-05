@@ -15,47 +15,81 @@ class ClassroomController extends Controller
 {
     // Sınıfın harfi küçükse büyültülüp database o şekilde yazılmalı.
     public function addNewClassroomToDB(Request $request) { //databasedeki classroom table ına yeni eleman ekler.
-        $classroom = new Classroom();   
-        $classroom->classroom_name = $request->classroom_name;
-        $classroom->save();
+        if ($request->isMethod('post')) {
+            if (session()->has('login_control')) {
+                if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
+                    $classroom = new Classroom();   
+                    $classroom->classroom_name = $request->classroom_name;
+                    $classroom->save();
+                    return redirect()->route('get-our-classroom-page');
+                }
+                else {
+                    return  view("index"); // giriş yapılmadıysa login ekranına yollanır
+                }
+            }
+            return  view("index"); // Daha önce hiç login yapılmamışsa tarayıcı açıldığından beri direkt login sayfasına yönlendir
+        }
+        else{
+            return redirect()->route('get-our-classroom-page');
+        }
     }
 
     public function readClassroomsFromDB(){
         if (session()->has('login_control')) {
             if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
                 $data["classrooms"] = Classroom::getAllClassrooms();
-                dd($data);
-                //return view("index", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
+                return view("siniflarimiz", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
             } else {
                 return  view("index"); // giriş yapılmadıysa login ekranına yollanır
             }
         }
         return  view("index"); // Daha önce hiç login yapılmamışsa tarayıcı açıldığından beri direkt login sayfasına yönlendir
     }
+
+    public function InformationsToOpenUpdatePage($classroomId){
+        if (session()->has('login_control')) {
+            if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
+                $data["classroom"] = Classroom::getClassroomInId($classroomId);
+                $data["students"] = Student::getStudentInClassroomId($classroomId);
+                return view("siniflarimiz", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
+            } else {
+                return  view("index"); // giriş yapılmadıysa login ekranına yollanır
+            }
+        }
+        return  view("index");
+    }
     
-    public function deleteClassroom($classroomId){
-        Classroom::deleteClassroomInId($classroomId);
-        Student::doNullClassroomColumnInId($classroomId);
-        TeacherClassroom::deleteRowsByClassroomId($classroomId);
-    }
-
     public function updateClassroom(Request $request){
-        $classroom = Classroom::getClassroomInId($request->classroom_id);
-        $classroom->classroom_name = $request->classroom_name;
-        $classroom->save();
+        if ($request->isMethod('post')) {
+            if (session()->has('login_control')) {
+                if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
+                    $classroom = Classroom::getClassroomInId($request->classroom_id);
+                    $classroom->classroom_name = $request->classroom_name;
+                    $classroom->save();
+                }
+                else {
+                    return  view("index"); // giriş yapılmadıysa login ekranına yollanır
+                }
+            }
+            return  view("index"); // Daha önce hiç login yapılmamışsa tarayıcı açıldığından beri direkt login sayfasına yönlendir
+        }
+        else{
+            return redirect()->route('get-our-classroom-page');
+        }
     }
 
-    public function deneme($request) { //databasedeki classroom table ına yeni eleman ekler.
-        $classroom = new Classroom();
-
-        $classroom->classroom_name = $request["classroom_name"];
-
-        $classroom->save();
-    }
-
-    public function deneme2() { //databasedeki classroom table ına yeni eleman ekler.
-        $data["classroom_name"] = "8A";
-
-        ClassroomController::deneme($data);
+    public function deleteClassroom($classroomId){
+        if (session()->has('login_control')) {
+            if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
+                Classroom::deleteClassroomInId($classroomId);
+                Student::doNullClassroomColumnInId($classroomId);
+                TeacherClassroom::deleteRowsByClassroomId($classroomId);
+                return redirect()->route('get-our-classroom-page');
+            }
+            else {
+                return  view("index"); // giriş yapılmadıysa login ekranına yollanır
+            }
+        }
+        return  view("index"); // Daha önce hiç login yapılmamışsa tarayıcı açıldığından beri direkt login sayfasına yönlendir
     }
 }

@@ -11,18 +11,31 @@ use Illuminate\Support\Facades\Log;
 
 class CourseController extends Controller
 {
-    public function addNewTeacherToDB(Request $request) { //databasedeki course table ına yeni eleman ekler.
-        $course = new Course();    
-        $course->course_name = $request->course_name;
-        $course->save();
+    public function addNewCourseToDB(Request $request) { //databasedeki course table ına yeni eleman ekler.
+        if ($request->isMethod('post')) {
+            if (session()->has('login_control')) {
+                if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
+                    $course = new Course();    
+                    $course->course_name = $request->course_name;
+                    $course->save();
+                    return redirect()->route('get-our-course-page');
+                }
+                else {
+                    return  view("index"); // giriş yapılmadıysa login ekranına yollanır
+                }
+            }
+            return  view("index"); // Daha önce hiç login yapılmamışsa tarayıcı açıldığından beri direkt login sayfasına yönlendir
+        }
+        else{
+            return redirect()->route('get-our-course-page');
+        }
     }
 
     public function readCoursesFromDB(){
         if (session()->has('login_control')) {
             if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
                 $data["courses"] = Course::getAllCourses();
-                dd($data);
-                //return view("index", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
+                return view("derslerimiz", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
             } else {
                 return  view("index"); // giriş yapılmadıysa login ekranına yollanır
             }
@@ -30,33 +43,52 @@ class CourseController extends Controller
         return  view("index"); // Daha önce hiç login yapılmamışsa tarayıcı açıldığından beri direkt login sayfasına yönlendir
     }
 
+    public function InformationsToOpenUpdatePage($courseId){
+        if (session()->has('login_control')) {
+            if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
+                $data["course"] = Course::getCourseInId($courseId);
+                $data["teachers"] = Teacher::getTeacherInCourse($courseId);
+                return view("ders_duzenle", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
+            } else {
+                return  view("index"); // giriş yapılmadıysa login ekranına yollanır
+            }
+        }
+        return  view("index");
+    }
+
     public function updateCourse(Request $request){
-        $course = Course::getCourseInId($request->course_id);
-        $course->classroom_name = $request->course_name;
-        $course->save();
+        if ($request->isMethod('post')) {
+            if (session()->has('login_control')) {
+                if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
+                    $course = Course::getCourseInId($request->course_id);
+                    $course->course_name = $request->course_name;
+                    $course->save();
+                    return redirect()->route('get-our-course-page');
+                }
+                else {
+                        return  view("index"); // giriş yapılmadıysa login ekranına yollanır
+                }
+            }
+            return  view("index"); // Daha önce hiç login yapılmamışsa tarayıcı açıldığından beri direkt login sayfasına yönlendir
+        }
+        else{
+            return redirect()->route('get-our-course-page');
+        }
     }
 
-    // public function deleteCourse($courseId){
-    //     Course::deleteCourseInId($courseId);
-    //     Teacher::doNullCourseColumnInId($courseId);
-    // }
-
-    public function deleteCourse(){
-        Course::deleteCourseInId(2);
-        Teacher::doNullCourseColumnInId(2);
-    }
-
-    public function deneme($request) { //databasedeki course table ına yeni eleman ekler.
-        $course = new Course();  
-        $course->course_name = $request["course_name"];
-
-        $course->save();
-    }
-
-    public function deneme2() { //databasedeki course table ına yeni eleman ekler.
-        $data["course_name"] = "fen";
-
-        CourseController::deneme($data);
+    public function deleteCourse($courseId){
+        if (session()->has('login_control')) {
+            if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
+                Course::deleteCourseInId($courseId);
+                Teacher::doNullCourseColumnInId($courseId);
+                $data["courses"] = Course::getAllCourses();
+                return view("derslerimiz", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
+            }
+            else {
+                return  view("index"); // giriş yapılmadıysa login ekranına yollanır
+            }
+        }
+        return  view("index"); // Daha önce hiç login yapılmamışsa tarayıcı açıldığından beri direkt login sayfasına yönlendir
     }
 
 }

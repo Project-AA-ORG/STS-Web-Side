@@ -19,6 +19,12 @@ class Parents extends Model
         return $this->belongsToMany(Student::class, 'parent_student', 'parent_id', 'student_id');
     }
 
+    public static function studentsDoNotHaveThisParent($parentId){
+        $parent = Parents::where("parent_id", $parentId)->first();
+        $parentStudent = $parent->students->pluck('student_id')->toArray();
+        return Student::whereNotIn('student_id', $parentStudent)->get();
+    }
+
     public static function getParentWithStudent($parentId){
         return Parents::with('students')->where("parent_id", $parentId)->first();
     }

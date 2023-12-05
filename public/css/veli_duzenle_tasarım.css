@@ -1,5 +1,4 @@
-
-.bg_ogretmen_duzenle {
+.bg_veli_duzenle {
     background-color: #C4C4C4;
     display: flex;
     height: 100%;
@@ -17,9 +16,8 @@ html {
 
 .duzenle {
     overflow: auto;
-    width: 961px;
-    height: 573px;
-    flex-shrink: 1;
+    width: 620px;
+    height: 520px;
     border-radius: 8px;
     background-color: #3b6653;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -29,39 +27,20 @@ html {
     transform: translate(-50%, -50%);
 }
 
-
-.photo {
-    display: flex;
-    width: 270px;
-    height: 281px;
-    padding: 28px 38px;
-    margin-left: 30px;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    border-radius: 5px;
-    background: #F5F4F6;
-    margin-top: 35px;
+.align-buttons{
+align-items: center;
+    
 }
-
-.photo img {
-    display: flex;
-    width: 95%;
-    height: 95%;
-}
-
 .kayıt {
-    display: flex;
-    width: 272px;
-    height: 60px;
-    padding: 10px 0px 20px;
-    flex-direction: column;
+
+    display: inline;
+    width: 210px;
+    height: 50px;
+    padding: 6px 10px 10px 6px;
     align-items: center;
-    gap: 10px;
     border-radius: 5px;
     background: #F5F4F6;
-    margin-left: 30px;
-    margin-top: 15px;
+
 }
 
 .kayıt_design {
@@ -108,9 +87,8 @@ html {
 }
 
 .Entrance {
-    position: absolute;
-    top: 50px;
-    left: 350px;
+
+    margin-left: 3%;
 }
 
 .minibox {
@@ -128,6 +106,7 @@ html {
     color: #000;
     background: #DDDCBC;
 }
+
 .minibox_2 {
 
     text-align: center;

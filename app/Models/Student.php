@@ -23,8 +23,12 @@ class Student extends Model
         return student::with('classroom')->where("student_id", $studentId)->first();
     }
 
-    public function getStudentInId($studentId){
+    public static function getStudentInId($studentId){
         return student::where("student_id", $studentId)->first();
+    }
+
+    public static function getStudentInClassroomId($classroomId){
+        return student::where("classroom_id", $classroomId)->get();
     }
 
     public static function searchUserName($username){

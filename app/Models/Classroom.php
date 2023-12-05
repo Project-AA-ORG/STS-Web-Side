@@ -16,7 +16,7 @@ class Classroom extends Model
     }
 
     public static function getClassroomInId($classroomId){
-        return classroom::where("classroom_id", $classroomId);
+        return classroom::where("classroom_id", $classroomId)->first();
     }
 
     public static function deleteClassroomInId($classroomId){
