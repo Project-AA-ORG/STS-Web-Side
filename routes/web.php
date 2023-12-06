@@ -33,23 +33,25 @@ Route::any('index/begin', 'App\Http\Controllers\LoginController@controlForLogin'
  Route::any('/ourStudents/add', 'App\Http\Controllers\StudentController@addNewStudentToDB')->name('get-add-new-student');
  Route::any('/ourParents/add', 'App\Http\Controllers\ParentsController@addNewParentToDB')->name('get-add-new-parent');
  Route::any('/ourCourses/add', 'App\Http\Controllers\CourseController@addNewCourseToDB')->name('get-add-new-course');
+ Route::any('/ourClassrooms/add', 'App\Http\Controllers\ClassroomController@addNewClassroomToDB')->name('get-add-new-classroom');
 
  //Güncelleme sayfası açma
  Route::get('/ourTeachers/update/{teacherId}', 'App\Http\Controllers\TeacherController@InformationsToOpenUpdatePage')->name('get-update-teacher-page');
  Route::get('/ourStudents/update/{studentId}', 'App\Http\Controllers\StudentController@InformationsToOpenUpdatePage')->name('get-update-student-page');
  Route::get('/ourParents/update/{parentId}', 'App\Http\Controllers\ParentsController@InformationsToOpenUpdatePage')->name('get-update-parent-page');
  Route::get('/ourCourses/update/{courseId}', 'App\Http\Controllers\CourseController@InformationsToOpenUpdatePage')->name('get-update-course-page');
-
+ Route::get('/ourClassrooms/update/{classroomId}', 'App\Http\Controllers\ClassroomController@InformationsToOpenUpdatePage')->name('get-update-classroom-page');
 
  //Güncelleme
  Route::any('/ourTeachers/updateTeacher', 'App\Http\Controllers\TeacherController@updateTeacher')->name('get-update-teacher');
  Route::any('/ourStudents/updateStudent', 'App\Http\Controllers\StudentController@updateStudent')->name('get-update-student');
  Route::any('/ourParents/updateParent', 'App\Http\Controllers\ParentsController@updateParent')->name('get-update-parent');
  Route::any('/ourCourses/updateCourse', 'App\Http\Controllers\CourseController@updateCourse')->name('get-update-course');
-
+ Route::any('/ourClassrooms/updateClassroom', 'App\Http\Controllers\ClassroomController@updateClassroom')->name('get-update-classroom');
 
  //sil
 Route::get('/ourTeachers/deleteTeacher/{teacherId}', 'App\Http\Controllers\TeacherController@deleteteTeacher')->name('get-delete-teacher');
 Route::get('/ourStudents/deleteStudent/{studentId}', 'App\Http\Controllers\StudentController@deleteStudent')->name('get-delete-student');
 Route::get('/ourParents/deleteParent/{parentId}', 'App\Http\Controllers\ParentsController@deleteParent')->name('get-delete-parent');
 Route::get('/ourCourses/deleteCourse/{courseId}', 'App\Http\Controllers\CourseController@deleteCourse')->name('get-delete-course');
+Route::get('/ourClassrooms/deleteCourse/{classroomId}', 'App\Http\Controllers\ClassroomController@deleteClassroom')->name('get-delete-classroom');
