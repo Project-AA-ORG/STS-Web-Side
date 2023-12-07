@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie-edge">
-    <title>Ogretmen Duzenle Ekrani</title>
+    <title>Ogrenci Duzenle Ekrani</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link href="{{ asset('css/ogretmen_duzenle_tasarım.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/ogrenci_duzenle_tasarım.css') }}" rel="stylesheet">
     <link href="{{ asset('css/sidebar_tasarım.css') }}" rel="stylesheet">
     <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -79,7 +79,7 @@
 
 <body>
 
-    <div class="bg_ogretmen_duzenle">
+    <div class="bg_ogrenci_duzenle">
         <!-- Sidebar tasarımı baslangıc -->
         @include('sidemenu')
         <!-- sidebar tasarımı son -->
@@ -89,113 +89,82 @@
             <p><button style="color: black;" class="btn back-btn"><i class="fa-solid fa-arrow-left"></i></button></p>
 
             <div class="photo">
-                <img src="{{ $data['teacher'] }}" alt="teacher">
+                <img src="{{ $data['student'] }}" alt="student">
             </div>
 
+   
 
-
-            <form id="yourFormId" action="{{ route('get-update-teacher') }}" method="POST">
+            <form id="yourFormId" action="{{ route('get-update-student') }}" method="POST">
                 @csrf
                 <div class="kayıt">
 
                     <button type="submit" class="btn btn-light kayıt_design"
                         style="background-color: #FF9595;"><strong>
-                            Öğretmeni Kaydet</strong></button>
+                            Öğrenciyi Kaydet</strong></button>
 
                 </div>
 
                 <div class="Entrance">
-                    <input type="hidden" name="teacher_id" id="teacher_id" value="{{ $data['teacher']->teacher_id }}">
+                    <input type="hidden" name="student_id" id="student_id" value="{{ $data['student']->student_id }}">
 
                     <div class="block">
                         <label class="LABEL"><b>Ad Soyad</b> </label>
-                        <input type="text" name="name" id="name" value="{{ $data['teacher']->name }}"
-                            required placeholder="{{ $data['teacher']->name }}" class="INPUT">
+                        <input type="text" name="name" id="name" value="{{ $data['student']->name }}"
+                            required placeholder="{{ $data['student']->name }}" class="INPUT">
                     </div>
 
                     <div class="block">
-                        <label class="LABEL"><b>Sınıflar</b></label>
+                        <label class="LABEL"><b>Sınıf</b></label>
 
-                        <select multiple name="classroom_id[]" id="classroom_id"
-                            class="INPUT_2 form-control custom-select">
-                            @foreach ($data['teacher']->classrooms as $item)
-                                <option class="minibox_2" value="{{ $item->classroom_id }}" selected>
-                                    {{ $item->classroom_name }}
-                                </option>
-                            @endforeach
-                        </select>
-
-                        <button style="position: absolute; margin-top:8px; border-radius: 6px; background-color: #F5F4F6; color: black;"
-                            class="btn btn-secondary dropdown-toggle btn-sm sinif-dropdown" type="button"
+                        <button style="margin-top:8px; border-radius: 6px; background-color: #F5F4F6; color: black;"
+                            class="INPUT btn btn-secondary dropdown-toggle btn-sm sinif-dropdown" type="button"
                             id="sinifDropdownButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa-solid fa-plus"></i>
+                            {{ isset($data['student']->classroom->classroom_name) ? $data['student']->classroom->classroom_name : 'Seçiniz' }}
+
                         </button>
 
-                        <select multiple name="classroom_id[]" id="classroom_id" aria-labelledby="sinifDropdownButton"
-                            class="dropdown-menu form-control custom-select-1">
-                            @foreach ($data['classroom'] as $item)
-                                <option class="dropdown-item sinif-item" value="{{ $item->classroom_id }}">
-                                    {{ $item->classroom_name }}</option>
+                        <input type="hidden" name="classroom_id" id="classroom_id"            
+                        value="{{ $data['student']->classroom_id }}">
+                        <div class="dropdown-menu" aria-labelledby="dersDropdownButton">
+
+                            @foreach ($data['classrooms'] as $item)
+                                <a class="dropdown-item sinif-item" href="#"
+                                    data-course-id="{{ $item->classroom_id }}"
+                                    onclick="setSelectedClassroom('{{ $item->classroom_name }}', '{{ $item->classroom_id }}')">
+                                    {{ $item->classroom_name }}
+                                </a>
                             @endforeach
-                        </select>
 
-                    </div>
-
-                    <div class="block">
-                        <label class="LABEL"><b>Ders</b></label>
-                        <div style="display: inline-block;" class="dropdown" class="INPUT">
-                            <button style="background-color: #F5F4F6; color: black;"
-                                class="INPUT btn btn-secondary dropdown-toggle btn-sm ders-dropdown" type="button"
-                                id="dersDropdownButton" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                {{ isset($data['teacher']->course->course_name) ? $data['teacher']->course->course_name : 'Seçiniz' }}
-
-                            </button>
-                            <input type="hidden" name="course_id" id="course_id"
-                                value="{{ $data['teacher']->course_id }}">
-                            <div class="dropdown-menu close_dropdown" aria-labelledby="dersDropdownButton">
-                                @foreach ($data['courses'] as $item)
-                                    <a class="dropdown-item ders-item" href="#"
-                                        data-course-id="{{ $item->course_id }}"
-                                        onclick="setSelectedcourse('{{ $item->course_name }}', '{{ $item->course_id }}')">
-                                        {{ $item->course_name }}
-                                    </a>
-                                @endforeach
-                            </div>
                         </div>
+
                     </div>
 
                     <div class="block">
                         <label class="LABEL"><b>Kullanıcı Adı</b></label>
-                        <input type="text" name="username" id="username" value="{{ $data['teacher']->username }}"
-                            required placeholder="{{ $data['teacher']->username }}" class="INPUT">
-
+                        <input type="text" name="username" id="username"
+                            value="{{ $data['student']->username }}" required
+                            placeholder="{{ $data['student']->username }}" class="INPUT">
+                        
                     </div>
 
-                    <div class="block">
-                        <label class="LABEL"><b>Telefon No</b></label>
-                        <input type="tel" name="phone" id="phone" value="{{ $data['teacher']->phone }}"
-                            required placeholder="{{ $data['teacher']->phone }}" class="INPUT">
-                    </div>
                 </div>
 
             </form>
 
-            <form id="del"
-                action="{{ route('get-delete-teacher', ['teacherId' => $data['teacher']->teacher_id]) }}"
+            <form id="del" action="{{ route('get-delete-student', ['studentId' => $data['student']->student_id]) }}"
                 method="GET">
 
                 @csrf
                 <div class="kayıt">
                     <button type="submit" class="btn btn-light kayıt_design"
                         style="background-color: #FF9595;"><strong>
-                            Öğretmeni Sil</strong> </button>
+                            Öğrenciyi Sil</strong> </button>
                 </div>
             </form>
 
         </div>
 
-    </div>
+    </div> 
 
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin='anonymous'></script>
 
@@ -227,15 +196,7 @@
     });
 </script>
 
-
 <script>
-    document.querySelectorAll('.ders-item').forEach(item => {
-        item.addEventListener('click', function() {
-            let selectedText = this.textContent.trim();
-            let dersDropdown = document.querySelector('.ders-dropdown');
-            dersDropdown.textContent = selectedText;
-        });
-    });
 
     document.querySelectorAll('.sinif-item').forEach(item => {
         item.addEventListener('click', function() {
@@ -245,17 +206,6 @@
         });
     });
 
-    function setSelectedcourse(selected, id) {
-        console.log('Selected course:', selected);
-        console.log('Course ID:', id);
-        document.getElementById('course_id').value = id;
-    }
-</script>
-
-<script>
-    document.getElementById('phone').addEventListener('input', function() {
-        this.value = this.value.replace(/\D/g, ''); // Remove non-numeric characters
-    });
 </script>
 
 </html>

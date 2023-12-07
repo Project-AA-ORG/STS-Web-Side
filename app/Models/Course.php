@@ -15,4 +15,11 @@ class Course extends Model
         return course::all();
     }
 
+    public static function getCourseInId($courseId){
+        return course::where("course_id", $courseId)->first();
+    }
+
+    public static function deleteCourseInId($courseId){
+        Course::where("course_id", $courseId)->delete();
+    }
 }

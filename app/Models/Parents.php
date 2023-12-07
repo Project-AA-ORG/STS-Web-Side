@@ -19,8 +19,18 @@ class Parents extends Model
         return $this->belongsToMany(Student::class, 'parent_student', 'parent_id', 'student_id');
     }
 
-    public static function getStudentsWithParent($parentId){
+    public static function studentsDoNotHaveThisParent($parentId){
+        $parent = Parents::where("parent_id", $parentId)->first();
+        $parentStudent = $parent->students->pluck('student_id')->toArray();
+        return Student::whereNotIn('student_id', $parentStudent)->get();
+    }
+
+    public static function getParentWithStudent($parentId){
         return Parents::with('students')->where("parent_id", $parentId)->first();
+    }
+
+    public static function getParentInId($parentId){
+        return Parents::where("parent_id", $parentId)->first();
     }
 
     public static function searchUserName($username){
@@ -29,5 +39,9 @@ class Parents extends Model
 
     public static function getLastElement(){
         return Parents::latest()->first();
+    }
+
+    public static function deleteParentInId($parentId){
+        Parents::where("parent_id", $parentId)->delete();
     }
 }

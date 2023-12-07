@@ -5,13 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie-edge">
-    <title>Ogretmenlerimiz</title>
+    <title>Velilerimiz</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link href="{{ asset('css/ogretmen_duzenle_tasarım.css') }}" rel="stylesheet">
     <link href="{{ asset('css/sidebar_tasarım.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/ogretmenlerimiz.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/ogretmen_ekle_tasarım.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/velilerimiz.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/veli_ekle_tasarım.css') }}" rel="stylesheet">
     <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -22,6 +21,11 @@
         body {
             font-family: Arial, Helvetica, sans-serif;
             overflow: hidden;
+        }
+
+        .error {
+            color: red;
+            font: bold;
         }
 
         select[multiple] {
@@ -60,11 +64,6 @@
             font-weight: bold;
             /* Make the tick icon bold */
         }
-
-        .error {
-            color: red;
-            font: bold;
-        }
     </style>
 </head>
 
@@ -73,7 +72,7 @@
     @include('sidemenu')
 
     <!-- ekranın ortasındaki dikdortgen -->
-    <div class="ogretmenler">
+    <div class="veliler">
 
         <!-- arama barı -->
         <div style="margin-left:3.5%;  width: 94%;" class="d-inline-flex p-2 bd-highlight">
@@ -88,20 +87,19 @@
         <!-- listeleneceği ve scroll bar oluşturacak olan div -->
         <div class="listele">
 
-            @foreach ($data['teachers'] as $item)
-                <a id="{{ $item->teacher_id }}" class="satir ogretmen-satiri"
-                    href="{{ route('get-update-teacher-page', ['teacherId' => $item->teacher_id]) }}">
-                    <img class="ogretmen-satiri-gorseli" src="{{ $item->teacher_image }}" alt="teacher">
-                    <div class="ogretmen-satiri-yazisi" for="name"> {{ $item->name }} </div>
+            @foreach ($data['parents'] as $item)
+                <a id="satir" class="satir veli-satiri"
+                    href="{{ route('get-update-parent-page', ['parentId' => $item->parent_id]) }}">
+                    <div class="veli-satiri-yazisi" for="name"> {{ $item->name }} </div>
                 </a>
             @endforeach
 
         </div>
+
         <!-- Trigger/Open The Modal -->
         <button class="btn btn-light"
-            style="display:inline; margin-left: 37%; margin-top: 2px; background-color: #E8D5B9;"
-            id="myBtn">Öğretmen
-            Ekle</button>
+            style="display:inline; margin-left: 42%; margin-top: 1%; background-color: #E8D5B9;" id="myBtn">
+            Veli Ekle</button>
 
         <div id="myModal" class="modal">
             <div class="modal-content">
@@ -113,77 +111,31 @@
                     </div>
                     <div class="modal-body">
 
-                        <form id="yourFormId" action="{{ route('get-add-new-teacher') }}" method="POST">
+                        <form id="yourFormId" action="{{ route('get-add-new-parent') }}" method="POST">
                             @csrf
+
                             <div style="display: inline-block; margin-left: 4.5%;">
-                                <label for="isim" class="childbox">Ad Soyad</label>
+                                <label for="isim"class="childbox" style="border-radius: 8px;">Ad Soyad</label>
                                 <input type="text" id="name" name="name" required placeholder="giriniz"
                                     class="childbox">
                             </div>
 
 
+
                             <div style="display: inline-block; margin-left: 4.5%;">
 
-                                <label for="Sınıf" class="childbox">Sınıf</label>
+                                <label for="Öğrenciler" class="childbox">Öğrenciler</label>
 
-                                <select multiple name="classroom_id[]" id="classroom_id"
+                                <select multiple name="student_id[]" id="student_id"
                                     class="childbox_2 form-control custom-select">
-                                    @foreach ($data['classroom'] as $item)
-                                        <option value="{{ $item->classroom_id }}">{{ $item->classroom_name }}</option>
+                                    @foreach ($data['students'] as $item)
+                                        <option value="{{ $item->student_id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
 
                             </div>
 
-                            <!-- For 'Ders' dropdown -->
-                            <div style="display: inline-block; margin-left: 4.5%;">
-                                <label for="Ders" class="childbox">Ders</label>
-                                <div style="display: inline;" class="dropdown">
-                                    <button
-                                        style="border: solid white 1px; display: inline-block; text-align: center; border-radius: 4px; 
-                                        background-color: #F5F4F6; padding: 24px; color: black; width: fit-content; height: 70px; width: 175px;"
-                                        class="btn btn-secondary dropdown-toggle btn-sm ders-dropdown" type="button"
-                                        id="dersDropdownButton" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        Seçiniz
-                                    </button>
 
-                                    <input type="hidden" name="course_id" id="course_id" value="Seçiniz">
-                                    <div class="dropdown-menu" aria-labelledby="dersDropdownButton">
-
-                                        @foreach ($data['course'] as $item)
-                                            <a class="dropdown-item ders-item" href="#"
-                                                data-course-id="{{ $item->course_id }}"
-                                                onclick="setSelectedcourse('{{ $item->course_name }}', '{{ $item->course_id }}')">
-                                                {{ $item->course_name }}
-                                            </a>
-                                        @endforeach
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div id="overlayError_1"
-                                style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999;">
-                                <div
-                                    style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffcccc; padding: 20px; border-radius: 5px;">
-                                    Lütfen bir ders seçiniz.
-                                </div>
-                            </div>
-                            <div id="overlayError_2"
-                                style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999;">
-                                <div
-                                    style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffcccc; padding: 20px; border-radius: 5px;">
-                                    Lütfen bir sınıf seçiniz.
-                                </div>
-                            </div>
-                            <div id="overlayError_3"
-                                style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999;">
-                                <div
-                                    style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffcccc; padding: 20px; border-radius: 5px;">
-                                    Bu username daha önce kullanıldı.
-                                </div>
-                            </div>
                             <div style="display: inline-block; margin-left: 4.5%;">
                                 <label for="kadı" class="childbox">Kullanıcı Adı</label>
                                 <input type="text" id="username" name="username" required placeholder="giriniz"
@@ -207,16 +159,32 @@
                             @if (isset($data['error']))
                                 <p class="error">{{ $data['error'] }}</p>
                             @endif
-
                         </form>
+                        <div id="overlayError_2"
+                            style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999;">
+                            <div
+                                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffcccc; padding: 20px; border-radius: 5px;">
+                                Lütfen bir öğrenci seçiniz.
+                            </div>
+                        </div>
+                        
+                        <div id="overlayError_3"
+                            style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999;">
+                            <div
+                                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffcccc; padding: 20px; border-radius: 5px;">
+                                Bu username daha önce kullanıldı.
+                            </div>
+                        </div>
+
                     </div>
 
                 </div>
+
             </div>
 
         </div>
         @if (isset($data['error']))
-            <p class="error">Kullanıcı adı daha önceden de kullanıldığı için öğretmen kaydedilemedi.</p>
+            <p class="error">Kullanıcı adı daha önceden de kullanıldığı için veli kaydedilemedi.</p>
         @endif
     </div>
 
@@ -234,7 +202,6 @@
         integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous">
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 
 </body>
 
@@ -265,6 +232,10 @@
     document.getElementById('btn').addEventListener('click', function() {
         sidebar.classList.toggle('active');
     });
+
+    document.querySelector('.back-btn').addEventListener('click', function() {
+        // Add functionality for the back button if it's missing
+    });
 </script>
 
 <script>
@@ -284,57 +255,44 @@
 </script>
 
 <script>
-    document.querySelectorAll('.ders-item').forEach(item => {
+    document.querySelectorAll('.ogrenci-item').forEach(item => {
         item.addEventListener('click', function() {
             let selectedText = this.textContent.trim();
-            let dersDropdown = document.querySelector('.ders-dropdown');
-            dersDropdown.textContent = selectedText;
+            let ogrenciDropdown = document.querySelector('.ogrenci-dropdown');
+            ogrenciDropdown.textContent = selectedText;
         });
     });
 
-    function printSelectedClassroom(selected, id) {
-        console.log('Selected classroom:', selected);
-        console.log('Classroom ID:', id);
-    }
-
-    function setSelectedcourse(selected, id) {
-        console.log('Selected course:', selected);
-        console.log('Course ID:', id);
-        document.getElementById('course_id').value = id;
+    function setSelectedStudent(selected, id) {
+        console.log('Selected Student:', selected);
+        console.log('Student ID:', id);
+        document.getElementById('student_id').value = id;
     }
 
     function resetDropdowns() {
-        // document.querySelector('.sinif-dropdown').textContent = 'Seçiniz';
-        // document.getElementById('classroom_id').value = '';
-        document.querySelector('.ders-dropdown').textContent = 'Seçiniz';
-        document.getElementById('course_id').value = '';
+        document.querySelector('.ogrenci-dropdown').textContent = 'Seçiniz';
+        document.getElementById('classroom_id').value = '';
     }
-</script>
-
-<script>
-    $(document).ready(function() {
-        $('#classroom_id').change(function() {
-            $(this).find('option:selected').toggleClass('selected');
-        });
-    });
 </script>
 
 <script>
     document.getElementById('yourFormId').addEventListener('submit', function(event) {
-        var selectedValue = document.getElementById('course_id').value;
 
-        if (selectedValue === 'Seçiniz') {
+        var selectedValue = document.getElementById('student_id').value;
+
+        if (selectedValue == "Seçiniz") {
             event.preventDefault(); // Prevent form submission
 
-            // Show overlay error message
-            document.getElementById('overlayError_1').style.display = 'block';
+            // Show overlay message for select element
+            document.getElementById('overlayError_2').style.display = 'block';
 
-            // Hide overlay error message after 3 seconds (adjust as needed)
+            // Hide overlay message after 3 seconds (adjust as needed)
             setTimeout(function() {
-                document.getElementById('overlayError_1').style.display = 'none';
+                document.getElementById('overlayError_2').style.display = 'none';
             }, 3000);
         }
-        var selectedOptions = document.getElementById('classroom_id').selectedOptions;
+
+        var selectedOptions = document.getElementById('student_id').selectedOptions;
 
         if (selectedOptions.length === 0) {
             event.preventDefault(); // Prevent form submission
@@ -355,7 +313,6 @@
         this.value = this.value.replace(/\D/g, ''); // Remove non-numeric characters
     });
 </script>
-
 <script>
     // Here you might have your error logic, for example:
     var errorMessage = document.querySelector('.error');

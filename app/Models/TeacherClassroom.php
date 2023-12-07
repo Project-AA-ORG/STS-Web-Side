@@ -15,4 +15,11 @@ class TeacherClassroom extends Model
         return TeacherClassroom::all();
     }
 
+    public static function deleteRowsByTeacherId($teacherId){ // teacherId ile teacher_id si eşleşen satırları databaseden sildim
+        TeacherClassroom::where("teacher_id", $teacherId)->delete();
+    }
+    
+    public static function deleteRowsByClassroomId($classroomId){
+        TeacherClassroom::where("classroom_id", $classroomId)->delete();
+    }
 }
