@@ -51,7 +51,7 @@ class ClassroomController extends Controller
             if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
                 $data["classroom"] = Classroom::getClassroomInId($classroomId);
                 $data["students"] = Student::getStudentInClassroomId($classroomId);
-                return view("siniflarimiz", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
+                return view("sinif_duzenle", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
             } else {
                 return  view("index"); // giriş yapılmadıysa login ekranına yollanır
             }
@@ -66,6 +66,7 @@ class ClassroomController extends Controller
                     $classroom = Classroom::getClassroomInId($request->classroom_id);
                     $classroom->classroom_name = $request->classroom_name;
                     $classroom->save();
+                    return redirect()->route('get-our-classroom-page');
                 }
                 else {
                     return  view("index"); // giriş yapılmadıysa login ekranına yollanır

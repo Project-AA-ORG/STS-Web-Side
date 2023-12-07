@@ -92,16 +92,7 @@
                 <img src="{{ $data['teacher'] }}" alt="teacher">
             </div>
 
-            <form action="{{ route('get-delete-teacher', ['teacherId' => $data['teacher']->teacher_id]) }}"
-                method="GET">
 
-                @csrf
-                <div class="kayıt">
-                    <button type="submit" class="btn btn-light kayıt_design"
-                        style="background-color: #FF9595;"><strong>
-                            Öğretmeni Sil</strong> </button>
-                </div>
-            </form>
 
             <form id="yourFormId" action="{{ route('get-update-teacher') }}" method="POST">
                 @csrf
@@ -134,7 +125,7 @@
                             @endforeach
                         </select>
 
-                        <button style="margin-top:8px; border-radius: 6px; background-color: #F5F4F6; color: black;"
+                        <button style="position: absolute; margin-top:8px; border-radius: 6px; background-color: #F5F4F6; color: black;"
                             class="btn btn-secondary dropdown-toggle btn-sm sinif-dropdown" type="button"
                             id="sinifDropdownButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa-solid fa-plus"></i>
@@ -176,10 +167,9 @@
 
                     <div class="block">
                         <label class="LABEL"><b>Kullanıcı Adı</b></label>
-                        <input type="text" name="username" id="username"
-                            value="{{ $data['teacher']->username }}" required
-                            placeholder="{{ $data['teacher']->username }}" class="INPUT">
-                        
+                        <input type="text" name="username" id="username" value="{{ $data['teacher']->username }}"
+                            required placeholder="{{ $data['teacher']->username }}" class="INPUT">
+
                     </div>
 
                     <div class="block">
@@ -189,6 +179,18 @@
                     </div>
                 </div>
 
+            </form>
+
+            <form id="del"
+                action="{{ route('get-delete-teacher', ['teacherId' => $data['teacher']->teacher_id]) }}"
+                method="GET">
+
+                @csrf
+                <div class="kayıt">
+                    <button type="submit" class="btn btn-light kayıt_design"
+                        style="background-color: #FF9595;"><strong>
+                            Öğretmeni Sil</strong> </button>
+                </div>
             </form>
 
         </div>
@@ -250,25 +252,8 @@
     }
 </script>
 
-
 <script>
-    // let teacherId = {{ $data['teacher']->teacher_id }};
-    // console.log("Teacher ID:", teacherId);
-    // document.getElementById('teacher_id').value = teacherId;
-</script>
-<script>
-    $(document).ready(function() {
-        // Prevent dropdown from closing on item selection
-        $('.dropdown-menu').on('click', function(e) {
-            if ($(this).hasClass('dropdown-menu')) {
-                e.stopPropagation();
-            }
-        });
-    });
-</script>
-
-<script>
-        document.getElementById('phone').addEventListener('input', function() {
+    document.getElementById('phone').addEventListener('input', function() {
         this.value = this.value.replace(/\D/g, ''); // Remove non-numeric characters
     });
 </script>

@@ -92,16 +92,7 @@
                 <img src="{{ $data['student'] }}" alt="student">
             </div>
 
-            <form action="{{ route('get-delete-student', ['studentId' => $data['student']->student_id]) }}"
-                method="GET">
-
-                @csrf
-                <div class="kayıt">
-                    <button type="submit" class="btn btn-light kayıt_design"
-                        style="background-color: #FF9595;"><strong>
-                            Öğrenciyi Sil</strong> </button>
-                </div>
-            </form>
+   
 
             <form id="yourFormId" action="{{ route('get-update-student') }}" method="POST">
                 @csrf
@@ -158,6 +149,17 @@
 
                 </div>
 
+            </form>
+
+            <form id="del" action="{{ route('get-delete-student', ['studentId' => $data['student']->student_id]) }}"
+                method="GET">
+
+                @csrf
+                <div class="kayıt">
+                    <button type="submit" class="btn btn-light kayıt_design"
+                        style="background-color: #FF9595;"><strong>
+                            Öğrenciyi Sil</strong> </button>
+                </div>
             </form>
 
         </div>

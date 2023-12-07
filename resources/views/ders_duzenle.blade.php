@@ -73,6 +73,21 @@
             height: 120px;
             /* Add other styles */
         }
+
+        #yourFormId{
+            padding: 0;
+            margin:0;
+            display: inline;
+        }
+        #del{
+            margin: 0;
+            padding: 0;
+            display: inline;
+        }
+
+        #totheleft{
+            margin-left: 8%;
+        }
     </style>
 
 </head>
@@ -125,10 +140,10 @@
                 </div>
 
             </form>
-            <form action="{{ route('get-delete-course', ['courseId' => $data['course']->course_id]) }}" method="GET">
+            <form id="del" action="{{ route('get-delete-course', ['courseId' => $data['course']->course_id]) }}" method="GET">
 
                 @csrf
-                <div class="kayıt "style="">
+                <div id="totheleft" class="kayıt "style="">
                     <button type="submit" class="btn btn-light kayıt_design"
                         style="background-color: #FF9595;"><strong>
                         Dersi Sil</strong> </button>

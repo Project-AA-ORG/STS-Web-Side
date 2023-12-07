@@ -73,6 +73,25 @@
             height: 120px;
             /* Add other styles */
         }
+        #yourFormId{
+            padding: 0;
+            margin:0;
+            display: inline;
+        }
+        #del{
+            margin: 0;
+            padding: 0;
+            display: inline;
+        }
+
+        #totheleft{
+            margin-left: 8%;
+        }
+
+        #bk {
+            margin-top: 0;
+            margin-bottom: 0px;
+        }
     </style>
 
 </head>
@@ -86,7 +105,7 @@
 
         <div class="duzenle">
 
-            <p><button style="color: black;" class="btn back-btn"><i class="fa-solid fa-arrow-left"></i></button></p>
+            <p id="bk" ><button style="color: black;" class="btn back-btn"><i class="fa-solid fa-arrow-left"></i></button></p>
 
 
             <form id="yourFormId" action="{{ route('get-update-parent') }}" method="POST">
@@ -143,7 +162,7 @@
                     </div>
                 </div>
 
-                <div class="kayıt" style="">
+                <div id="totheleft" class="kayıt" style="">
 
                     <button type="submit" class="btn btn-light kayıt_design"
                         style="background-color: #FF9595;"><strong>
@@ -152,7 +171,7 @@
                 </div>
 
             </form>
-            <form action="{{ route('get-delete-parent', ['parentId' => $data['parent']->parent_id]) }}" method="GET">
+            <form id="del" action="{{ route('get-delete-parent', ['parentId' => $data['parent']->parent_id]) }}" method="GET">
 
                 @csrf
                 <div class="kayıt "style="">
@@ -195,16 +214,6 @@
     });
 </script>
 
-
-<script>
-    // document.querySelectorAll('.ogrenci-item').forEach(item => {
-    //     item.addEventListener('click', function() {
-    //         let selectedText = this.textContent.trim();
-    //         let ogrenciDropdown = document.querySelector('.ogrenci-dropdown');
-    //         ogrenciDropdown.textContent = selectedText;
-    //     });
-    // });
-</script>
 
 <script>
     $(document).ready(function() {

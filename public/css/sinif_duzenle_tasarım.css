@@ -1,4 +1,5 @@
-.bg_ders_duzenle {
+
+.bg_sinif_duzenle {
     background-color: #C4C4C4;
     display: flex;
     height: 100%;
@@ -13,11 +14,15 @@ html {
     height: 100%;
     margin: 0;
 }
+.block{
+    margin-left: 6%;
+}
 
 .duzenle {
     overflow: auto;
-    width: 600px;
-    height: 350px;
+    width: 961px;
+    height: 573px;
+    flex-shrink: 1;
     border-radius: 8px;
     background-color: #3b6653;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -27,10 +32,27 @@ html {
     transform: translate(-50%, -50%);
 }
 
-.align-buttons{
-align-items: center;
-    
+
+.photo {
+    display: flex;
+    width: 270px;
+    height: 281px;
+    padding: 28px 38px;
+    margin-left: 30px;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    border-radius: 5px;
+    background: #F5F4F6;
+    margin-top: 35px;
 }
+
+.photo img {
+    display: flex;
+    width: 95%;
+    height: 95%;
+}
+
 .kayıt {
     display: inline-block;
     width: 220px;
@@ -74,7 +96,7 @@ align-items: center;
 .INPUT_2 {
     display: inline-block;
     width: 329px;
-    height: 75px;
+    height: 0px;
     align-items: center;
     border-radius: 8px;
     background: #F5F4F6;
@@ -87,8 +109,12 @@ align-items: center;
 }
 
 .Entrance {
-
-    margin-left: 3%;
+    display: flexbox;
+    justify-content: center; 
+    align-items: center;
+    position: absolute;
+    top: 130px;
+    left: 350px;
 }
 
 .minibox {
@@ -106,7 +132,6 @@ align-items: center;
     color: #000;
     background: #DDDCBC;
 }
-
 .minibox_2 {
 
     text-align: center;
@@ -120,7 +145,7 @@ align-items: center;
     border: 1px solid #000;
     text-decoration: none;
     color: #000;
-    background: #DDDCBC;
+    background: red;
 }
 
 .block {
