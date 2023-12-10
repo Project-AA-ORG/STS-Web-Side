@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie-edge">
-    <title>Siniflarimiz</title>
+    <title>Duyurularımız</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link href="{{ asset('css/sidebar_tasarım.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/siniflarimiz.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/sinif_ekle_tasarım.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/announcements.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/announcementAdd.css') }}" rel="stylesheet">
     <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -64,6 +64,9 @@
             font-weight: bold;
             /* Make the tick icon bold */
         }
+        p{
+            margin: 0;
+        }
     </style>
 </head>
 
@@ -72,7 +75,7 @@
     @include('sidemenu')
 
     <!-- ekranın ortasındaki dikdortgen -->
-    <div class="siniflar">
+    <div class="duyurular">
 
         <!-- arama barı -->
         <div style="margin-left:3.5%;  width: 94%;" class="d-inline-flex p-2 bd-highlight">
@@ -87,19 +90,35 @@
         <!-- listeleneceği ve scroll bar oluşturacak olan div -->
         <div class="listele">
 
-            @foreach ($data['classrooms'] as $item)
-                <a id="satir" class="satir sinif-satiri"
-                    href="{{ route('get-update-classroom-page', ['classroomId' => $item->classroom_id]) }}">
-                    <div class="sinif-satiri-yazisi" for="name"> {{ $item->classroom_name }}</div>
+            {{-- @foreach ($data['duyurular'] as $item)
+                <a id="satir" class="satir duyuru-satiri"
+                    href="{{ route('get-update-announcements-page', ['announcementId' => $item->general_announcement_id]) }}">
+                    <div class="duyuru-satiri-yazisi" for="name"> {{ $item->announcement_title }}</div>
                 </a>
-            @endforeach
+            @endforeach --}}
+
+            <a id="satir" class="satir duyuru-satiri" href="#">
+                <div class="duyuru-satiri-yazisi" for="name"><p>Okulumuza Yeni Matematik Öğretmeni atandı</p></div>
+            </a>
+            <a id="satir" class="satir duyuru-satiri" href="#">
+                <div class="duyuru-satiri-yazisi" for="name">Okulumuza Yeni Türkçe Öğretmeni atandı</div>
+            </a>
+            <a id="satir" class="satir duyuru-satiri" href="#">
+                <div class="duyuru-satiri-yazisi" for="name">09.12.2023 tarihinde deprem tatbikatı</div>
+            </a>
+            <a id="satir" class="satir duyuru-satiri" href="#">
+                <div class="duyuru-satiri-yazisi" for="name">İlber Ortaylı ziyareti</div>
+            </a>
+            <a id="satir" class="satir duyuru-satiri" href="#">
+                <div class="duyuru-satiri-yazisi" for="name"><p style="">CARTRUCRQWSMQWEMLQWMELQMWELQMWELMQWLMQWLMELQMWLEMQWMELQWMLEQMLWEMLQWMELQWE</p></div>
+            </a>
 
         </div>
 
         <!-- Trigger/Open The Modal -->
         <button class="btn btn-light"
             style="display:inline; margin-left: 42%; margin-top: 1%; background-color: #E8D5B9;" id="myBtn">
-            Sınıf Ekle</button>
+            Duyuru Ekle</button>
 
         <div id="myModal" class="modal">
             <div class="modal-content">
@@ -110,15 +129,23 @@
                         <span class="close">&times;</span>
                     </div>
                     <div class="modal-body">
-
-                        <form id="yourFormId" action="{{ route('get-add-new-classroom') }}" method="POST">
+                        {{-- {{ route('get-add-new-announcement') }} --}}
+                        <form id="yourFormId" action="" method="POST">
                             @csrf
 
                             <div style="display: inline-block; margin-left: 4.5%;">
-                                <label for="isim"class="childbox" style="border-radius: 8px;">Sınıf Adı</label>
-                                <input type="text" id="classroom_name" name="classroom_name" required placeholder="giriniz"
+                                <label for="isim"class="childbox" style="border-radius: 8px;">Duyuru Başlığı</label>
+                                <input type="text" id="announcement_title" name="announcement_title" required placeholder="giriniz"
                                     class="childbox">
                             </div>
+
+
+                            <div style="display: inline-block; margin-left: 4.5%;">
+                                <textarea style="resize: none;" id="announcement_content" name="announcement_content" 
+                                required placeholder="Duyuru içeriğini giriniz" class="icerikbox" ></textarea>
+                            </div>
+                            
+
 
 
 

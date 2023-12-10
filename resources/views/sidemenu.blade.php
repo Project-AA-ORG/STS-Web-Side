@@ -1,4 +1,17 @@
-<div class="sidebar">
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="{{ asset('css/sidebar_tasarım.css') }}" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="sidebar">
         <div class="top">
             <div class="logo">
                 <i class="bx bxl-codepen"></i>
@@ -9,7 +22,7 @@
 
         <div class="user">
             <img src="/images/download.jpg" alt="senay" class="user-img">
-            
+
             <div>
                 <p class="bold">Şenay Duran Okulları</p>
             </div>
@@ -19,31 +32,31 @@
 
         <ul>
             <li>
-                <a href="{{ route('get-our-teacher-page')}}">
+                <a href="{{ route('get-our-teacher-page') }}">
                     <i class='fas fa-chalkboard-teacher'></i>
                     <span class="nav-item">Öğretmenlerimiz</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('get-our-student-page')}}">
+                <a href="{{ route('get-our-student-page') }}">
                     <i class='fas fa-book-reader'></i>
                     <span class="nav-item">Öğrencilerimiz</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('get-our-parent-page')}}">
+                <a href="{{ route('get-our-parent-page') }}">
                     <i class='bx bx-male-female'></i>
                     <span class="nav-item">Velilerimiz</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('get-our-course-page')}}">
+                <a href="{{ route('get-our-course-page') }}">
                     <i class='fas fa-book-open'></i>
                     <span class="nav-item">Derslerimiz</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('get-our-classroom-page')}}">
+                <a href="{{ route('get-our-classroom-page') }}">
                     <i class="fa-solid fa-users"></i>
                     <span class="nav-item">Sınıflarımız</span>
                 </a>
@@ -63,6 +76,8 @@
 
 
         </ul>
-</div>
+    </div>
 
+</body>
 
+</html>

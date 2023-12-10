@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie-edge">
-    <title>Derslerimiz</title>
+    <title>Siniflarimiz</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link href="{{ asset('css/sidebar_tasarım.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/derslerimiz.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/ders_ekle_tasarım.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/classes.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/classAdd.css') }}" rel="stylesheet">
     <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -72,7 +72,7 @@
     @include('sidemenu')
 
     <!-- ekranın ortasındaki dikdortgen -->
-    <div class="dersler">
+    <div class="siniflar">
 
         <!-- arama barı -->
         <div style="margin-left:3.5%;  width: 94%;" class="d-inline-flex p-2 bd-highlight">
@@ -87,10 +87,10 @@
         <!-- listeleneceği ve scroll bar oluşturacak olan div -->
         <div class="listele">
 
-            @foreach ($data['courses'] as $item)
-                <a id="satir" class="satir ders-satiri"
-                    href="{{ route('get-update-course-page', ['courseId' => $item->course_id]) }}">
-                    <div class="ders-satiri-yazisi" for="name"> {{ $item->course_name }}</div>
+            @foreach ($data['classrooms'] as $item)
+                <a id="satir" class="satir sinif-satiri"
+                    href="{{ route('get-update-classroom-page', ['classroomId' => $item->classroom_id]) }}">
+                    <div class="sinif-satiri-yazisi" for="name"> {{ $item->classroom_name }}</div>
                 </a>
             @endforeach
 
@@ -99,7 +99,7 @@
         <!-- Trigger/Open The Modal -->
         <button class="btn btn-light"
             style="display:inline; margin-left: 42%; margin-top: 1%; background-color: #E8D5B9;" id="myBtn">
-            Ders Ekle</button>
+            Sınıf Ekle</button>
 
         <div id="myModal" class="modal">
             <div class="modal-content">
@@ -111,12 +111,12 @@
                     </div>
                     <div class="modal-body">
 
-                        <form id="yourFormId" action="{{ route('get-add-new-course') }}" method="POST">
+                        <form id="yourFormId" action="{{ route('get-add-new-classroom') }}" method="POST">
                             @csrf
 
                             <div style="display: inline-block; margin-left: 4.5%;">
-                                <label for="isim"class="childbox" style="border-radius: 8px;">Ders Adı</label>
-                                <input type="text" id="course_name" name="course_name" required placeholder="giriniz"
+                                <label for="isim"class="childbox" style="border-radius: 8px;">Sınıf Adı</label>
+                                <input type="text" id="classroom_name" name="classroom_name" required placeholder="giriniz"
                                     class="childbox">
                             </div>
 

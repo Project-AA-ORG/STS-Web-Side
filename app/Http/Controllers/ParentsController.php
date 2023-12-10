@@ -46,7 +46,7 @@ class ParentsController extends Controller
                         $data["students"] = Student::getAllStudents();
                         $data["parents"] = Parents::getAllParents();
                         $data["error"] = "Bu username daha önce kullanıldı";
-                        return view("velilerimiz", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
+                        return view("parents", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
                     }
                 }
                 else {
@@ -66,7 +66,7 @@ class ParentsController extends Controller
             if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
                 $data["students"] = Student::getAllStudents();
                 $data["parents"] = Parents::getAllParents();
-                return view("velilerimiz", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
+                return view("parents", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
             } else {
                 return  view("index"); // giriş yapılmadıysa login ekranına yollanır
             }
@@ -79,7 +79,7 @@ class ParentsController extends Controller
             if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
                 $data["parent"] = Parents::getParentWithStudent($parentId);
                 $data["students"] = Parents::studentsDoNotHaveThisParent($parentId);
-                return view("veli_duzenle", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
+                return view("parentEdit", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
             } else {
                 return  view("index"); // giriş yapılmadıysa login ekranına yollanır
             }
@@ -124,7 +124,7 @@ class ParentsController extends Controller
                             $data["students"] = Student::getAllStudents();
                             $data["parents"] = Parents::getAllParents();
                             $data["error"] = "Bu username daha önce kullanıldı";
-                            return view("velilerimiz", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
+                            return view("parents", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
                         }
                     }
                     else{
@@ -171,7 +171,7 @@ class ParentsController extends Controller
 
                 $data["students"] = Student::getAllStudents();
                 $data["parents"] = Parents::getAllParents();
-                return view("velilerimiz", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
+                return view("parents", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
             }
             else {
                 return  view("index"); // giriş yapılmadıysa login ekranına yollanır

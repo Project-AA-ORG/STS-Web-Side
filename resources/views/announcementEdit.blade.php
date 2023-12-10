@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie-edge">
-    <title>Veli Duzenle Ekrani</title>
+    <title>Duyuru Duzenle Ekrani</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link href="{{ asset('css/veli_duzenle_tasarım.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/sidebar_tasarım.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/announcementEdit.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
@@ -73,6 +73,15 @@
             height: 120px;
             /* Add other styles */
         }
+
+        p {
+            margin: 0;
+            display: inline;
+        }
+
+        hr{
+            
+        }
         #yourFormId{
             padding: 0;
             margin:0;
@@ -83,103 +92,64 @@
             padding: 0;
             display: inline;
         }
-
-        #totheleft{
-            margin-left: 8%;
-        }
-
-        #bk {
-            margin-top: 0;
-            margin-bottom: 0px;
-        }
     </style>
 
 </head>
 
 <body>
 
-    <div class="bg_veli_duzenle">
+    <div class="bg_duyuru_duzenle">
         <!-- Sidebar tasarımı baslangıc -->
         @include('sidemenu')
         <!-- sidebar tasarımı son -->
 
         <div class="duzenle">
 
-            <p id="bk" ><button style="color: black;" class="btn back-btn"><i class="fa-solid fa-arrow-left"></i></button></p>
+            <button style="display:inline; color: black;" class="btn back-btn"><i
+                        class="fa-solid fa-arrow-left"></i></button>
 
-
-            <form id="yourFormId" action="{{ route('get-update-parent') }}" method="POST">
+            {{-- {{ route('get-update-teacher') }}" --}}
+            <form id="yourFormId" action="" method="POST">
                 @csrf
 
-                <div class="Entrance">
 
-                    <input type="hidden" name="parent_id" id="parent_id" value="{{ $data['parent']->parent_id }}">
+                <div class="Entrance" style="" >
 
-                    <div class="block">
-                        <label class="LABEL"><b>Ad Soyad</b> </label>
-                        <input type="text" name="name" id="name" value="{{ $data['parent']->name }}" required
-                            placeholder="{{ $data['parent']->name }}" class="INPUT">
+                    <input style="display: inline" type="hidden" name="general_announcement_id" id="general_announcement_id"
+                        value="general_announcement_id">
+
+                    <div style="display: inline;" class="block">
+                        <input type="text" name="announcement_title" id="announcement_title"
+                            value="announcement_title" required placeholder="announcement_title" class="INPUT">
                     </div>
 
-                    <div class="block">
-                        <label class="LABEL"><b>Öğrenciler</b></label>
+                    <hr>
 
-                        <select multiple name="student_id[]" id="student_id" class="INPUT_2 form-control custom-select">
-                            @foreach ($data['parent']->students as $item)
-                                <option class="minibox_2" value="{{ $item->student_id }}" selected>
-                                    {{ $item->name }}
-                                </option>
-                            @endforeach
-                        </select>
-
-                        <button style="margin-top:8px; border-radius: 6px; background-color: #F5F4F6; color: black;"
-                            class="btn btn-secondary dropdown-toggle btn-sm ogrenci-dropdown" type="button"
-                            id="ogrenciDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa-solid fa-plus"></i>
-                        </button>
-
-                        <select multiple name="student_id[]" id="student_id" aria-labelledby="ogrenciDropdown"
-                            class="dropdown-menu form-control custom-select-1">
-                            @foreach ($data['students'] as $item)
-                                <option class="dropdown-item ogrenci-item" value="{{ $item->student_id }}">
-                                    {{ $item->name }}</option>
-                            @endforeach
-                        </select>
-
-                    </div>
-
-                    <div class="block">
-                        <label class="LABEL"><b>Kullanıcı Adı</b></label>
-                        <input type="text" name="username" id="username" value="{{ $data['parent']->username }}"
-                            required placeholder="{{ $data['parent']->username }}" class="INPUT">
-
-                    </div>
-
-                    <div class="block">
-                        <label class="LABEL"><b>Telefon No</b></label>
-                        <input type="tel" name="phone" id="phone" value="{{ $data['parent']->phone }}"
-                            required placeholder="{{ $data['parent']->phone }}" class="INPUT">
+                    <div style="display: inline" class="block">
+                            <textarea style="resize: none;" id="announcement_content" name="announcement_content" required placeholder="announcement_content"
+                                class="INPUT_2"></textarea>
                     </div>
                 </div>
-
-                <div id="totheleft" class="kayıt" style="">
+                <div class="kayıt" style="margin-left:10%;">
 
                     <button type="submit" class="btn btn-light kayıt_design"
                         style="background-color: #FF9595;"><strong>
-                            Veliyi Kaydet</strong></button>
+                            Duyuruyu Kaydet</strong></button>
 
                 </div>
-
             </form>
-            <form id="del" action="{{ route('get-delete-parent', ['parentId' => $data['parent']->parent_id]) }}" method="GET">
+            {{-- {{ route('get-delete-teacher', ['teacherId' => $data['teacher']->teacher_id]) }} --}}
+
+            <form id="del" action="" method="GET">
 
                 @csrf
-                <div class="kayıt "style="">
+                <div class="kayıt" style="margin-left:27%;">
                     <button type="submit" class="btn btn-light kayıt_design"
                         style="background-color: #FF9595;"><strong>
-                            Veliyi Sil</strong> </button>
+                            Duyuruyu Sil</strong> </button>
                 </div>
             </form>
+
         </div>
 
     </div>
@@ -216,14 +186,27 @@
 
 
 <script>
-    $(document).ready(function() {
-        // Prevent dropdown from closing on item selection
-        $('.dropdown-menu').on('click', function(e) {
-            if ($(this).hasClass('dropdown-menu')) {
-                e.stopPropagation();
-            }
+    document.querySelectorAll('.ders-item').forEach(item => {
+        item.addEventListener('click', function() {
+            let selectedText = this.textContent.trim();
+            let dersDropdown = document.querySelector('.ders-dropdown');
+            dersDropdown.textContent = selectedText;
         });
     });
+
+    document.querySelectorAll('.sinif-item').forEach(item => {
+        item.addEventListener('click', function() {
+            let selectedText = this.textContent.trim();
+            let sinifDropdown = document.querySelector('.sinif-dropdown');
+            sinifDropdown.textContent = selectedText;
+        });
+    });
+
+    function setSelectedcourse(selected, id) {
+        console.log('Selected course:', selected);
+        console.log('Course ID:', id);
+        document.getElementById('course_id').value = id;
+    }
 </script>
 
 <script>

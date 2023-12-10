@@ -13,13 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 //Login
-Route::get('/index', 'App\Http\Controllers\LoginController@goToLoginPage')->name('login-page');
-Route::any('index/begin', 'App\Http\Controllers\LoginController@controlForLogin')->name('home-page');
+Route::get('/', 'App\Http\Controllers\LoginController@goToLoginPage')->name('login-page');
+Route::any('/begin', 'App\Http\Controllers\LoginController@controlForLogin')->name('home-page');
 
 //Listeleme
  Route::get('/ourTeachers', 'App\Http\Controllers\TeacherController@readTeachersFromDB')->name('get-our-teacher-page');

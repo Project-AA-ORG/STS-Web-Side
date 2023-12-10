@@ -8,8 +8,8 @@
     <title>Ogrenci Duzenle Ekrani</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link href="{{ asset('css/ogrenci_duzenle_tasarım.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/sidebar_tasarım.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/studentEdit.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
@@ -92,7 +92,7 @@
                 <img src="{{ $data['student'] }}" alt="student">
             </div>
 
-   
+
 
             <form id="yourFormId" action="{{ route('get-update-student') }}" method="POST">
                 @csrf
@@ -122,9 +122,8 @@
                             {{ isset($data['student']->classroom->classroom_name) ? $data['student']->classroom->classroom_name : 'Seçiniz' }}
 
                         </button>
-
-                        <input type="hidden" name="classroom_id" id="classroom_id"            
-                        value="{{ $data['student']->classroom_id }}">
+                        <input type="hidden" name="classroom_id" id="classroom_id"
+                            value="{{ $data['student']->classroom_id }}">
                         <div class="dropdown-menu" aria-labelledby="dersDropdownButton">
 
                             @foreach ($data['classrooms'] as $item)
@@ -141,17 +140,17 @@
 
                     <div class="block">
                         <label class="LABEL"><b>Kullanıcı Adı</b></label>
-                        <input type="text" name="username" id="username"
-                            value="{{ $data['student']->username }}" required
-                            placeholder="{{ $data['student']->username }}" class="INPUT">
-                        
+                        <input type="text" name="username" id="username" value="{{ $data['student']->username }}"
+                            required placeholder="{{ $data['student']->username }}" class="INPUT">
+
                     </div>
 
                 </div>
 
             </form>
 
-            <form id="del" action="{{ route('get-delete-student', ['studentId' => $data['student']->student_id]) }}"
+            <form id="del"
+                action="{{ route('get-delete-student', ['studentId' => $data['student']->student_id]) }}"
                 method="GET">
 
                 @csrf
@@ -164,7 +163,7 @@
 
         </div>
 
-    </div> 
+    </div>
 
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin='anonymous'></script>
 
@@ -197,7 +196,14 @@
 </script>
 
 <script>
+    function setSelectedClassroom(selected, id) {
+        console.log('Selected classroom:', selected);
+        console.log('Classroom ID:', id);
+        document.getElementById('classroom_id').value = id;
+    }
+</script>
 
+<script>
     document.querySelectorAll('.sinif-item').forEach(item => {
         item.addEventListener('click', function() {
             let selectedText = this.textContent.trim();
@@ -205,7 +211,6 @@
             sinifDropdown.textContent = selectedText;
         });
     });
-
 </script>
 
 </html>

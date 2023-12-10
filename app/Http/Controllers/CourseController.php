@@ -35,7 +35,7 @@ class CourseController extends Controller
         if (session()->has('login_control')) {
             if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
                 $data["courses"] = Course::getAllCourses();
-                return view("derslerimiz", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
+                return view("courses", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
             } else {
                 return  view("index"); // giriş yapılmadıysa login ekranına yollanır
             }
@@ -48,7 +48,7 @@ class CourseController extends Controller
             if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
                 $data["course"] = Course::getCourseInId($courseId);
                 $data["teachers"] = Teacher::getTeacherInCourse($courseId);
-                return view("ders_duzenle", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
+                return view("courseEdit", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
             } else {
                 return  view("index"); // giriş yapılmadıysa login ekranına yollanır
             }
@@ -82,7 +82,7 @@ class CourseController extends Controller
                 Course::deleteCourseInId($courseId);
                 Teacher::doNullCourseColumnInId($courseId);
                 $data["courses"] = Course::getAllCourses();
-                return view("derslerimiz", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
+                return view("courses", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
             }
             else {
                 return  view("index"); // giriş yapılmadıysa login ekranına yollanır
