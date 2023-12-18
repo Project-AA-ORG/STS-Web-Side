@@ -34,12 +34,24 @@ class Teacher extends Model
         return teacher::where("teacher_id", $teacherId)->first();
     }
 
+    public static function getClassroomsByTeacherId($teacherId){
+        $teacher = Teacher::where("teacher_id", $teacherId)->first();
+        if ($teacher){
+            return $teacher->classrooms;
+        }
+        return null;
+    }
+
     public static function getTeacherInCourse($courseId){
         return teacher::where("course_id", $courseId)->get();
     }
 
     public static function getClassroomsWithTeacher($teacherId){
         return teacher::with(['classrooms', 'course'])->where("teacher_id", $teacherId)->first();
+    }
+
+    public static function getTeachersWithClassroomsAndCourse(){
+        return teacher::with(['classrooms', 'course'])->get();
     }
 
     public static function searchUserName($username){

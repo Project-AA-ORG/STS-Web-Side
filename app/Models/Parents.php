@@ -25,8 +25,20 @@ class Parents extends Model
         return Student::whereNotIn('student_id', $parentStudent)->get();
     }
 
+    public static function getStudentsByParentId($parentId){
+        $parent = Parents::where("parent_id", $parentId)->first();
+        if ($parent) {
+            return $parent->students;
+        }
+        return null;
+    }
+
     public static function getParentWithStudent($parentId){
         return Parents::with('students')->where("parent_id", $parentId)->first();
+    }
+
+    public static function getParentsWithStudents(){
+        return Parents::with('students')->get();
     }
 
     public static function getParentInId($parentId){
