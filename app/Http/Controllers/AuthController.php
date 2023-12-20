@@ -161,7 +161,8 @@ class AuthController extends Controller
                     $homeworks[0]->image = base64_encode($homeworks[0]->image);
                 }
             }
-            return response()->json(['classroom-announcements' => $classroom_announcement, 'homeworks' => $homeworks], 200);
+            $students = Student::getStudentInClassroomId($classroomId);
+            return response()->json(['classroom-announcements' => $classroom_announcement, 'homeworks' => $homeworks, 'students' => $students], 200);
         } else{
             return response()->json(['error' => 'Informations cannot be given'], 400);
         }

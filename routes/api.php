@@ -27,7 +27,7 @@ Route::post('/v1/announcement/add', [AuthController::class, 'saveAnnouncementToD
 Route::get('/v1/homeworks/announcements/{classroomId}/{studentId}', [AuthController::class, 'giveInformationAboutClass']);
 //teacher_id alıp o öğretmenin girdiği sınıfları dönmek için route
 Route::get('v1/classrooms/{teacherId}', [AuthController::class, 'classroomOfTeacher']);
-//classroom_id alıp öğretmen için o sınıfın tüm ödev ve duyurularını dönmek için route
+//classroom_id alıp öğretmen için o sınıfın tüm ödev(sonuçlarla birlikte), duyurularını ve öğrencilerini dönmek için route
 Route::get('/v1/teacher/homeworks/announcements/{classroomId}', [AuthController::class, 'giveInformationAboutClassForTeacher']);
 //belirli bir öğrencinin belirli bir dersinin sonucunu return edecek fonksiyon için route
 Route::get('/v1/homework/result/{homeworkId}/{studentId}', [AuthController::class, 'getHomeworkResultsInSomeId']);
