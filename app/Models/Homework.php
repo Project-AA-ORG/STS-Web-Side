@@ -18,6 +18,10 @@ class Homework extends Model
     public function results(){
         return $this->hasMany(HomeworkResult::class, 'homework_id');
     }
+    
+    public function teacher(){
+        return $this->belongsTo(Teacher::class, 'teacher_id', 'teacher_id')->with('classrooms', 'course');
+    }
 
     public static function getHomeworkInHomeworkId($homeworkId){
         return Homework::where("homework_id", $homeworkId)->first();
@@ -28,7 +32,7 @@ class Homework extends Model
     }
 
     public static function getHomeworksWithResultsInId($classroomId){
-        return Homework::where("classroom_id", $classroomId)->with('results')->get();
+        return Homework::where("classroom_id", $classroomId)->with('results')->with('teacher')->get();
     }
 
     public static function getHomeworksWithResults(){
@@ -36,7 +40,7 @@ class Homework extends Model
     }
 
     public static function getHomeworkWithResultsInId($studentId, $classroomId){
-        $assignments = Homework::where('classroom_id', $classroomId)->get();
+        $assignments = Homework::where('classroom_id', $classroomId)->with('teacher')->get();
         if ($studentId !== null) {
             $assignments->load(['results' => function ($query) use ($studentId) {
                 $query->where('student_id', $studentId);

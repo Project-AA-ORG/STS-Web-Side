@@ -18,140 +18,166 @@
     <link rel="icon" href="/images/square_logo2.png" type="image/x-icon">
 
     <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            overflow: hidden;
+        #bar2 {
+            width: 10rem;
+            height: 4rem;
         }
 
-        .error {
-            color: red;
-            font: bold;
+        .rowlar {}
+
+        .dropdown-menu {
+            max-height: 7rem;
+            overflow: auto;
         }
     </style>
 </head>
 
 <body>
+    <div class="center">
 
-    @include('sidemenu')
+        @include('sidemenu')
 
-    <!-- ekranın ortasındaki dikdortgen -->
-    <div class="ogrenciler">
+        {{-- Outside div in body to contain everything --}}
+        <div class="ogrenciler" id="fullHeightDiv">
 
-        <!-- arama barı -->
-        <div style="margin-left:3.5%;  width: 94%;" class="d-inline-flex p-2 bd-highlight">
-            <nav style="width: 100%; border-radius: 3px;" class="navbar navbar-light bg-light">
-                <form style="width: 100%;" class="form-inline">
-                    <input id="searchInput" style="width: 100%;" class="form-control mr-sm-2" type="search"
-                        placeholder="&#x1F50E; Ara" aria-label="Ara">
-                </form>
-            </nav>
-        </div>
+            <div class="listele">
 
-        <!-- listeleneceği ve scroll bar oluşturacak olan div -->
-        <div class="listele">
+                <!-- arama barı -->
+                <div id="bar" style="width: 100%;" class="d-inline-flex p-2 bd-highlight">
+                    <nav style="width: 100%; border-radius: 5px;" class="navbar navbar-light bg-light">
+                        <form style="width: 100%;" class="form-inline">
+                            <input id="searchInput" style="width: 100%;" class="form-control mr-sm-2" type="search"
+                                placeholder="&#x1F50E; Öğrenci Ara" aria-label="Ara">
+                        </form>
+                    </nav>
+                </div>
 
-            @foreach ($data['students'] as $item)
-                <a id="satir" class="satir ogrenci-satiri" 
-                href="{{ route('get-update-student-page', ['studentId' => $item->student_id]) }}">
-                    <img class="ogrenci-satiri-gorseli" src="{{ $item->ogrenci }}" alt="student">
-                    <div class="ogrenci-satiri-yazisi" for="name"> {{ $item->name }} </div>
-                </a>
-            @endforeach
+                <!-- listeleneceği ve scroll bar oluşturacak olan div -->
+                <div class="listele2">
 
-        </div>
+                    @foreach ($data['students'] as $item)
+                        <a id="satir" class="satir ogrenci-satiri"
+                            href="{{ route('get-update-student-page', ['studentId' => $item->student_id]) }}">
+                            <img class="ogrenci-satiri-gorseli" src="{{ $item->ogrenci }}">
+                            <div class="ogrenci-satiri-yazisi" for="name"> {{ $item->name }} </div>
+                        </a>
+                    @endforeach
 
-        <!-- Trigger/Open The Modal -->
-        <button class="btn btn-light"
-            style="display:inline; margin-left: 37%; margin-top: 1%; background-color: #E8D5B9;" id="myBtn">
-            Öğrenci Ekle</button>
+                </div>
+                <!-- Trigger/Open The Modal -->
+                <div class="buttondiv_1">
+                    <button class="btn btn-light" id="myBtn" style="background-color: #E8D5B9;">Öğrenci
+                        Ekle</button>
+                </div>
+            </div>
 
-        <div id="myModal" class="modal">
-            <div class="modal-content">
 
-                <div class="bigbox">
+            <div id="myModal" class="modal">
+                <div class="modal-content">
 
-                    <div class="modal-header">
-                        <span class="close">&times;</span>
-                    </div>
-                    <div class="modal-body">
+                    <div class="bigbox">
 
-                        <form id="yourFormId" action="{{ route('get-add-new-student') }}" method="POST">
-                            @csrf
-                            <div style="display: inline-block; margin-left: 4.5%;">
-                                <label for="isim"class="childbox" style="border-radius: 8px;">Ad Soyad</label>
-                                <input type="text" id="name" name="name" required placeholder="giriniz"
-                                    class="childbox">
-                            </div>
+                        <div class="modal-header">
+                            <span class="close">&times;</span>
+                        </div>
+                        <div class="modal-body">
 
-                            {{-- SINIF DROPDOWN --}}
-                            <div style="display: inline-block; margin-left: 4.5%;">
-                                <label for="Sınıf" class="childbox">Sınıf</label>
-                                <div style="display: inline;" class="dropdown">
-                                    <button
-                                        style="display: inline-block; text-align: center; border-radius: 4px; 
-                                        background-color: #F5F4F6; padding: 24px; color: black; width: fit-content; height: 70px; width: 175px;"
-                                        class="btn btn-secondary dropdown-toggle btn-sm sinif-dropdown" type="button"
-                                        id="sinifDropdownButton" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        Seçiniz
-                                    </button>
+                            <form id="yourFormId" action="{{ route('get-add-new-student') }}" method="POST">
+                                @csrf
 
-                                    <input type="hidden" name="classroom_id" id="classroom_id" value="Seçiniz">
-                                    <div class="dropdown-menu" aria-labelledby="sinifDropdownButton">
+                                <div class="container">
+                                    {{-- so everything is centered correctly --}}
+                                    <div class="centeritems">
 
-                                        @foreach ($data['classrooms'] as $item)
-                                            <a class="dropdown-item sinif-item" href="#"
-                                                data-classroom-id="{{ $item->classroom_id }}"
-                                                onclick="setSelectedClassroom('{{ $item->classroom_name }}', '{{ $item->classroom_id }}')">
-                                                {{ $item->classroom_name }}
-                                            </a>
-                                        @endforeach
+                                        {{-- grid structure to make it look better --}}
+                                        {{-- first input name --}}
+                                        <div class="row">
+                                            <div class="childbox col-sm">Ad Soyad</div>
+                                            <input type="text" id="name" name="name" required
+                                                placeholder="giriniz" class="childbox col-sm">
+                                        </div>
+
+
+
+
+                                        {{-- SINIF DROPDOWN --}}
+                                        <div class="row">
+
+                                            <div class="childbox col-sm">Sınıf</div>
+                                            <div class="dropdown">
+                                                <button
+                                                    style="overflow:auto; background-color: #F5F4F6; padding: 24px; color: black;"
+                                                    class="col-sm DERSDROP btn btn-secondary dropdown-toggle btn-sm sinif-dropdown"
+                                                    type="button" id="sinifDropdownButton" data-toggle="dropdown"
+                                                    aria-haspopup="true" aria-expanded="false">
+                                                    Seçiniz
+                                                </button>
+
+                                                <input type="hidden" name="classroom_id" id="classroom_id"
+                                                    value="Seçiniz">
+                                                <div class="dropdown-menu" aria-labelledby="sinifDropdownButton">
+
+                                                    @foreach ($data['classrooms'] as $item)
+                                                        <a class="dropdown-item sinif-item" href="#"
+                                                            data-classroom-id="{{ $item->classroom_id }}"
+                                                            onclick="setSelectedClassroom('{{ $item->classroom_name }}', '{{ $item->classroom_id }}')">
+                                                            {{ $item->classroom_name }}
+                                                        </a>
+                                                    @endforeach
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {{-- username input --}}
+                                        <div class="row">
+                                            <div class="col-sm childbox">Kullanıcı Adı</div>
+                                            <input type="text" id="username" name="username" required
+                                                placeholder="giriniz" class="col-sm childbox ">
+                                        </div>
 
                                     </div>
+                                    {{-- buttons in overlay --}}
+                                    <div class="buttondiv">
+                                        <button type="reset" class="btn btn-light"
+                                            style="background-color: #FF9595;"
+                                            onclick="resetDropdowns()">Temizle</button>
+
+
+                                        <button type="submit" class="btn btn-light"
+                                            style="background-color: #FF9595;">Tamamla</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div id="overlayError_2"
+                                style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999;">
+                                <div
+                                    style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffcccc; padding: 20px; border-radius: 5px;">
+                                    Lütfen bir sınıf seçiniz.
                                 </div>
                             </div>
-
-                            <div style="display: inline-block; margin-left: 4.5%;">
-                                <label for="kadı" class="childbox">Kullanıcı Adı</label>
-                                <input type="text" id="username" name="username" required placeholder="giriniz"
-                                    class="childbox">
+                            <div id="overlayError_3"
+                                style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999;">
+                                <div
+                                    style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffcccc; padding: 20px; border-radius: 5px;">
+                                    Bu username daha önce kullanıldı.
+                                </div>
                             </div>
-
-                            <button type="reset" class="btn btn-light"
-                                style="background-color: #FF9595; margin-left: 70px;"
-                                onclick="resetDropdowns()">Temizle</button>
-
-
-                            <button type="submit" class="btn btn-light"
-                                style="background-color: #FF9595; margin-left: 80px;">Tamamla</button>
-                        </form>
-                        <div id="overlayError_2"
-                            style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999;">
-                            <div
-                                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffcccc; padding: 20px; border-radius: 5px;">
-                                Lütfen bir sınıf seçiniz.
-                            </div>
+    
                         </div>
-                        <div id="overlayError_3"
-                            style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999;">
-                            <div
-                                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffcccc; padding: 20px; border-radius: 5px;">
-                                Bu username daha önce kullanıldı.
-                            </div>
-                        </div>
-                        @if (isset($data['error']))
-                            <p class="error">{{ $data['error'] }}</p>
-                        @endif
+
                     </div>
 
                 </div>
 
             </div>
-     
+            @if (isset($data['error']))
+            <div id="overlayError"
+                style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffcccc; padding: 20px; border-radius: 5px; z-index: 1000;">
+                Kullanıcı adı daha önceden de kullanıldığı için öğrenci kaydedilemedi.
+            </div>
+        @endif
         </div>
-        @if (isset($data['error']))
-        <p class="error">Kullanıcı adı daha önceden de kullanıldığı için öğrenci kaydedilemedi.</p>
-    @endif
     </div>
 
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin='anonymous'></script>
@@ -170,20 +196,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </body>
-{{-- <script>
-    // Here you might have your error logic, for example:
-    var errorMessage = document.querySelector('.error');
-    if (errorMessage && errorMessage.innerText === "Bu username daha önce kullanıldı") {
-        event.preventDefault(); // Prevent form submission
 
-        document.getElementById('overlayError_3').style.display = 'block';
-
-        // Overlay stays open because of the error
-    } else {
-        // Overlay closes as there's no error
-        document.getElementById('myModal').style.display = 'none';
-    }
-</script> --}}
 
 <script>
     // First Script for Modal
@@ -204,21 +217,11 @@
             modal.style.display = "none";
         }
     }
-
-    // Second Script for Sidebar
-    let sidebar = document.querySelector('.sidebar');
-    let searchInput = document.getElementById('searchInput');
-
-    document.getElementById('btn').addEventListener('click', function() {
-        sidebar.classList.toggle('active');
-    });
-
-    document.querySelector('.back-btn').addEventListener('click', function() {
-        // Add functionality for the back button if it's missing
-    });
 </script>
 
 <script>
+    let searchInput = document.getElementById('searchInput');
+
     searchInput.addEventListener('input', function() {
         const searchQuery = this.value.toLowerCase();
         const elements = document.querySelectorAll('.listele a');
@@ -233,7 +236,21 @@
         });
     });
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var errorMessage = document.getElementById('overlayError');
 
+        // Check if the error message exists and has content
+        if (errorMessage && errorMessage.innerText.trim().length > 0) {
+            errorMessage.style.display = 'block';
+
+            // Hide overlay error message after 3 seconds (adjust as needed)
+            setTimeout(function() {
+                errorMessage.style.display = 'none';
+            }, 3000);
+        }
+    });
+</script>
 <script>
     document.querySelectorAll('.sinif-item').forEach(item => {
         item.addEventListener('click', function() {
@@ -269,11 +286,23 @@
             // Hide overlay message after 3 seconds (adjust as needed)
             setTimeout(function() {
                 document.getElementById('overlayError_2').style.display = 'none';
-            }, 3000);
+            }, 2000);
         }
     });
 </script>
 
 
+<script>
+    // Here you might have your error logic, for example:
+    var errorMessage = document.querySelector('.error');
+    if (errorMessage && errorMessage.innerText === "Bu username daha önce kullanıldı") {
+        event.preventDefault(); // Prevent form submission
+        document.getElementById('overlayError_3').style.display = 'block';
+        // Overlay stays open because of the error
+    } else {
+        // Overlay closes as there's no error
+        document.getElementById('myModal').style.display = 'none';
+    }
+</script>
 
 </html>

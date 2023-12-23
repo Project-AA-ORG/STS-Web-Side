@@ -18,19 +18,19 @@
     <style>
         /* some styles for background */
         .bg_for_building {
-            background-image: url("/images/bina.png");
-            display: flex;
-            height: 100%;
-
+            background-image: url("/images/bina.jpg");
+            height: 100vh;
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
         }
         body,
         html {
-            height: 100%;
+            height: 100vh;
             margin: 0;
+            overflow: hidden;
         }
+        
     </style>
 
 

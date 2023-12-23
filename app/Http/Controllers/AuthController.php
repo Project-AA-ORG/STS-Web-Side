@@ -74,6 +74,9 @@ class AuthController extends Controller
             if (isset($request->content)){
                 $homework->content = $request->content;
             }
+            if (isset($request->course_name)){
+                $homework->course_name = $request->course_name;
+            }
             if (isset($request->image)){
                 $imageData = $request->image;
                 $decodedImage = base64_decode($imageData);
@@ -197,16 +200,30 @@ class AuthController extends Controller
     public function updateHomework(Request $request){
         if ($request->isMethod('post')) {
             $homework = Homework::getHomeworkInHomeworkId($request->homework_id);
-            $homework->classroom_id = $request->classroom_id;
-            $homework->teacher_id = $request->teacher_id;
+            if (isset($request->classroom_id)){
+                $homework->classroom_id = $request->classroom_id;
+            } else{
+                return response()->json(['error' => 'Homework is not saved'], 400);
+            }
+            if (isset($request->teacher_id)){
+                 $homework->teacher_id = $request->teacher_id;
+            } else{
+                return response()->json(['error' => 'Homework is not saved'], 400);
+            }
+           
             if (isset($request->title)){
                 $homework->title = $request->title;
             }
             if (isset($request->content)){
                 $homework->content = $request->content;
             }
+            if (isset($request->course_name)){
+                $homework->course_name = $request->course_name;
+            }
             if (isset($request->image)){
-                $homework->image = $request->image;
+                $imageData = $request->image;
+                $decodedImage = base64_decode($imageData);
+                $homework->image = $decodedImage;
             }
             if (isset($request->due_date)){
                 $homework->due_date = $request->due_date;

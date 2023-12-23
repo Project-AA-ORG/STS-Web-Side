@@ -15,144 +15,117 @@
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="icon" href="/images/square_logo2.png" type="image/x-icon">
 
-    <style>
-        body {
-            overflow: hidden;
-        }
-
-        select[multiple] {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            background-repeat: no-repeat;
-            background-position: right 10px top 50%;
-            padding-right: 30px;
-        }
-
-        /* Style the selected options */
-        select[multiple] option:checked {
-            background-color: green;
-            font-weight: bold;
-            position: relative;
-        }
-
-        /* Add tick icon using CSS pseudo-element */
-        select[multiple] option:checked::after {
-            content: '\2713';
-            /* Unicode for checkmark symbol */
-            position: absolute;
-            bottom: 7px;
-            /* Adjust the position of the tick icon */
-            color: black;
-            /* Change color of the tick */
-            font-weight: bold;
-            /* Make the tick icon bold */
-        }
-
-        select.form-control {
-
-            &[size],
-            &[multiple] {
-                height: 75px;
-            }
-        }
-
-        .minibox_2 {
-            -webkit-tap-highlight-color: transparent;
-            /* For iOS */
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-
-        .custom-select-1 {
-            /* Add styles specific to the first select element */
-            /* Example styles: */
-            width: 100px;
-            height: 120px;
-            /* Add other styles */
-        }
-
-        #yourFormId{
-            padding: 0;
-            margin:0;
-            display: inline;
-        }
-        #del{
-            margin: 0;
-            padding: 0;
-            display: inline;
-        }
-
-        #totheleft{
-            margin-left: 8%;
-        }
-    </style>
-
 </head>
 
 <body>
 
-    <div class="bg_ders_duzenle">
+
+    <div class="centerEdit">
         <!-- Sidebar tasarımı baslangıc -->
         @include('sidemenu')
         <!-- sidebar tasarımı son -->
 
-        <div class="duzenle">
-
-            <p><button style="color: black;" class="btn back-btn"><i class="fa-solid fa-arrow-left"></i></button></p>
-
+        <div id="mainbox" class="duzenle container">
 
             <form id="yourFormId" action="{{ route('get-update-course') }}" method="POST">
+
+                <p id="backbutton_1"><button id="toclick" style="color: black;" class="btn back-btn"><i
+                            class="fa-solid fa-arrow-left"></i></button></p>
                 @csrf
-                <div class="Entrance">
 
-                    <input type="hidden" name="course_id" id="course_id" value="{{ $data['course']->course_id }}">
+                <div class="row row_1">
+                    <div class="col-md-12">
 
-                    <div class="block">
-                        <label class="LABEL"><b>Ders Adı</b> </label>
-                        <input type="text" name="course_name" id="course_name" value="{{ $data['course']->course_name }}" 
-                        required placeholder="{{ $data['course']->course_name }}" class="INPUT">
-                    </div>
+                        <div id="secondbox" class="container Entrance">
 
-                     <div class="block">
-                        <label class="LABEL"><b>Ders Öğretmenleri</b></label>
+                            <input type="hidden" name="course_id" id="course_id"
+                                value="{{ $data['course']->course_id }}">
 
-                        <div class="INPUT_2">
-                            @foreach ($data['teachers'] as $item)
-                                <div class="minibox_2" value="{{ $item->teacher_id }}" selected>
-                                    {{ $item->name }}
+                            <div class="row">
+                                <div class="LABEL col-sm-4"><b>Ders Adı</b> </div>
+                                <input type="text" name="course_name" id="course_name"
+                                    value="{{ $data['course']->course_name }}" required
+                                    placeholder="{{ $data['course']->course_name }}" class="INPUT col-sm-7">
+                            </div>
+
+                            <div class="row">
+                                <div class="LABEL col-sm-4"><b>Ders Öğretmenleri</b> </div>
+
+                                <div class="INPUT_2 col-sm-7">
+                                    @foreach ($data['teachers'] as $item)
+                                        <a id="{{ $item->teacher_id }}""
+                                            href="{{ route('get-update-teacher-page', ['teacherId' => $item->teacher_id]) }}">
+                                            <div class="minibox_2"> {{ $item->name }} </div>
+                                        </a>
+                                    @endforeach
                                 </div>
-                            @endforeach
+
+                            </div>
+                        {{-- 
+                            <div class="row"></div>
+                            <div class="row"></div> --}}
+
+                            <div id="kayıtdivi" class="row">
+                                <div class="col-md-1"></div>
+                                @csrf
+                                <div class="kayıt col-md-4">
+                                    <button type="submit" class="btn btn-light kayıt_design_2"><strong>
+                                            Dersi Kaydet</strong></button>
+                                </div>
+                                <div class="col-md-1"></div>
+
+                                @csrf
+                                <div class="kayıt col-md-4">
+                                    <button id="del" type="submit" class="btn btn-light kayıt_design_3"
+                                        form="del">
+                                        <strong>Dersi Sil</strong> </button>
+                                </div>
+                                <div class="col-md-1"></div>
+
+                            </div>
                         </div>
-
-                    </div> 
-
+                    </div>
                 </div>
-
-                <div class="kayıt" style="">
-
-                    <button type="submit" class="btn btn-light kayıt_design"
-                        style="background-color: #FF9595;"><strong>
-                            Dersi Kaydet</strong></button>
-
-                </div>
-
-            </form>
-            <form id="del" action="{{ route('get-delete-course', ['courseId' => $data['course']->course_id]) }}" method="GET">
-
-                @csrf
-                <div id="totheleft" class="kayıt "style="">
-                    <button type="submit" class="btn btn-light kayıt_design"
-                        style="background-color: #FF9595;"><strong>
-                        Dersi Sil</strong> </button>
-                </div>
+                
             </form>
         </div>
-
+            <form id="del" action="{{ route('get-delete-course', ['courseId' => $data['course']->course_id]) }}"
+                method="GET">
+                <div id="confirmationModal" class="modal_2">
+                    <div class="modal-content_2">
+                        <p>Dersi silmek istediğine emin misin?</p>
+                        <button type="submit" id="confirmYes">Evet</button>
+                        <button type="button" id="confirmNo"> Hayır</button>
+                    </div>
+                </div>
+            </form>
     </div>
+    
+    <script>
+        // Function to display the modal
+        function displayModalForDeletion() {
+            const modal = document.getElementById('confirmationModal');
+            modal.style.display = 'block';
 
+            // Handle 'Yes' button click
+            document.getElementById('confirmYes').addEventListener('click', function() {
+                document.getElementById('del').submit();
+                modal.style.display = 'none'; // Hide the modal after submission
+            });
+
+            // Handle 'No' button click
+            document.getElementById('confirmNo').addEventListener('click', function() {
+                modal.style.display = 'none'; // Hide the modal on 'No' click
+            });
+        }
+
+        document.querySelector('.kayıt_design_3').addEventListener('click', function(event) {
+            event.preventDefault();
+
+            // Show the confirmation modal for deletion
+            displayModalForDeletion();
+        });
+    </script>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin='anonymous'></script>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
@@ -171,33 +144,27 @@
 </body>
 
 <script>
-    let sidebar = document.querySelector('.sidebar');
-    let searchInput = document.getElementById('searchInput');
+    document.addEventListener('DOMContentLoaded', function() {
+        const btn = document.getElementById('btn');
+        const toClick = document.getElementById('toclick');
+        const sidebar = document.getElementById('sidebar');
 
-    document.getElementById('btn').addEventListener('click', function() {
-        sidebar.classList.toggle('active');
-    });
-
-    document.querySelector('.back-btn').addEventListener('click', function() {
-        window.history.back();
-    });
-</script>
-
-<script>
-    $(document).ready(function() {
-        // Prevent dropdown from closing on item selection
-        $('.dropdown-menu').on('click', function(e) {
-            if ($(this).hasClass('dropdown-menu')) {
-                e.stopPropagation();
+        btn.addEventListener('click', function(event) {
+            if (sidebar) {
+                sidebar.classList.toggle('active');
+            } else {
+                console.error("Sidebar element not found");
             }
+            event.preventDefault();
+        });
+
+        toClick.addEventListener('click', function(event) {
+            window.history.back();
+            event.preventDefault();
         });
     });
 </script>
 
-<script>
-    document.getElementById('phone').addEventListener('input', function() {
-        this.value = this.value.replace(/\D/g, ''); // Remove non-numeric characters
-    });
-</script>
+
 
 </html>

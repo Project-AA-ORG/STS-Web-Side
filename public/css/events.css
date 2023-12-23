@@ -5,14 +5,12 @@ html {
     margin: 0;
     overflow: auto;
     font-family: Arial, Helvetica, sans-serif;
-
 }
 
 .buttondiv_1 {
 
     text-align: center;
     margin: 1rem;
-
 }
 
 .center {
@@ -21,7 +19,7 @@ html {
     height: 100vh;
 }
 
-.dersler {
+.etkinlikler {
 
     overflow: auto;
     display: block;
@@ -49,7 +47,7 @@ html {
     height: 85%;
 }
 
-.ders-satiri {
+.etkinlik-satiri {
     display: flex;
     border-radius: 5px;
     margin-top: 1%;
@@ -60,10 +58,11 @@ html {
     background-color: white;
     align-items: center;
     justify-content: center;
+
 }
 
 
-.ders-satiri-yazisi {
+.etkinlik-satiri-yazisi {
     padding: 1%;
     margin-left: 5%;
     display: inline-block;
@@ -74,7 +73,7 @@ html {
     height: 2.5rem;
     white-space: nowrap; 
     overflow: hidden; 
-    text-overflow: ellipsis; 
+    text-overflow:ellipsis;
 }
 
 .satir:link,
@@ -135,7 +134,7 @@ html {
 
 @media (max-width: 500px) {
 
-    .dersler {
+    .etkinlikler {
         width: 100%;
         top: 3rem;
         height: calc(100vh - 3rem);
@@ -144,14 +143,14 @@ html {
     }
 
 
-    .ders-satiri {
+    .etkinlik-satiri {
         margin-top: 1%;
         margin-left: 2%;
         width: 96%;
         min-width: 255px;
     }
 
-    .ders-satiri-yazisi {
+    .etkinlik-satiri-yazisi {
         margin-left: 5%;
         padding: 1%;
         height: 9%;
@@ -161,14 +160,10 @@ html {
     }
 }
 
-
 @media (min-width: 500px) and (max-width: 1100px) {
 
-    .dersler {
-
-        margin-left: 3rem;
-      
+    .etkinlikler {
+        margin-left: 3rem; 
     }
-
  
 }

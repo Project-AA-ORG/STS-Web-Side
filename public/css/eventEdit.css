@@ -2,11 +2,6 @@ body,
 html {
 
     background: #c4c4c4;
-    /* background-image: url("/images/edit.png");
-    background-size: cover; 
-    background-repeat: no-repeat;
-    background-position: center; 
-   */
     height: 100vh;
     margin: 0;
     overflow: auto;
@@ -19,12 +14,30 @@ html {
     height: 100vh;
 }
 
+.buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.my_button {
+    margin: 1rem;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    background-color: #E8D5B9;
+}
+
+.my_button:hover {
+    background-color: #E8D5B9;
+}
+
 .duzenle {
     overflow: auto;
     width: 60%;
+    /* min-width: 50rem; */
     height: 35rem;
     top: calc((100vh - 35rem) / 2);
-    /* max-height: 31rem; */
     border-radius: 8px;
     background-color: #3b6653;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -32,6 +45,34 @@ html {
     position: relative;
 }
 
+.photodiv {
+    margin-left: 1rem;
+    margin-top: 0;
+    height: 20rem;
+    max-width: 100%;
+    border-radius: 8px;
+    background: #F5F4F6;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.photoimg {
+    width: 100%;
+    height: 80%;
+}
+
+.INPUT_2 {
+    margin-left: 1rem;
+    margin-top: 0;
+    height: 20rem;
+    width: 97%;
+    /* max-width: 27rem; */
+    min-width: 10rem;
+    border-radius: 8px;
+    background: #F5F4F6;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
 
 .row {
     margin-top: 0.5rem;
@@ -41,7 +82,7 @@ html {
     margin-top: 1.5rem;
 }
 
-#cizgi{
+#cizgi {
     width: 99.5%;
     margin: 1rem;
     margin-left: -0.000000001px;
@@ -59,19 +100,8 @@ html {
     background: #F5F4F6;
     text-align: center;
     font-size: 24px;
-
 }
 
-.INPUT_2 {
-    margin: 1rem;
-    margin-top: 0;
-    height: 20rem;
-    width: 100%;
-    border-radius: 8px;
-    background: #F5F4F6;
-    overflow-x: auto;
-    overflow-y: hidden;
-}
 
 #kayıtdivi {
     margin-top: 1rem;
@@ -210,7 +240,17 @@ html {
         overflow-x: hidden;
     }
 
+    .photodiv {
+        margin: 0;
+        /* margin-left: 0; */
 
+    }
+
+    .INPUT_2 {
+        margin: 1rem;
+        margin-left: -0.5rem;
+        width: 105%;
+    }
 
     #mainbox {
         text-align: center;
@@ -231,13 +271,14 @@ html {
         opacity: 1;
         pointer-events: all;
     }
-    .kayıt{
+
+    .kayıt {
         margin: 0.3rem;
         max-width: 12rem;
         margin-left: calc((100% - 12rem) / 2);
     }
 
-    #kayıtdivi{
+    #kayıtdivi {
         margin-top: 0;
     }
 }
@@ -250,13 +291,13 @@ html {
         top: calc((100vh - 37rem) / 2);
     }
 
-    .kayıt{
+    .kayıt {
         margin: 0.3rem;
         max-width: 15rem;
         margin-left: calc((100% - 15rem) / 2);
     }
 
-    #kayıtdivi{
+    #kayıtdivi {
         margin-top: 0;
     }
 }
@@ -269,24 +310,25 @@ html {
         top: calc((100vh - 37rem) / 2);
     }
 
-    .kayıt{
+    .kayıt {
         margin: 0.3rem;
         max-width: 15rem;
         margin-left: calc((100% - 15rem) / 2);
     }
 
-    #kayıtdivi{
+    #kayıtdivi {
         margin-top: 0;
     }
 }
 
 @media (min-width: 768px) and (max-width: 1057px) {
 
-    #mainbox{
+    #mainbox {
         width: 70%;
     }
 
-    .kayıt_design_2, .kayıt_design_3 {
+    .kayıt_design_2,
+    .kayıt_design_3 {
         font-size: 12px;
     }
 
@@ -294,7 +336,4 @@ html {
 }
 
 
-@media (min-width: 768px) and (max-width: 768px) {
-
- 
-}
+@media (min-width: 768px) and (max-width: 768px) {}

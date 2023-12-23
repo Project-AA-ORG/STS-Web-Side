@@ -1,184 +1,192 @@
 body,
 html {
     background-color: #C4C4C4;
-    height: 100%;
+    height: 100vh;
     margin: 0;
+    overflow: auto;
+    font-family: Arial, Helvetica, sans-serif;
+
 }
+
+.buttondiv_1 {
+
+    text-align: center;
+    margin: 1rem;
+
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+
 .ogretmenler {
 
-    display: inline-block;
+    overflow: auto;
+    display: block;
     position: relative;
-    top: 6%;
-    left: 35%;
-    width: 35%;
-    min-width: 300px;
-    height: 90%;
+    width: 37%;
+    min-width: 24rem;
+    top: 2%;
+    height: clamp(42rem,96%,86rem);
     border-radius: 5px;
     border: 1px solid #000;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     background-color: #3b6653;
 }
 
+
 .listele {
-    display: inline-block;
-    overflow: auto;
     background: #3b6653;
     width: 92%;
     margin-left: 4%;
-    height: 80%;
+    height: 93%;
+}
+
+.listele2 {
+    overflow: auto;
+    height: 85%;
 }
 
 .ogretmen-satiri {
-    display: block;
+    display: flex;
     border-radius: 5px;
-    margin-top: 2%;
+    margin-top: 1%;
     margin-left: 2%;
     width: 96%;
-    min-width: 255px;
-    height: auto;
+    min-width: 21rem;
+    max-height: 4rem;
     background-color: white;
+    align-items: center;
+    justify-content: center;
 }
 
 .ogretmen-satiri-gorseli {
-    min-width: 30px;
-    min-height: 30px;
-    width: 10%; /* Increase the width */
-    height: 10%;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 5px;
     margin-left: 2%;
-    margin-right: calc(2% - 1.33%); /* Adjusted margin to maintain spacing */
+    margin-right: calc(2% - 1.33%);
+    /* Adjusted margin to maintain spacing */
     border: 1px solid #898080;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    float: left; /* Set the element to float */
+    float: left;
+    /* Set the element to float */
 }
 
 
 .ogretmen-satiri-yazisi {
-    display: inline-block;
+    padding: 1%;
     margin-left: 3%;
-    padding: 2%;
-    align-items: center;
+    display: inline-block;
+    text-align: center;
     border: 1px solid black;
     border-radius: 5px;
     width: 80%;
-    height: 10%;
+    height: 2.5rem;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
 }
-.satir:link, .satir:visited {
+
+.satir:link,
+.satir:visited {
     background-color: white;
     color: black;
     border: 2px solid #5a906f;
     padding: 10px 20px;
     text-decoration: none;
     display: inline-block;
-  }
-  
-  .satir:hover, .satir:active {
+}
+
+.satir:hover,
+.satir:active {
     background-color: #5a906f;
     color: white;
-  }
+}
 
 ::-webkit-scrollbar {
-    width: 8px; /* Width of the scrollbar */
+    width: 8px;
+    /* Width of the scrollbar */
     border-radius: 5px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #888; /* Color of the scrollbar handle */
-    border-radius: 5px; /* Rounded corners */
+    background: #888;
+    /* Color of the scrollbar handle */
+    border-radius: 5px;
+    /* Rounded corners */
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Color when hovering over scrollbar */
+    background: #555;
+    /* Color when hovering over scrollbar */
     border-radius: 5px;
 }
 
 /* For horizontal scrollbar */
 ::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Color of the scrollbar track */
+    background: #f1f1f1;
+    /* Color of the scrollbar track */
     border-radius: 5px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-track-piece:end {
-    background: #ddd; /* Color of the space after the scrollbar handle */
+    background: #ddd;
+    /* Color of the space after the scrollbar handle */
     border-radius: 5px;
 }
 
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 5;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
+.error {
+    color: red;
+    font: bold;
 }
 
-.modal-content {
-    left: 1%;
-    top: 11%;
-    position: relative;
-    background-color: #fefefe;
-    margin: auto;
-    padding: 0;
-    width: 450px;
-    height: 500px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.3s;
-    animation-name: animatetop;
-    animation-duration: 0.3s
-}
+@media (max-width: 500px) {
 
-@-webkit-keyframes animatetop {
-    from {
-        top: -300px;
-        opacity: 0
+    .ogretmenler {
+        width: 100%;
+        top: 3rem;
+        height: calc(100vh - 3rem);
+        border: #888;
+        border-radius: 0;
     }
 
-    to {
-        top: 0;
-        opacity: 1
+
+    .ogretmen-satiri {
+        margin-top: 1%;
+        margin-left: 2%;
+        width: 94%;
+        min-width: 255px;
+    }
+
+    .ogretmen-satiri-gorseli {
+        width: 2.0rem;
+        height: 2.0rem;
+        border-radius: 5px;
+        margin-left: 1%;
+        margin-right: calc(1% - 1.33%);
+    }
+
+
+    .ogretmen-satiri-yazisi {
+        margin-left: 3%;
+        padding: 1%;
+        height: 9%;
     }
 }
 
-@keyframes animatetop {
-    from {
-        top: -300px;
-        opacity: 0
+@media (min-width: 500px) and (max-width: 1100px) {
+
+    .ogretmenler {
+
+        margin-left: 3rem;
+      
     }
 
-    to {
-        top: 0;
-        opacity: 1
-    }
-}
-
-.close {
-    color: black;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.modal-header {
-    padding: 2px 16px;
-    color: black;
-}
-
-.modal-body {
-    padding: 2px 16px;
+ 
 }

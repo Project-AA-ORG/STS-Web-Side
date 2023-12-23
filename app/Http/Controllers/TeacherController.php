@@ -128,7 +128,7 @@ class TeacherController extends Controller
                                     $teacher_classroom->save();
                                 }
                             }
-                            return redirect()->route('get-our-teacher-page');
+                            return redirect()->route('get-update-teacher-page', ['teacherId' => $request->teacher_id]);
                         }
                         else{
                             $data["teachers"] = Teacher::getAllTeachers();
@@ -161,7 +161,7 @@ class TeacherController extends Controller
                                 $teacher_classroom->save();
                             }
                         }
-                        return redirect()->route('get-our-teacher-page');
+                        return redirect()->route('get-update-teacher-page', ['teacherId' => $request->teacher_id]);
                     }
                 }
                 else {

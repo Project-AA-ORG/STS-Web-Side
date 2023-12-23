@@ -14,13 +14,17 @@ class ClassroomAnnouncement extends Model
     public static function getAllClassrooms(){
         return ClassroomAnnouncement::all();
     }
+    
+    public function teacher(){
+        return $this->belongsTo(Teacher::class, 'teacher_id', 'teacher_id')->with('classrooms', 'course');
+    }
 
     public static function getAnnouncementInId($classroomAnnouncementId){
         return ClassroomAnnouncement::where("classroom_announcement_id", $classroomAnnouncementId)->first();
     }
 
     public static function getAnnouncementInClassroom($classroomId){
-        return ClassroomAnnouncement::where("classroom_id", $classroomId)->get();
+        return ClassroomAnnouncement::where("classroom_id", $classroomId)->with('teacher')->get();
     }
 
     public static function deleteAnnouncementInId($classroomAnnouncementId){

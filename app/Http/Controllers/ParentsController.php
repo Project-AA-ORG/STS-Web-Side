@@ -118,7 +118,7 @@ class ParentsController extends Controller
                                     $parent_student->save();
                                 }
                             }
-                            return redirect()->route('get-our-parent-page');
+                            return redirect()->route('get-update-parent-page');
                         }
                         else{
                             $data["students"] = Student::getAllStudents();
@@ -149,7 +149,8 @@ class ParentsController extends Controller
                                 $parent_student->save();
                             }
                         }
-                        return redirect()->route('get-our-parent-page');
+                        return redirect()->route('get-update-parent-page');
+                        return redirect()->route('get-update-parent-page', ['parentId' => $request->parent_id]);
                     }
                 }
                 else {

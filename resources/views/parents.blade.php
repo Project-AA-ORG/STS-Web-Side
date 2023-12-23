@@ -18,162 +18,130 @@
     <link rel="icon" href="/images/square_logo2.png" type="image/x-icon">
 
     <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            overflow: hidden;
+        #bar2 {
+            width: 10rem;
+            height: 4rem;
         }
 
-        .error {
-            color: red;
-            font: bold;
-        }
+        .rowlar {}
 
-        select[multiple] {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            background-repeat: no-repeat;
-            background-position: right 10px top 50%;
-            padding-right: 30px;
-        }
-
-        select.form-control {
-
-            &[size],
-            &[multiple] {
-                height: 70px;
-            }
-        }
-
-        /* Style the selected options */
-        select[multiple] option:checked {
-            background-color: #c0e5fa;
-            font-weight: bold;
-            position: relative;
-        }
-
-        /* Add tick icon using CSS pseudo-element */
-        select[multiple] option:checked::after {
-            content: '\2713';
-            /* Unicode for checkmark symbol */
-            position: absolute;
-            right: 5px;
-            /* Adjust the position of the tick icon */
-            color: black;
-            /* Change color of the tick */
-            font-weight: bold;
-            /* Make the tick icon bold */
+        .dropdown-menu {
+            max-height: 7rem;
+            overflow: auto;
         }
     </style>
 </head>
 
 <body>
 
-    @include('sidemenu')
+    <div class="center">
 
-    <!-- ekranın ortasındaki dikdortgen -->
-    <div class="veliler">
+        @include('sidemenu')
 
-        <!-- arama barı -->
-        <div style="margin-left:3.5%;  width: 94%;" class="d-inline-flex p-2 bd-highlight">
-            <nav style="width: 100%; border-radius: 3px;" class="navbar navbar-light bg-light">
-                <form style="width: 100%;" class="form-inline">
-                    <input id="searchInput" style="width: 100%;" class="form-control mr-sm-2" type="search"
-                        placeholder="&#x1F50E; Ara" aria-label="Ara">
-                </form>
-            </nav>
-        </div>
+        <!-- ekranın ortasındaki dikdortgen -->
+        <div class="veliler" id="fullHeightDiv">
+            <div class="listele">
 
-        <!-- listeleneceği ve scroll bar oluşturacak olan div -->
-        <div class="listele">
-
-            @foreach ($data['parents'] as $item)
-                <a id="satir" class="satir veli-satiri"
-                    href="{{ route('get-update-parent-page', ['parentId' => $item->parent_id]) }}">
-                    <div class="veli-satiri-yazisi" for="name"> {{ $item->name }} </div>
-                </a>
-            @endforeach
-
-        </div>
-
-        <!-- Trigger/Open The Modal -->
-        <button class="btn btn-light"
-            style="display:inline; margin-left: 42%; margin-top: 1%; background-color: #E8D5B9;" id="myBtn">
-            Veli Ekle</button>
-
-        <div id="myModal" class="modal">
-            <div class="modal-content">
-
-                <div class="bigbox">
-
-                    <div class="modal-header">
-                        <span class="close">&times;</span>
-                    </div>
-                    <div class="modal-body">
-
-                        <form id="yourFormId" action="{{ route('get-add-new-parent') }}" method="POST">
-                            @csrf
-
-                            <div style="display: inline-block; margin-left: 4.5%;">
-                                <label for="isim"class="childbox" style="border-radius: 8px;">Ad Soyad</label>
-                                <input type="text" id="name" name="name" required placeholder="giriniz"
-                                    class="childbox">
-                            </div>
-
-
-
-                            <div style="display: inline-block; margin-left: 4.5%;">
-
-                                <label for="Öğrenciler" class="childbox">Öğrenciler</label>
-
-                                <select multiple name="student_id[]" id="student_id"
-                                    class="childbox_2 form-control custom-select">
-                                    @foreach ($data['students'] as $item)
-                                        <option value="{{ $item->student_id }}">{{ $item->name }}</option>
-                                    @endforeach
-                                </select>
-
-                            </div>
-
-
-                            <div style="display: inline-block; margin-left: 4.5%;">
-                                <label for="kadı" class="childbox">Kullanıcı Adı</label>
-                                <input type="text" id="username" name="username" required placeholder="giriniz"
-                                    class="childbox">
-                            </div>
-
-                            <div style="display: inline-block; margin-left: 4.5%;">
-                                <label for="tno" class="childbox">Telefon No</label>
-                                <input type="tel" id="phone" name="phone" required placeholder="giriniz"
-                                    class="childbox">
-                            </div>
-
-                            <button type="reset" class="btn btn-light"
-                                style="background-color: #FF9595; margin-left: 70px;"
-                                onclick="resetDropdowns()">Temizle</button>
-
-
-                            <button type="submit" class="btn btn-light"
-                                style="background-color: #FF9595; margin-left: 80px;">Tamamla</button>
-
-                            @if (isset($data['error']))
-                                <p class="error">{{ $data['error'] }}</p>
-                            @endif
+                <!-- arama barı -->
+                <div id="bar" style="width: 100%;" class="d-inline-flex p-2 bd-highlight">
+                    <nav style="width: 100%; border-radius: 5px;" class="navbar navbar-light bg-light">
+                        <form style="width: 100%;" class="form-inline">
+                            <input id="searchInput" style="width: 100%;" class="form-control mr-sm-2" type="search"
+                                placeholder="&#x1F50E; Veli Ara" aria-label="Ara">
                         </form>
-                        <div id="overlayError_2"
-                            style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999;">
-                            <div
-                                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffcccc; padding: 20px; border-radius: 5px;">
-                                Lütfen bir öğrenci seçiniz.
-                            </div>
+                    </nav>
+                </div>
+
+                <!-- listeleneceği ve scroll bar oluşturacak olan div -->
+                <div class="listele2">
+
+                    @foreach ($data['parents'] as $item)
+                        <a id="satir" class="satir veli-satiri"
+                            href="{{ route('get-update-parent-page', ['parentId' => $item->parent_id]) }}">
+                            <div class="veli-satiri-yazisi" for="name"> {{ $item->name }} </div>
+                        </a>
+                    @endforeach
+
+                </div>
+                <div class="buttondiv_1">
+                    <button class="btn btn-light" id="myBtn" style="background-color: #E8D5B9;">Veli
+                        Ekle</button>
+                </div>
+            </div>
+
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+
+                    <div class="bigbox">
+
+                        <div class="modal-header">
+                            <span class="close">&times;</span>
                         </div>
-                        
-                        <div id="overlayError_3"
-                            style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999;">
-                            <div
-                                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffcccc; padding: 20px; border-radius: 5px;">
-                                Bu username daha önce kullanıldı.
-                            </div>
+                        <div class="modal-body">
+
+                            <form id="yourFormId" action="{{ route('get-add-new-parent') }}" method="POST">
+                                @csrf
+                                <div class="container">
+                                    {{-- so everything is centered correctly --}}
+                                    <div class="centeritems">
+
+                                        <div class="row">
+                                            <div class="childbox col-sm">Ad Soyad</div>
+                                            <input type="text" id="name" name="name" required
+                                                placeholder="giriniz" class="childbox col-sm">
+                                        </div>
+
+                                        <div class="row">
+
+                                            <div class="col-sm childbox ">Öğrencileri</div>
+
+                                            <div class="col-sm childbox_2 form-check custom-control custom-checkbox ">
+
+                                                @foreach ($data['students'] as $item)
+                                                    <div class="rowlar">
+                                                        <input type="checkbox" id="students_{{ $item->student_id }}"
+                                                            name="student_id[]" value="{{ $item->student_id }}"
+                                                            class="form-check-input custom-control-input col-sm">
+                                                        <label for="students_{{ $item->student_id }}"
+                                                            class="student-names form-check-label custom-control-label col-sm"
+                                                            style="cursor: pointer;">
+                                                            {{ $item->name }}
+                                                        </label>
+                                                    </div>
+                                                @endforeach
+
+                                            </div>
+                                        </div>
+
+
+                                        {{-- username input --}}
+                                        <div class="row">
+                                            <div class="col-sm childbox">Kullanıcı Adı</div>
+                                            <input type="text" id="username" name="username" required
+                                                placeholder="giriniz" class="col-sm childbox ">
+                                        </div>
+
+                                        {{-- phone number input --}}
+                                        <div class="row">
+                                            <div class="childbox col-sm">Telefon No</div>
+                                            <input type="tel" id="phone" name="phone" required
+                                                placeholder="giriniz" class="childbox col-sm">
+                                        </div>
+
+                                    </div>
+                                    {{-- buttons in overlay --}}
+                                    <div class="buttondiv">
+                                        <button type="reset" class="btn btn-light" style="background-color: #FF9595;"
+                                            onclick="resetDropdowns()">Temizle</button>
+
+
+                                        <button type="submit" class="btn btn-light"
+                                            style="background-color: #FF9595;">Tamamla</button>
+                                    </div>
+                                </div>
+
+                            </form>
+
                         </div>
 
                     </div>
@@ -181,11 +149,28 @@
                 </div>
 
             </div>
-
+            @if (isset($data['error']))
+                <div id="overlayError"
+                    style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffcccc; padding: 20px; border-radius: 5px; z-index: 1000;">
+                    Kullanıcı adı daha önceden de kullanıldığı için veli kaydedilemedi.
+                </div>
+            @endif
         </div>
-        @if (isset($data['error']))
-            <p class="error">Kullanıcı adı daha önceden de kullanıldığı için veli kaydedilemedi.</p>
-        @endif
+        <div id="overlayError_2"
+            style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999;">
+            <div
+                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffcccc; padding: 20px; border-radius: 5px;">
+                Lütfen en az bir öğrenci seçiniz.
+            </div>
+        </div>
+
+        <div id="overlayError_3"
+            style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999;">
+            <div
+                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffcccc; padding: 20px; border-radius: 5px;">
+                Bu username daha önce kullanıldı.
+            </div>
+        </div>
     </div>
 
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin='anonymous'></script>
@@ -224,21 +209,10 @@
             modal.style.display = "none";
         }
     }
-
-    // Second Script for Sidebar
-    let sidebar = document.querySelector('.sidebar');
-    let searchInput = document.getElementById('searchInput');
-
-    document.getElementById('btn').addEventListener('click', function() {
-        sidebar.classList.toggle('active');
-    });
-
-    document.querySelector('.back-btn').addEventListener('click', function() {
-        // Add functionality for the back button if it's missing
-    });
 </script>
 
 <script>
+    let searchInput = document.getElementById('searchInput');
     searchInput.addEventListener('input', function() {
         const searchQuery = this.value.toLowerCase();
         const elements = document.querySelectorAll('.listele a');
@@ -278,32 +252,18 @@
 <script>
     document.getElementById('yourFormId').addEventListener('submit', function(event) {
 
-        var selectedValue = document.getElementById('student_id').value;
+        var selectedCheckboxes = document.querySelectorAll('input[name="student_id[]"]:checked');
 
-        if (selectedValue == "Seçiniz") {
+        if (selectedCheckboxes.length === 0) {
             event.preventDefault(); // Prevent form submission
 
-            // Show overlay message for select element
+            // Show overlay message for no student selected
             document.getElementById('overlayError_2').style.display = 'block';
 
-            // Hide overlay message after 3 seconds (adjust as needed)
+            // Hide overlay message after a certain time (adjust as needed)
             setTimeout(function() {
                 document.getElementById('overlayError_2').style.display = 'none';
-            }, 3000);
-        }
-
-        var selectedOptions = document.getElementById('student_id').selectedOptions;
-
-        if (selectedOptions.length === 0) {
-            event.preventDefault(); // Prevent form submission
-
-            // Show overlay message for select element
-            document.getElementById('overlayError_2').style.display = 'block';
-
-            // Hide overlay message after 3 seconds (adjust as needed)
-            setTimeout(function() {
-                document.getElementById('overlayError_2').style.display = 'none';
-            }, 3000);
+            }, 2000);
         }
     });
 </script>

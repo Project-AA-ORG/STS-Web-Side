@@ -1,46 +1,64 @@
-.user-img {
-    width: 100%; /* Adjust the width of the image */
-    height: 100%; /* Adjust the height of the image */
-    border-radius: 50%; 
-    border: 1px solid black; 
-    object-fit: cover; 
-}
-
-
+/* Default settings for the bar */
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-decoration: none;
+    list-style: none;
+  
 }
 
+/* top left corner */
+/* properties of sidebar */
 .sidebar{
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
-    width: 5%;
-    min-width: 3%;
-    background-color: #3b6653;
+    height: 100vh;
+    width: 4.5rem;
+    /* background-color: #3b6653; */
+    background-image: url("/images/green.jpg");
+    background-size: cover; /* or 'contain' */
+    background-repeat: no-repeat;
+    background-position: center; /* or specify position */
     padding: 0.4rem 0.8rem;
     transition: all 0.5s ease;
-    
-}
-.sidebar.active ~ .main-content{
-    left: 250px;
-    width: calc(100% - 250px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 20;
+    opacity: 1;
 }
 
-.sidebar.sidebar.active{
-    width: 16%;
+.topmenu{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3rem;
+    background-image: url("/images/green.jpg");
+    background-size: cover; /* or 'contain' */
+    background-repeat: no-repeat;
+    background-position: center; /* or specify position */
+    padding: 0.4rem 0.8rem;
+    transition: all 0.5s ease;
+    z-index: 10;
+    opacity: 0;
+
 }
+
+/* adjust width of sidebar while active */
+.sidebar.active{
+    width: clamp(200px, 17%, 400px);
+
+}
+
 .sidebar #btn{
     position: absolute;
-    color: #fff;
     top: .4rem;
     left: 50%;
     font-size: 1.2rem;
-    line-height: 50px;
+    line-height: 2.5rem;
     transform: translateX(-50%);
     cursor: pointer;
 }
@@ -49,32 +67,43 @@
     left: 90%
 }
 
-.sidebar .top .logo{
-    color: #fff;
-    display: flex;
-    height: 50px;
-    width: 100%;
-    align-items: center;
-    pointer-events: none;
-    opacity: 0;
-
-}
-
-.sidebar .active .top .logo{
-    opacity: 1;
-}
-
-.top .logo i{
+.sidebar .top .logo i{
     font-size: 2rem;
     margin-right: 5px;
 }
 
+
+.topmenu #topmenuBtn{
+
+    position: absolute;
+    top: .3rem;
+    left: 1rem;
+    font-size: 1.2rem;
+    line-height: 2.5rem;
+    cursor: pointer;
+
+}
+
+.topmenu  #backbutton_2{
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 1.2rem;
+    line-height: 2.5rem;
+    cursor: pointer;
+}
+
 .user {
-    min-width: 40px;
-    min-height: 40px;
     display: flex;
     align-items: center;
     margin: 1rem 0;
+}
+
+.user-img {
+    min-width: 3rem; /* Adjust the width of the image */
+    border-radius: 50%; 
+    border: 1px solid black; 
+    opacity: 1;
 }
 
 .user p{
@@ -84,8 +113,7 @@
 }
 
 .sidebar.active .user img{
-    width: 50%;
-    height: 50%;
+    max-width: 40%;
 }
 
 .bold{
@@ -97,18 +125,16 @@
 }
 
 .sidebar.active p{
-    opacity: 1;   
+    opacity: 1;
 }
 
 .sidebar ul li{
     position: relative;
     list-style-type: none;
-    height: auto;
-    width: auto;
-    margin: 0.8rem auto;
-    line-height: 50px;
-    padding: 2px;
-    border-color: black;
+    max-width: auto;
+    margin: 0.2rem 0;
+    line-height: 2rem;
+    padding: 1px;
 }
 
 .sidebar ul li a{
@@ -125,11 +151,16 @@
 }
 
 .sidebar ul li a i{
-    min-width: 50px;
+    min-width: 3rem;
     text-align: center;
-    height: 50px;
-    border-radius: 12px;
-    line-height: 50px;
+    border-radius: 25%;
+}
+
+.sidebar ul li a span{
+    max-width: 3rem;
+    text-align: center;
+    border-radius: 25%;
+    line-height: 3rem;
 }
 
 .sidebar .nav-item{
@@ -140,42 +171,64 @@
     opacity: 1;
 }
 
-.sidebar ul li .tooltip{
-    position: absolute;
-    left: 125px;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0.5rem 0.8rem rgba(0, 0, 0, 0.2);
-    border-radius: .6rem;
-    padding: .4rem 1.2rem;
-    line-height: 1.8rem;
-    z-index: 20;
-    opacity: 0;
-}
-
-.sidebar ul li:hover .tooltip{
-    opacity: 1;
-}
-
-
-.sidebar.active ul li .tooltip{
-    display: none;
-}
-
-.main-content{
-    position: relative;
-    background-color:  #eee;
-    min-height: 100%;
-    top: 0;
-    left:80px;
-    transition: all 0.5 ease;
-    width: calc(100%-80px);
-    padding: 1rem;
-
-}
-
 
 hr {
     border: 0.5px solid black; 
-    margin: 15px 0; 
+    margin: 15px; 
+}
+::-webkit-scrollbar {
+    width: 8px;
+    /* Width of the scrollbar */
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    /* Color of the scrollbar handle */
+    border-radius: 5px;
+    /* Rounded corners */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    /* Color when hovering over scrollbar */
+    border-radius: 5px;
+}
+
+/* For horizontal scrollbar */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    /* Color of the scrollbar track */
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-track-piece:end {
+    background: #ddd;
+    /* Color of the space after the scrollbar handle */
+    border-radius: 5px;
+}
+
+@media (max-width: 500px){
+ 
+    .topmenu{
+        z-index: 30;
+        opacity: 1;
+    }
+
+    .sidebar {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .sidebar.sidebar.active{
+        z-index: 40;
+        opacity: 1;
+        width: 90%;
+        pointer-events: all;
+    }
+    
+
 }

@@ -1,58 +1,79 @@
 body,
 html {
     background-color: #C4C4C4;
-    height: 100%;
+    height: 100vh;
     margin: 0;
+    overflow: auto;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.buttondiv_1 {
+
+    text-align: center;
+    margin: 1rem;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
 }
 
 .duyurular {
 
-    display: inline-block;
+    overflow: auto;
+    display: block;
     position: relative;
-    top: 6%;
-    left: 35%;
-    width: 35%;
-    min-width: 300px;
-    height: 90%;
+    width: 37%;
+    min-width: 24rem;
+    top: 2%;
+    height: clamp(42rem,96%,86rem);
     border-radius: 5px;
     border: 1px solid #000;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     background-color: #3b6653;
 }
 
+
 .listele {
-    display: inline-block;
-    overflow: auto;
+    background: #3b6653;
     width: 92%;
     margin-left: 4%;
-    height: 80%;
-    /* background-color: #2a4b3d ; */
+    height: 93%;
+}
 
+.listele2 {
+    overflow: auto;
+    height: 85%;
 }
 
 .duyuru-satiri {
-    align-items: center;
-    text-align: center;
-    display: block;
+    display: flex;
     border-radius: 5px;
-    margin-top: 2%;
+    margin-top: 1%;
     margin-left: 2%;
     width: 96%;
-    min-width: 255px;
-    height: auto;
+    min-width: 21rem;
+    max-height: 4rem;
     background-color: white;
+    align-items: center;
+    justify-content: center;
+
 }
 
 
-.duyuru-satiri-yazisi{
+.duyuru-satiri-yazisi {
+    padding: 1%;
+    margin-left: 5%;
     display: inline-block;
-    margin-left: 3%;
-    padding: 2%;
-    align-items: center;
+    text-align: center;
     border: 1px solid black;
     border-radius: 5px;
-    width: 80%;
-    height: 10%;
+    width: 90%;
+    height: 2.5rem;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow:ellipsis;
 }
 
 .satir:link,
@@ -106,79 +127,43 @@ html {
     border-radius: 5px;
 }
 
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 5;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
+.error {
+    color: red;
+    font: bold;
 }
 
-.modal-content {
-    left: 1%;
-    top: 11%;
-    position: relative;
-    background-color: #fefefe;
-    margin: auto;
-    padding: 0;
-    width: 450px;
-    height: 430px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.3s;
-    animation-name: animatetop;
-    animation-duration: 0.3s;
-}
+@media (max-width: 500px) {
 
-@-webkit-keyframes animatetop {
-    from {
-        top: -300px;
-        opacity: 0
+    .duyurular {
+        width: 100%;
+        top: 3rem;
+        height: calc(100vh - 3rem);
+        border: #888;
+        border-radius: 0;
     }
 
-    to {
-        top: 0;
-        opacity: 1
+
+    .duyuru-satiri {
+        margin-top: 1%;
+        margin-left: 2%;
+        width: 96%;
+        min-width: 255px;
+    }
+
+    .duyuru-satiri-yazisi {
+        margin-left: 5%;
+        padding: 1%;
+        height: 9%;
+    }
+    .student-names{
+        font-size: 12px;
     }
 }
 
-@keyframes animatetop {
-    from {
-        top: -300px;
-        opacity: 0
+@media (min-width: 500px) and (max-width: 1100px) {
+
+    .duyurular {
+        margin-left: 3rem; 
     }
-
-    to {
-        top: 0;
-        opacity: 1
-    }
-}
-
-.close {
-    color: black;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.modal-header {
-    padding: 2px 16px;
-    color: black;
-}
-
-.modal-body {
-    padding: 2px 16px;
+ 
 }

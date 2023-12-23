@@ -1,3 +1,36 @@
+.addimage {
+
+    width: 100%;
+    height: 70%;
+
+}
+
+.icerikboximage {
+    height: 18rem;
+    border-radius: 6px;
+    background-color: #F5F4F6;
+    border: solid white 1px;
+    padding-top: 1rem;
+    /* width: 16rem; */
+}
+
+
+.icerikbox {
+    height: 18rem;
+    border-radius: 6px;
+    background-color: #F5F4F6;
+    border: solid white 1px;
+    width: 13.5rem;
+}
+
+#eklebutton {
+    margin-left: 20%;
+    font-size: 16px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    margin-top:1rem; 
+    background-color: #E8D5B9;
+}
 .bigbox {
 
     overflow: auto;
@@ -39,31 +72,8 @@
     align-items: center;
 }
 
-.childbox_2 {
-    width: 12rem;
-    height: 4.5rem;
-    border-radius: 6px;
-    background-color: #F5F4F6;
-    text-align: center;
-    overflow: auto;
-    border: solid white 1px;
-}
-
-
-
-.DERSDROP {
-    border: solid white 1px;
-    display: block;
-    text-align: center;
-    border-radius: 4px;
-    background-color: #F5F4F6;
-    color: black;
-    height: 4.5rem;
-    width: 12rem;
-}
-
 .centeritems {
-    display: grid;
+    display: flex;
     justify-content: center;
     /* Horizontal centering */
     /* Vertical centering */
@@ -86,7 +96,7 @@
 
 .modal-content {
     left: 1%;
-    top: 20%;
+    top: 15%;
     position: relative;
     background-color: #fefefe;
     margin: auto;
@@ -114,7 +124,7 @@
 
 @-webkit-keyframes animatetop {
     from {
-        top: 20%;
+        top: 15%;
         opacity: 0
     }
 
@@ -131,7 +141,7 @@
     }
 
     to {
-        top: 20%;
+        top: 15%;
         opacity: 1;
     }
 }
@@ -152,74 +162,100 @@
 }
 
 
+@media (min-width: 500px) and (max-width: 576px) {
 
-@media (max-width: 500px) {
+
+    .icerikbox {
+        width: 12rem;
+    }
+
+    .icerikboximage {
+        width: 12rem;
+    }
+
+    #overlayicerik {
+        margin-left: 5%;
+    }
+
+    .buttondiv {
+        margin-left: -1rem;
+    }
+}
+
+@media (min-width:360px) and (max-width: 500px) {
 
     .modal-content {
         width: 100%;
         left: 0;
-        top: 20%;
+        top: 15%;
         margin: 0;
         padding: 0;
         height: auto;
     }
 
-    .bigbox {
+    .icerikbox {
+        width: 45%;
+        height: 14rem;
+    }
+
+    .icerikboximage {
+        width: 45%;
+        height: 14rem;
+    }
+
+    #overlayicerik {
+        margin-left: 3%;
+    }
+
+    .childbox {
+        width: 45%;
+    }
+
+    #eklebutton {
+        margin-left: calc((100% - 6rem) / 2);
+        font-size: 14px;
+    }
+}
+
+@media (max-width:360px) {
+    
+    .modal-content {
         width: 100%;
+        left: 0;
+        top: 15%;
+        margin: 0;
+        padding: 0;
         height: auto;
     }
 
-    .row {
+    .icerikbox {
+        width: 45%;
+        height: 10rem;
+    }
+
+    .icerikboximage {
+        padding-top: 0.5rem;
+        width: 45%;
+        height: 10rem;
+    }
+
+    #overlayicerik {
+        /* margin-left: 1%; */
+    }
+
+    .childbox {
+        width: 45%;
+    }
+
+    #eklebutton {
         margin-top: 0.3rem;
+        height: 2.3rem;
+        font-size: 10px;
+        width: 70%;
+        margin-left: calc((100% - 70%) / 2);
     }
 
-    .col-sm {
-        margin-left: 0.2rem;
-        max-width: 10rem;
-    }
-}
-
-
-@media (max-width: 360px) {
-
-    .childbox {
-        width: 8rem;
-        height: 4rem;
-    }
-    
-    .childbox_2 {
-        width: 8rem;
-        height: 4rem;
-    }
-    
-    .DERSDROP {
-        width: 8rem;
-        height: 4rem;
-    }
-
-    .buttondiv {
-        gap: 2rem;
-    }
-}
-
-@media (max-width: 300px) {
-
-    .childbox {
-        width: 7rem;
-        height: 4rem;
-    }
-    
-    .childbox_2 {
-        width: 7rem;
-        height: 4rem;
-    }
-    
-    .DERSDROP {
-        width: 7rem;
-        height: 4rem;
-    }
-
-    .buttondiv {
+    .buttondiv{
         gap: 1rem;
     }
 

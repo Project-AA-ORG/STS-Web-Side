@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie-edge">
-    <title>Derslerimiz</title>
+    <title>Etkinliklerimiz</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/courses.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/courseAdd.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/events.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/eventAdd.css') }}" rel="stylesheet">
     <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -38,7 +38,7 @@
         @include('sidemenu')
 
         <!-- ekranın ortasındaki dikdortgen -->
-        <div class="dersler" id="fullHeightDiv">
+        <div class="etkinlikler" id="fullHeightDiv">
             <div class="listele">
 
                 <!-- arama barı -->
@@ -46,7 +46,7 @@
                     <nav style="width: 100%; border-radius: 5px;" class="navbar navbar-light bg-light">
                         <form style="width: 100%;" class="form-inline">
                             <input id="searchInput" style="width: 100%;" class="form-control mr-sm-2" type="search"
-                                placeholder="&#x1F50E; Ders Ara" aria-label="Ara">
+                                placeholder="&#x1F50E; Etkinlik Ara" aria-label="Ara">
                         </form>
                     </nav>
                 </div>
@@ -54,16 +54,18 @@
                 <!-- listeleneceği ve scroll bar oluşturacak olan div -->
                 <div class="listele2">
 
-                    @foreach ($data['courses'] as $item)
-                        <a id="satir" class="satir ders-satiri"
-                            href="{{ route('get-update-course-page', ['courseId' => $item->course_id]) }}">
-                            <div class="ders-satiri-yazisi" for="name"> {{ $item->course_name }}</div>
+                    @foreach ($data['event'] as $item)
+                        <a id="satir" class="satir etkinlik-satiri"
+                            href="{{ route('get-update-event-page', ['eventId' => $item->event_id]) }}">
+                            <div class="etkinlik-satiri-yazisi" > {{ $item->event_title }}</div>
                         </a>
                     @endforeach
 
                 </div>
+
+                <!-- Trigger/Open The Modal -->
                 <div class="buttondiv_1">
-                    <button class="btn btn-light" id="myBtn" style="background-color: #E8D5B9;">Ders
+                    <button class="btn btn-light" id="myBtn" style="background-color: #E8D5B9;">Etkinlik
                         Ekle</button>
                 </div>
             </div>
@@ -78,21 +80,35 @@
                         </div>
                         <div class="modal-body">
 
-                            <form id="yourFormId" action="{{ route('get-add-new-course') }}" method="POST">
+                            <form id="yourFormId" action="{{ route('get-add-new-event') }}" method="POST">
                                 @csrf
+                                <div id="overlayicerik" class="container">
 
-                                <div class="container">
-                                    {{-- so everything is centered correctly --}}
-                                    <div class="centeritems">
-                                        <div class="row">
-                                            <div class="childbox col-sm">Ders Adı</div>
-                                            <input type="text" id="course_name" name="course_name" required
-                                                placeholder="giriniz" class="childbox col-sm">
-                                        </div>
+                                    <div class="row">
+                                        <div class="childbox col-sm">Etkinlik Başlığı</div>
+                                        <input type="text" id="event_title" name="event_title" required
+                                            placeholder="giriniz" class="childbox col-sm">
                                     </div>
 
+                                    <div class="row">
+                                        <div class="icerikboximage col-sm">
+                                            <img id="myImage" src="/images/image.jpg" alt="Default Image"
+                                                class="addimage">
+
+                                            <button id="eklebutton" type="button"
+                                                class="btn btn-light" onclick="changeImage()">Görsel Ekle</button>
+
+                                            <input style="display: none;" type="file" id="event_image"
+                                                name="event_image">
+                                        </div>
+
+                                        <textarea style="resize: none;" id="event_content" name="event_content" required
+                                            placeholder="Etkinlik İçeriğini Giriniz" class="icerikbox col-sm"></textarea>
+
+                                    </div>
                                     <div class="buttondiv">
-                                        <button type="reset" class="btn btn-light" style="background-color: #FF9595;"
+                                        <button type="reset" class="btn btn-light"
+                                            style="background-color: #FF9595;"
                                             onclick="resetDropdowns()">Temizle</button>
 
 
@@ -110,24 +126,24 @@
                 </div>
 
             </div>
-
         </div>
     </div>
 
-        <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin='anonymous'></script>
 
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-        </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin='anonymous'></script>
 
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
-        </script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
-            integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous">
-        </script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+        integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous">
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </body>
 
@@ -170,5 +186,26 @@
     });
 </script>
 
+<script>
+    function changeImage() {
+        const fileInput = document.getElementById('event_image');
+        const image = document.getElementById('myImage');
+
+        fileInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function() {
+                image.src = reader.result;
+            };
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        });
+
+        fileInput.click(); // Open file dialog
+    }
+</script>
 
 </html>

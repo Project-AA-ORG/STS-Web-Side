@@ -14,6 +14,10 @@ class HomeworkResult extends Model
     public static function getAllHomeworkResults(){
         return HomeworkResult::all();
     }
+    
+    public function student(){
+        return $this->belongsTo(Student::class, 'student_id', 'student_id')->with('classroom');
+    }
 
     public static function getHomeworkResultInId($homework_result_id){
         return HomeworkResult::where('homework_result_id', $homework_result_id)->first();

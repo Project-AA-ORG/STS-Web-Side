@@ -85,7 +85,7 @@ class StudentController extends Controller
                             $student->username = $request->username;
                             $student->classroom_id = $request->classroom_id;
                             $student->save();
-                            return redirect()->route('get-our-student-page');
+                            return redirect()->route('get-update-student-page', ['studentId' => $request->student_id]);
                         }
                         else{
                             $data["classrooms"] = Classroom::getAllClassrooms();
@@ -98,7 +98,7 @@ class StudentController extends Controller
                         $student->name = $request->name;
                         $student->classroom_id = $request->classroom_id;
                         $student->save();
-                        return redirect()->route('get-our-student-page');
+                        return redirect()->route('get-update-student-page');
                     }
                 }
                 else {

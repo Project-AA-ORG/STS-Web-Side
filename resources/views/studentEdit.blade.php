@@ -8,163 +8,175 @@
     <title>Ogrenci Duzenle Ekrani</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link href="{{ asset('css/studentEdit.css') }}" rel="stylesheet">
     <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/studentEdit.css') }}" rel="stylesheet">
     <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="icon" href="/images/square_logo2.png" type="image/x-icon">
 
-    <style>
-        body {
-            overflow: hidden;
-        }
-
-        select[multiple] {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            background-repeat: no-repeat;
-            background-position: right 10px top 50%;
-            padding-right: 30px;
-        }
-
-        /* Style the selected options */
-        select[multiple] option:checked {
-            background-color: green;
-            font-weight: bold;
-            position: relative;
-        }
-
-        /* Add tick icon using CSS pseudo-element */
-        select[multiple] option:checked::after {
-            content: '\2713';
-            /* Unicode for checkmark symbol */
-            position: absolute;
-            bottom: 7px;
-            /* Adjust the position of the tick icon */
-            color: black;
-            /* Change color of the tick */
-            font-weight: bold;
-            /* Make the tick icon bold */
-        }
-
-        select.form-control {
-
-            &[size],
-            &[multiple] {
-                height: 75px;
-            }
-        }
-
-        .minibox_2 {
-            -webkit-tap-highlight-color: transparent;
-            /* For iOS */
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-
-        .custom-select-1 {
-            /* Add styles specific to the first select element */
-            /* Example styles: */
-            width: 100px;
-            height: 120px;
-            /* Add other styles */
-        }
-    </style>
 
 </head>
 
 <body>
 
-    <div class="bg_ogrenci_duzenle">
+    <div class="centerEdit">
         <!-- Sidebar tasarımı baslangıc -->
         @include('sidemenu')
         <!-- sidebar tasarımı son -->
 
-        <div class="duzenle">
-
-            <p><button style="color: black;" class="btn back-btn"><i class="fa-solid fa-arrow-left"></i></button></p>
-
-            <div class="photo">
-                <img src="{{ $data['student'] }}" alt="student">
-            </div>
-
-
-
+        <div id="mainbox" class="duzenle container">
             <form id="yourFormId" action="{{ route('get-update-student') }}" method="POST">
-                @csrf
-                <div class="kayıt">
 
-                    <button type="submit" class="btn btn-light kayıt_design"
-                        style="background-color: #FF9595;"><strong>
-                            Öğrenciyi Kaydet</strong></button>
+                <p id="backbutton_1"><button id="toclick" style="color: black;" class="btn back-btn"><i
+                            class="fa-solid fa-arrow-left"></i></button></p>
+                <div class="row row_1">
+                    <div class="col-md-4">
 
-                </div>
-
-                <div class="Entrance">
-                    <input type="hidden" name="student_id" id="student_id" value="{{ $data['student']->student_id }}">
-
-                    <div class="block">
-                        <label class="LABEL"><b>Ad Soyad</b> </label>
-                        <input type="text" name="name" id="name" value="{{ $data['student']->name }}"
-                            required placeholder="{{ $data['student']->name }}" class="INPUT">
-                    </div>
-
-                    <div class="block">
-                        <label class="LABEL"><b>Sınıf</b></label>
-
-                        <button style="margin-top:8px; border-radius: 6px; background-color: #F5F4F6; color: black;"
-                            class="INPUT btn btn-secondary dropdown-toggle btn-sm sinif-dropdown" type="button"
-                            id="sinifDropdownButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{ isset($data['student']->classroom->classroom_name) ? $data['student']->classroom->classroom_name : 'Seçiniz' }}
-
-                        </button>
-                        <input type="hidden" name="classroom_id" id="classroom_id"
-                            value="{{ $data['student']->classroom_id }}">
-                        <div class="dropdown-menu" aria-labelledby="dersDropdownButton">
-
-                            @foreach ($data['classrooms'] as $item)
-                                <a class="dropdown-item sinif-item" href="#"
-                                    data-course-id="{{ $item->classroom_id }}"
-                                    onclick="setSelectedClassroom('{{ $item->classroom_name }}', '{{ $item->classroom_id }}')">
-                                    {{ $item->classroom_name }}
-                                </a>
-                            @endforeach
-
+                        <div class="photo">
+                            <img src="{{ $data['student'] }}">
                         </div>
 
+
+                        <div class="kayıt_divi">
+                            @csrf
+                            <div class="kayıt">
+
+                                <button type="submit" class="btn btn-light kayıt_design_1"><strong>
+                                        Öğrenciyi Kaydet</strong></button>
+
+                            </div>
+
+                            @csrf
+                            <div class="kayıt">
+                                <button id="del" type="submit" class="btn btn-light kayıt_design_2"
+                                    form="del"><strong>
+                                        Öğrenciyi Sil</strong></button>
+                            </div>
+
+                        </div>
                     </div>
+                    <div class="col-md-8">
 
-                    <div class="block">
-                        <label class="LABEL"><b>Kullanıcı Adı</b></label>
-                        <input type="text" name="username" id="username" value="{{ $data['student']->username }}"
-                            required placeholder="{{ $data['student']->username }}" class="INPUT">
+                        <div id="secondbox" class="container Entrance">
+                            <input type="hidden" name="student_id" id="student_id"
+                                value="{{ $data['student']->student_id }}">
 
+                            <div class="row">
+                                <div class="LABEL col-sm-4"><b>Ad Soyad</b> </div>
+                                <input type="text" name="name" id="name" value="{{ $data['student']->name }}"
+                                    required placeholder="{{ $data['student']->name }}" class="INPUT col-sm-7">
+                            </div>
+
+
+                            <div class="row">
+                                <div class="LABEL col-sm-4"><b>Sınıf</b></div>
+
+                                <button style="font-size:16px; background-color: #F5F4F6; color: black;"
+                                    class="btn btn-secondary dropdown-toggle btn-sm sinif-dropdown INPUT col-sm-7"
+                                    type="button" id="sinifDropdownButton" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    {{ isset($data['student']->classroom->classroom_name) ? $data['student']->classroom->classroom_name : 'Seçiniz' }}
+
+                                </button>
+                                <input type="hidden" name="classroom_id" id="classroom_id"
+                                    value="{{ $data['student']->classroom_id }}">
+                                <div class="dropdown-menu" aria-labelledby="dersDropdownButton">
+
+                                    @foreach ($data['classrooms'] as $item)
+                                        <a class="dropdown-item sinif-item" href="#"
+                                            data-course-id="{{ $item->classroom_id }}"
+                                            onclick="setSelectedClassroom('{{ $item->classroom_name }}', '{{ $item->classroom_id }}')">
+                                            {{ $item->classroom_name }}
+                                        </a>
+                                    @endforeach
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="row">
+                                <div class="LABEL col-sm-4"><b>Kullanıcı Adı</b></div>
+                                <input type="text" name="username" id="username"
+                                    value="{{ $data['student']->username }}" required
+                                    placeholder="{{ $data['student']->username }}" class="INPUT col-sm-7">
+
+                            </div>
+
+                            <div id="kayıtdivi2" class="kayıt_divi_2 row">
+                                @csrf
+                                <div class="kayıt">
+
+                                    <button type="submit" class="btn btn-light kayıt_design_1"><strong>
+                                            Öğrenciyi Kaydet</strong></button>
+
+                                </div>
+
+                                @csrf
+                                <div class="kayıt">
+                                    <button id="del" type="submit" class="btn btn-light kayıt_design_3"
+                                        form="del"><strong>
+                                            Öğrenciyi Sil</strong></button>
+                                </div>
+                            </div>
+
+
+                        </div>
                     </div>
-
                 </div>
 
             </form>
-
-            <form id="del"
-                action="{{ route('get-delete-student', ['studentId' => $data['student']->student_id]) }}"
-                method="GET">
-
-                @csrf
-                <div class="kayıt">
-                    <button type="submit" class="btn btn-light kayıt_design"
-                        style="background-color: #FF9595;"><strong>
-                            Öğrenciyi Sil</strong> </button>
-                </div>
-            </form>
-
         </div>
+
+        <form id="del" action="{{ route('get-delete-student', ['studentId' => $data['student']->student_id]) }}"
+            method="GET">
+            <div id="confirmationModal" class="modal_2">
+                <div class="modal-content_2">
+                    <p>Öğrenciyi silmek istediğine emin misin?</p>
+                    <button type="submit" id="confirmYes">Evet</button>
+                    <button type="button" id="confirmNo"> Hayır</button>
+                </div>
+            </div>
+        </form>
+
+
 
     </div>
 
+
+    <script>
+        // Function to display the modal
+        function displayModalForDeletion() {
+            const modal = document.getElementById('confirmationModal');
+            modal.style.display = 'block';
+
+            // Handle 'Yes' button click
+            document.getElementById('confirmYes').addEventListener('click', function() {
+                document.getElementById('del').submit();
+                modal.style.display = 'none'; // Hide the modal after submission
+            });
+
+            // Handle 'No' button click
+            document.getElementById('confirmNo').addEventListener('click', function() {
+                modal.style.display = 'none'; // Hide the modal on 'No' click
+            });
+        }
+
+        // Listen for click on kayıt_design_2 button
+        document.querySelector('.kayıt_design_2').addEventListener('click', function(event) {
+            event.preventDefault();
+
+            // Show the confirmation modal for deletion
+            displayModalForDeletion();
+        });
+        document.querySelector('.kayıt_design_3').addEventListener('click', function(event) {
+            event.preventDefault();
+
+            // Show the confirmation modal for deletion
+            displayModalForDeletion();
+        });
+    </script>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin='anonymous'></script>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
@@ -183,15 +195,24 @@
 </body>
 
 <script>
-    let sidebar = document.querySelector('.sidebar');
-    let searchInput = document.getElementById('searchInput');
+  document.addEventListener('DOMContentLoaded', function() {
+        const btn = document.getElementById('btn');
+        const toClick = document.getElementById('toclick');
+        const sidebar = document.getElementById('sidebar');
 
-    document.getElementById('btn').addEventListener('click', function() {
-        sidebar.classList.toggle('active');
-    });
+        btn.addEventListener('click', function(event) {
+            if (sidebar) {
+                sidebar.classList.toggle('active');
+            } else {
+                console.error("Sidebar element not found");
+            }
+            event.preventDefault();
+        });
 
-    document.querySelector('.back-btn').addEventListener('click', function() {
-        window.history.back();
+        toClick.addEventListener('click', function(event) {
+            window.history.back();
+            event.preventDefault();
+        });
     });
 </script>
 
