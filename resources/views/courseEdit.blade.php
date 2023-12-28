@@ -8,9 +8,9 @@
     <title>Ders Duzenle Ekrani</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link href="{{ asset('css/courseEdit.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/courseEdit.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="icon" href="/images/square_logo2.png" type="image/x-icon">
@@ -19,17 +19,16 @@
 
 <body>
 
-
     <div class="centerEdit">
         <!-- Sidebar tasarımı baslangıc -->
         @include('sidemenu')
         <!-- sidebar tasarımı son -->
 
-        <div id="mainbox" class="duzenle container">
+        <div id="mainbox" class="edit container">
 
             <form id="yourFormId" action="{{ route('get-update-course') }}" method="POST">
 
-                <p id="backbutton_1"><button id="toclick" style="color: black;" class="btn back-btn"><i
+                <p id="backbutton1"><button id="toclick" style="color: black;" class="btn back-btn"><i
                             class="fa-solid fa-arrow-left"></i></button></p>
                 @csrf
 
@@ -51,32 +50,29 @@
                             <div class="row">
                                 <div class="LABEL col-sm-4"><b>Ders Öğretmenleri</b> </div>
 
-                                <div class="INPUT_2 col-sm-7">
+                                <div class="INPUT2 col-sm-7">
                                     @foreach ($data['teachers'] as $item)
-                                        <a id="{{ $item->teacher_id }}""
+                                        <a class="minibox2" id="{{ $item->teacher_id }}"
                                             href="{{ route('get-update-teacher-page', ['teacherId' => $item->teacher_id]) }}">
-                                            <div class="minibox_2"> {{ $item->name }} </div>
+                                            <div > {{ $item->name }} </div>
                                         </a>
                                     @endforeach
                                 </div>
 
                             </div>
-                        {{-- 
-                            <div class="row"></div>
-                            <div class="row"></div> --}}
-
-                            <div id="kayıtdivi" class="row">
+   
+                            <div id="regdiv" class="row">
                                 <div class="col-md-1"></div>
                                 @csrf
-                                <div class="kayıt col-md-4">
-                                    <button type="submit" class="btn btn-light kayıt_design_2"><strong>
+                                <div class="reg col-md-4">
+                                    <button type="submit" class="btn btn-light regdesign2"><strong>
                                             Dersi Kaydet</strong></button>
                                 </div>
                                 <div class="col-md-1"></div>
 
                                 @csrf
-                                <div class="kayıt col-md-4">
-                                    <button id="del" type="submit" class="btn btn-light kayıt_design_3"
+                                <div class="reg col-md-4">
+                                    <button id="del" type="submit" class="btn btn-light regdesign3"
                                         form="del">
                                         <strong>Dersi Sil</strong> </button>
                                 </div>
@@ -119,7 +115,7 @@
             });
         }
 
-        document.querySelector('.kayıt_design_3').addEventListener('click', function(event) {
+        document.querySelector('.regdesign3').addEventListener('click', function(event) {
             event.preventDefault();
 
             // Show the confirmation modal for deletion
@@ -159,12 +155,29 @@
         });
 
         toClick.addEventListener('click', function(event) {
-            window.history.back();
+            window.location.href = "{{ route('get-our-course-page') }}";
             event.preventDefault();
         });
     });
 </script>
+<script>
+    function navigateToRoute(route) {
+        window.location.href = route;
+    }
 
+    let sidebar = document.querySelector('.sidebar');
+    let topmenuBtn = document.getElementById('topmenuBtn');
+
+    // Toggle the sidebar when topmenuBtn is clicked
+    topmenuBtn.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+    });
+
+    // Toggle the sidebar when the initial sidebar toggle button is clicked
+    document.getElementById('btn').addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+    });
+</script>
 
 
 </html>

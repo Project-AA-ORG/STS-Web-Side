@@ -8,11 +8,10 @@
     <title>Siniflarimiz</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
     <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/classes.css') }}" rel="stylesheet">
     <link href="{{ asset('css/classAdd.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="icon" href="/images/square_logo2.png" type="image/x-icon">
@@ -22,8 +21,6 @@
             width: 10rem;
             height: 4rem;
         }
-
-        .rowlar {}
 
         .dropdown-menu {
             max-height: 7rem;
@@ -39,8 +36,8 @@
         @include('sidemenu')
 
         <!-- ekranın ortasındaki dikdortgen -->
-        <div class="siniflar" id="fullHeightDiv">
-            <div class="listele">
+        <div class="Classes" id="fullHeightDiv">
+            <div class="listitems">
 
                 <!-- arama barı -->
                 <div id="bar" style="width: 100%;" class="d-inline-flex p-2 bd-highlight">
@@ -53,19 +50,35 @@
                 </div>
 
                 <!-- listeleneceği ve scroll bar oluşturacak olan div -->
-                <div class="listele2">
-
-                    @foreach ($data['classrooms'] as $item)
-                        <a id="satir" class="satir sinif-satiri"
+                <div class="listitems2">
+                    @php
+                    $locale = 'tr'; // Set the locale to Turkish (change it based on your needs)
+                    $sortedClasses = $data['classrooms']->sort(function ($a, $b) use ($locale) {
+                        return strcmp(
+                            utf8_encode(
+                                Str::of($a->classroom_name)
+                                    ->lower()
+                                    ->slug('-'),
+                            ),
+                            utf8_encode(
+                                Str::of($b->classroom_name)
+                                    ->lower()
+                                    ->slug('-'),
+                            ),
+                        );
+                    });
+                @endphp
+                    @foreach ($sortedClasses as $item)
+                        <a id="line" class="line classline"
                             href="{{ route('get-update-classroom-page', ['classroomId' => $item->classroom_id]) }}">
-                            <div class="sinif-satiri-yazisi" for="name"> {{ $item->classroom_name }}</div>
+                            <div class="classlinetext"> {{ $item->classroom_name }}</div>
                         </a>
                     @endforeach
 
                 </div>
 
                 <!-- Trigger/Open The Modal -->
-                <div class="buttondiv_1">
+                <div class="buttondiv1">
                     <button class="btn btn-light" id="myBtn" style="background-color: #E8D5B9;">Sınıf
                         Ekle</button>
                 </div>
@@ -94,8 +107,7 @@
 
                                             <div class="buttondiv">
                                                 <button type="reset" class="btn btn-light"
-                                                    style="background-color: #FF9595;"
-                                                    onclick="resetDropdowns()">Temizle</button>
+                                                    style="background-color: #FF9595;">Temizle</button>
 
 
                                                 <button type="submit" class="btn btn-light"
@@ -161,7 +173,7 @@
 
     searchInput.addEventListener('input', function() {
         const searchQuery = this.value.toLowerCase();
-        const elements = document.querySelectorAll('.listele a');
+        const elements = document.querySelectorAll('.listitems a');
 
         elements.forEach(function(element) {
             const text = element.textContent.toLowerCase();
@@ -174,5 +186,29 @@
     });
 </script>
 
+<script>
+    function navigateToRoute(route) {
+        window.location.href = route;
+    }
 
+    let sidebar = document.querySelector('.sidebar');
+    let topmenuBtn = document.getElementById('topmenuBtn');
+
+    // Toggle the sidebar when topmenuBtn is clicked
+    topmenuBtn.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+    });
+
+    // Toggle the sidebar when the initial sidebar toggle button is clicked
+    document.getElementById('btn').addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+    });
+</script>
+
+
+<script>
+  document.querySelector('.back-btn').addEventListener('click', function() {
+        window.history.back();
+    });
+</script>
 </html>

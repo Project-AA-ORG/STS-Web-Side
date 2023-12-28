@@ -12,7 +12,7 @@ class Student extends Model
     protected $primaryKey = 'student_id';
 
     public static function getAllStudents(){
-        return student::all();
+        return student::orderBy('name')->get();
     }
 
     public function classroom() {

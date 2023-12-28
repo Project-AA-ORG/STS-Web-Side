@@ -8,11 +8,10 @@
     <title>Etkinliklerimiz</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
     <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/events.css') }}" rel="stylesheet">
     <link href="{{ asset('css/eventAdd.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="icon" href="/images/square_logo2.png" type="image/x-icon">
@@ -22,8 +21,6 @@
             width: 10rem;
             height: 4rem;
         }
-
-        .rowlar {}
 
         .dropdown-menu {
             max-height: 7rem;
@@ -38,8 +35,8 @@
         @include('sidemenu')
 
         <!-- ekranın ortasındaki dikdortgen -->
-        <div class="etkinlikler" id="fullHeightDiv">
-            <div class="listele">
+        <div class="Events" id="fullHeightDiv">
+            <div class="listitems">
 
                 <!-- arama barı -->
                 <div id="bar" style="width: 100%;" class="d-inline-flex p-2 bd-highlight">
@@ -52,19 +49,19 @@
                 </div>
 
                 <!-- listeleneceği ve scroll bar oluşturacak olan div -->
-                <div class="listele2">
+                <div class="listitems2">
 
                     @foreach ($data['event'] as $item)
-                        <a id="satir" class="satir etkinlik-satiri"
+                        <a id="line" class="line eventline"
                             href="{{ route('get-update-event-page', ['eventId' => $item->event_id]) }}">
-                            <div class="etkinlik-satiri-yazisi" > {{ $item->event_title }}</div>
+                            <div class="eventlinetext"> {{ $item->event_title }}</div>
                         </a>
                     @endforeach
 
                 </div>
 
                 <!-- Trigger/Open The Modal -->
-                <div class="buttondiv_1">
+                <div class="buttondiv1">
                     <button class="btn btn-light" id="myBtn" style="background-color: #E8D5B9;">Etkinlik
                         Ekle</button>
                 </div>
@@ -80,9 +77,10 @@
                         </div>
                         <div class="modal-body">
 
-                            <form id="yourFormId" action="{{ route('get-add-new-event') }}" method="POST">
+                            <form id="yourFormId" action="{{ route('get-add-new-event') }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
-                                <div id="overlayicerik" class="container">
+                                <div id="overlaycontent" class="container">
 
                                     <div class="row">
                                         <div class="childbox col-sm">Etkinlik Başlığı</div>
@@ -91,25 +89,26 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="icerikboximage col-sm">
-                                            <img id="myImage" src="/images/image.jpg" alt="Default Image"
-                                                class="addimage">
+                                        <div class="contentboximg col-sm">
+                                            <div class="eventlen">
+                                                <img id="myImage" src="/images/image.jpg" alt="Event Image"
+                                                    class="addimage">
+                                            </div>
 
-                                            <button id="eklebutton" type="button"
-                                                class="btn btn-light" onclick="changeImage()">Görsel Ekle</button>
+                                            <button id="eklebutton" type="button" class="btn btn-light"
+                                                onclick="changeImage()">Görsel Ekle</button>
 
                                             <input style="display: none;" type="file" id="event_image"
-                                                name="event_image">
+                                                name="event_image" accept="image/*">
                                         </div>
 
                                         <textarea style="resize: none;" id="event_content" name="event_content" required
-                                            placeholder="Etkinlik İçeriğini Giriniz" class="icerikbox col-sm"></textarea>
+                                            placeholder="Etkinlik İçeriğini Giriniz" class="contentbox col-sm"></textarea>
 
                                     </div>
                                     <div class="buttondiv">
                                         <button type="reset" class="btn btn-light"
-                                            style="background-color: #FF9595;"
-                                            onclick="resetDropdowns()">Temizle</button>
+                                            style="background-color: #FF9595;">Temizle</button>
 
 
                                         <button type="submit" class="btn btn-light"
@@ -173,7 +172,7 @@
 
     searchInput.addEventListener('input', function() {
         const searchQuery = this.value.toLowerCase();
-        const elements = document.querySelectorAll('.listele a');
+        const elements = document.querySelectorAll('.listitems a');
 
         elements.forEach(function(element) {
             const text = element.textContent.toLowerCase();
@@ -206,6 +205,31 @@
 
         fileInput.click(); // Open file dialog
     }
+</script>
+<script>
+    function navigateToRoute(route) {
+        window.location.href = route;
+    }
+
+    let sidebar = document.querySelector('.sidebar');
+    let topmenuBtn = document.getElementById('topmenuBtn');
+
+    // Toggle the sidebar when topmenuBtn is clicked
+    topmenuBtn.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+    });
+
+    // Toggle the sidebar when the initial sidebar toggle button is clicked
+    document.getElementById('btn').addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+    });
+</script>
+
+
+<script>
+    document.querySelector('.back-btn').addEventListener('click', function() {
+        window.history.back();
+    });
 </script>
 
 </html>

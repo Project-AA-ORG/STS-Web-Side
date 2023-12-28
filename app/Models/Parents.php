@@ -12,7 +12,7 @@ class Parents extends Model
     protected $primaryKey = 'parent_id';
 
     public static function getAllParents(){
-        return Parents::all();
+        return Parents::orderBy('name')->get();
     }
 
     public function students() {

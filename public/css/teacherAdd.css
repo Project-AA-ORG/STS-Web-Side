@@ -39,9 +39,9 @@
     align-items: center;
 }
 
-.childbox_2 {
-    width: 12rem;
-    height: 4.5rem;
+.childbox2 {
+    max-width: 12rem;
+    height: 6rem;
     border-radius: 6px;
     background-color: #F5F4F6;
     text-align: center;
@@ -49,9 +49,20 @@
     border: solid white 1px;
 }
 
+.childbox3 {
+    display: flex;
+    width: 12rem;
+    height: 6rem;
+    border-radius: 6px;
+    background-color: #F5F4F6;
+    text-align: center;
+    border: solid white 1px;
+    justify-content: center;
+    align-items: center;
+}
 
 
-.DERSDROP {
+.COURSEDROP {
     border: solid white 1px;
     display: block;
     text-align: center;
@@ -187,12 +198,12 @@
         height: 4rem;
     }
     
-    .childbox_2 {
-        width: 8rem;
+    .childbox2 {
+        max-width: 8rem;
         height: 4rem;
     }
     
-    .DERSDROP {
+    .COURSEDROP {
         width: 8rem;
         height: 4rem;
     }
@@ -209,12 +220,12 @@
         height: 4rem;
     }
     
-    .childbox_2 {
-        width: 7rem;
+    .childbox2 {
+        max-width: 7rem;
         height: 4rem;
     }
     
-    .DERSDROP {
+    .COURSEDROP {
         width: 7rem;
         height: 4rem;
     }

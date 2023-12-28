@@ -12,7 +12,7 @@ class Course extends Model
     protected $primaryKey = 'course_id';
 
     public static function getAllCourses(){
-        return course::all();
+        return course::orderBy('course_name')->get();
     }
 
     public static function getCourseInId($courseId){

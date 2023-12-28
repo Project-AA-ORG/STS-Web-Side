@@ -1,4 +1,4 @@
-.icerikbox{
+.contentbox{
     display: flex;
     width: 25rem;
     height: 18rem;
@@ -148,10 +148,10 @@
 @media (min-width: 500px) and (max-width: 576px) {
 
  
-    .icerikbox{
+    .contentbox{
         max-width: 24.5rem;
     }
-    #overlayicerik{
+    #overlaycontent{
         margin-left: 4%;
     }
 
@@ -178,11 +178,12 @@
     }
     
     
-    #overlayicerik{
+    #overlaycontent{
         margin-left: 3%;
     }
-    .icerikbox{
+    .contentbox{
         max-width: clamp( 85%,24.5rem,92%);
+        font-size: 14px;
     }
     .buttondiv{
         margin-left: -0.5rem;
@@ -209,8 +210,9 @@
         gap: 1rem;
     }
 
-    .icerikbox{
+    .contentbox{
         max-width: 92%;
+        font-size: 13px;
     }
 
 }

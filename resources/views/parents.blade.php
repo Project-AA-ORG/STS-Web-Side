@@ -8,11 +8,10 @@
     <title>Velilerimiz</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
     <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/parents.css') }}" rel="stylesheet">
     <link href="{{ asset('css/parentAdd.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="icon" href="/images/square_logo2.png" type="image/x-icon">
@@ -22,8 +21,6 @@
             width: 10rem;
             height: 4rem;
         }
-
-        .rowlar {}
 
         .dropdown-menu {
             max-height: 7rem;
@@ -39,8 +36,8 @@
         @include('sidemenu')
 
         <!-- ekranın ortasındaki dikdortgen -->
-        <div class="veliler" id="fullHeightDiv">
-            <div class="listele">
+        <div class="Parents" id="fullHeightDiv">
+            <div class="listitems">
 
                 <!-- arama barı -->
                 <div id="bar" style="width: 100%;" class="d-inline-flex p-2 bd-highlight">
@@ -53,17 +50,34 @@
                 </div>
 
                 <!-- listeleneceği ve scroll bar oluşturacak olan div -->
-                <div class="listele2">
-
-                    @foreach ($data['parents'] as $item)
-                        <a id="satir" class="satir veli-satiri"
+                <div class="listitems2">
+                    @php
+                        $locale = 'tr'; // Set the locale to Turkish (change it based on your needs)
+                        $sortedParents = $data['parents']->sort(function ($a, $b) use ($locale) {
+                            return strcmp(
+                                utf8_encode(
+                                    Str::of($a->name)
+                                        ->lower()
+                                        ->slug('-'),
+                                ),
+                                utf8_encode(
+                                    Str::of($b->name)
+                                        ->lower()
+                                        ->slug('-'),
+                                ),
+                            );
+                        });
+                    @endphp
+                    {{-- $data['parents']  --}}
+                    @foreach ($sortedParents as $item)
+                        <a id="line" class="line parentline"
                             href="{{ route('get-update-parent-page', ['parentId' => $item->parent_id]) }}">
-                            <div class="veli-satiri-yazisi" for="name"> {{ $item->name }} </div>
+                            <div class="parentlinetext"> {{ $item->name }} </div>
                         </a>
                     @endforeach
 
                 </div>
-                <div class="buttondiv_1">
+                <div class="buttondiv1">
                     <button class="btn btn-light" id="myBtn" style="background-color: #E8D5B9;">Veli
                         Ekle</button>
                 </div>
@@ -95,10 +109,10 @@
 
                                             <div class="col-sm childbox ">Öğrencileri</div>
 
-                                            <div class="col-sm childbox_2 form-check custom-control custom-checkbox ">
+                                            <div class="col-sm childbox2 form-check custom-control custom-checkbox ">
 
                                                 @foreach ($data['students'] as $item)
-                                                    <div class="rowlar">
+                                                    <div class="rows">
                                                         <input type="checkbox" id="students_{{ $item->student_id }}"
                                                             name="student_id[]" value="{{ $item->student_id }}"
                                                             class="form-check-input custom-control-input col-sm">
@@ -156,7 +170,7 @@
                 </div>
             @endif
         </div>
-        <div id="overlayError_2"
+        <div id="overlayError2"
             style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999;">
             <div
                 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffcccc; padding: 20px; border-radius: 5px;">
@@ -164,7 +178,7 @@
             </div>
         </div>
 
-        <div id="overlayError_3"
+        <div id="overlayError3"
             style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999;">
             <div
                 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffcccc; padding: 20px; border-radius: 5px;">
@@ -215,7 +229,7 @@
     let searchInput = document.getElementById('searchInput');
     searchInput.addEventListener('input', function() {
         const searchQuery = this.value.toLowerCase();
-        const elements = document.querySelectorAll('.listele a');
+        const elements = document.querySelectorAll('.listitems a');
 
         elements.forEach(function(element) {
             const text = element.textContent.toLowerCase();
@@ -229,14 +243,6 @@
 </script>
 
 <script>
-    document.querySelectorAll('.ogrenci-item').forEach(item => {
-        item.addEventListener('click', function() {
-            let selectedText = this.textContent.trim();
-            let ogrenciDropdown = document.querySelector('.ogrenci-dropdown');
-            ogrenciDropdown.textContent = selectedText;
-        });
-    });
-
     function setSelectedStudent(selected, id) {
         console.log('Selected Student:', selected);
         console.log('Student ID:', id);
@@ -244,7 +250,6 @@
     }
 
     function resetDropdowns() {
-        document.querySelector('.ogrenci-dropdown').textContent = 'Seçiniz';
         document.getElementById('classroom_id').value = '';
     }
 </script>
@@ -258,11 +263,11 @@
             event.preventDefault(); // Prevent form submission
 
             // Show overlay message for no student selected
-            document.getElementById('overlayError_2').style.display = 'block';
+            document.getElementById('overlayError2').style.display = 'block';
 
             // Hide overlay message after a certain time (adjust as needed)
             setTimeout(function() {
-                document.getElementById('overlayError_2').style.display = 'none';
+                document.getElementById('overlayError2').style.display = 'none';
             }, 2000);
         }
     });
@@ -278,7 +283,7 @@
     var errorMessage = document.querySelector('.error');
     if (errorMessage && errorMessage.innerText === "Bu username daha önce kullanıldı") {
         event.preventDefault(); // Prevent form submission
-        document.getElementById('overlayError_3').style.display = 'block';
+        document.getElementById('overlayError3').style.display = 'block';
         // Overlay stays open because of the error
     } else {
         // Overlay closes as there's no error
@@ -286,5 +291,30 @@
     }
 </script>
 
+<script>
+    function navigateToRoute(route) {
+        window.location.href = route;
+    }
+
+    let sidebar = document.querySelector('.sidebar');
+    let topmenuBtn = document.getElementById('topmenuBtn');
+
+    // Toggle the sidebar when topmenuBtn is clicked
+    topmenuBtn.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+    });
+
+    // Toggle the sidebar when the initial sidebar toggle button is clicked
+    document.getElementById('btn').addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+    });
+</script>
+
+
+<script>
+    document.querySelector('.back-btn').addEventListener('click', function() {
+        window.history.back();
+    });
+</script>
 
 </html>

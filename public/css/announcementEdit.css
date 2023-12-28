@@ -2,11 +2,6 @@ body,
 html {
 
     background: #c4c4c4;
-    /* background-image: url("/images/edit.png");
-    background-size: cover; 
-    background-repeat: no-repeat;
-    background-position: center; 
-   */
     height: 100vh;
     margin: 0;
     overflow: auto;
@@ -19,7 +14,7 @@ html {
     height: 100vh;
 }
 
-.duzenle {
+.edit {
     overflow: auto;
     width: 60%;
     height: 35rem;
@@ -37,11 +32,11 @@ html {
     margin-top: 0.5rem;
 }
 
-.row_1 {
+.row1 {
     margin-top: 1.5rem;
 }
 
-#cizgi{
+#actualline{
     width: 99.5%;
     margin: 1rem;
     margin-left: -0.000000001px;
@@ -62,24 +57,22 @@ html {
 
 }
 
-.INPUT_2 {
+.INPUT2 {
     margin: 1rem;
     margin-top: 0;
     height: 20rem;
     width: 100%;
     border-radius: 8px;
     background: #F5F4F6;
-    overflow-x: auto;
-    overflow-y: hidden;
 }
 
-#kayıtdivi {
+#regdiv {
     margin-top: 1rem;
     height: 4rem;
     text-align: center;
 }
 
-.kayıt {
+.reg {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -88,7 +81,7 @@ html {
     height: 3rem;
 }
 
-.kayıt_design_2 {
+.regdesign2 {
     border-radius: 5px;
     background-color: #E8D5B9;
     width: 14rem;
@@ -98,7 +91,7 @@ html {
 }
 
 
-.kayıt_design_3 {
+.regdesign3 {
     border-radius: 5px;
     background-color: #E8D5B9;
     width: 14rem;
@@ -107,12 +100,12 @@ html {
     font-size: 16px;
 }
 
-.kayıt_design_3:hover {
+.regdesign3:hover {
     color: white;
     background-color: #f44336;
 }
 
-.kayıt_design_2:hover {
+.regdesign2:hover {
     color: white;
     background-color: #4CAF50;
 }
@@ -153,7 +146,7 @@ html {
     border-radius: 4px;
 }
 
-#backbutton_1 {
+#backbutton1 {
     margin: 0;
     margin-bottom: -24px;
 }
@@ -204,13 +197,11 @@ html {
 
 @media (max-width: 500px) {
 
-    .duzenle {
+    .edit {
         top: 0;
         max-height: 100%;
         overflow-x: hidden;
     }
-
-
 
     #mainbox {
         text-align: center;
@@ -222,7 +213,7 @@ html {
         border: none;
     }
 
-    #backbutton_1 {
+    #backbutton1 {
         pointer-events: none;
         opacity: 0;
     }
@@ -231,13 +222,13 @@ html {
         opacity: 1;
         pointer-events: all;
     }
-    .kayıt{
+    .reg{
         margin: 0.3rem;
         max-width: 12rem;
         margin-left: calc((100% - 12rem) / 2);
     }
 
-    #kayıtdivi{
+    #regdiv{
         margin-top: 0;
     }
 }
@@ -250,13 +241,13 @@ html {
         top: calc((100vh - 37rem) / 2);
     }
 
-    .kayıt{
+    .reg{
         margin: 0.3rem;
         max-width: 15rem;
         margin-left: calc((100% - 15rem) / 2);
     }
 
-    #kayıtdivi{
+    #regdiv{
         margin-top: 0;
     }
 }
@@ -269,13 +260,13 @@ html {
         top: calc((100vh - 37rem) / 2);
     }
 
-    .kayıt{
+    .reg{
         margin: 0.3rem;
         max-width: 15rem;
         margin-left: calc((100% - 15rem) / 2);
     }
 
-    #kayıtdivi{
+    #regdiv{
         margin-top: 0;
     }
 }
@@ -286,7 +277,7 @@ html {
         width: 70%;
     }
 
-    .kayıt_design_2, .kayıt_design_3 {
+    .regdesign2, .regdesign3 {
         font-size: 12px;
     }
 

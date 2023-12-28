@@ -8,11 +8,10 @@
     <title>Ogrencilerimiz</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
     <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/students.css') }}" rel="stylesheet">
     <link href="{{ asset('css/studentAdd.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="icon" href="/images/square_logo2.png" type="image/x-icon">
@@ -22,8 +21,6 @@
             width: 10rem;
             height: 4rem;
         }
-
-        .rowlar {}
 
         .dropdown-menu {
             max-height: 7rem;
@@ -38,9 +35,9 @@
         @include('sidemenu')
 
         {{-- Outside div in body to contain everything --}}
-        <div class="ogrenciler" id="fullHeightDiv">
+        <div class="Students" id="fullHeightDiv">
 
-            <div class="listele">
+            <div class="listitems">
 
                 <!-- arama barı -->
                 <div id="bar" style="width: 100%;" class="d-inline-flex p-2 bd-highlight">
@@ -53,19 +50,37 @@
                 </div>
 
                 <!-- listeleneceği ve scroll bar oluşturacak olan div -->
-                <div class="listele2">
+                <div class="listitems2">
+                    @php
+                        $locale = 'tr'; // Set the locale to Turkish (change it based on your needs)
+                        $sortedStudents = $data['students']->sort(function ($a, $b) use ($locale) {
+                            return strcmp(
+                                utf8_encode(
+                                    Str::of($a->name)
+                                        ->lower()
+                                        ->slug('-'),
+                                ),
+                                utf8_encode(
+                                    Str::of($b->name)
+                                        ->lower()
+                                        ->slug('-'),
+                                ),
+                            );
+                        });
+                    @endphp
 
-                    @foreach ($data['students'] as $item)
-                        <a id="satir" class="satir ogrenci-satiri"
+                    {{-- data['students'] --}}
+                    @foreach ($sortedStudents as $item)
+                        <a id="line" class="line studentline"
                             href="{{ route('get-update-student-page', ['studentId' => $item->student_id]) }}">
-                            <img class="ogrenci-satiri-gorseli" src="{{ $item->ogrenci }}">
-                            <div class="ogrenci-satiri-yazisi" for="name"> {{ $item->name }} </div>
+                            <img class="studentlineimg" src="{{ $item->student_image }}" alt="Student Image">
+                            <div class="studentlinetext"> {{ $item->name }}</div>
                         </a>
                     @endforeach
 
                 </div>
                 <!-- Trigger/Open The Modal -->
-                <div class="buttondiv_1">
+                <div class="buttondiv1">
                     <button class="btn btn-light" id="myBtn" style="background-color: #E8D5B9;">Öğrenci
                         Ekle</button>
                 </div>
@@ -107,7 +122,7 @@
                                             <div class="dropdown">
                                                 <button
                                                     style="overflow:auto; background-color: #F5F4F6; padding: 24px; color: black;"
-                                                    class="col-sm DERSDROP btn btn-secondary dropdown-toggle btn-sm sinif-dropdown"
+                                                    class="col-sm COURSEDROP btn btn-secondary dropdown-toggle btn-sm class-dropdown"
                                                     type="button" id="sinifDropdownButton" data-toggle="dropdown"
                                                     aria-haspopup="true" aria-expanded="false">
                                                     Seçiniz
@@ -118,7 +133,7 @@
                                                 <div class="dropdown-menu" aria-labelledby="sinifDropdownButton">
 
                                                     @foreach ($data['classrooms'] as $item)
-                                                        <a class="dropdown-item sinif-item" href="#"
+                                                        <a class="dropdown-item class-item" href="#"
                                                             data-classroom-id="{{ $item->classroom_id }}"
                                                             onclick="setSelectedClassroom('{{ $item->classroom_name }}', '{{ $item->classroom_id }}')">
                                                             {{ $item->classroom_name }}
@@ -136,6 +151,12 @@
                                                 placeholder="giriniz" class="col-sm childbox ">
                                         </div>
 
+                                        <div class="row">
+                                            <div class="childbox col-sm">Öğrenci No</div>
+                                            <input type = "number" id="studentnumber" name="studentnumber" required
+                                                placeholder="giriniz" class="childbox col-sm">
+                                        </div>
+
                                     </div>
                                     {{-- buttons in overlay --}}
                                     <div class="buttondiv">
@@ -149,21 +170,14 @@
                                     </div>
                                 </div>
                             </form>
-                            <div id="overlayError_2"
+                            <div id="overlayError2"
                                 style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999;">
                                 <div
                                     style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffcccc; padding: 20px; border-radius: 5px;">
                                     Lütfen bir sınıf seçiniz.
                                 </div>
                             </div>
-                            <div id="overlayError_3"
-                                style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999;">
-                                <div
-                                    style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffcccc; padding: 20px; border-radius: 5px;">
-                                    Bu username daha önce kullanıldı.
-                                </div>
-                            </div>
-    
+
                         </div>
 
                     </div>
@@ -172,11 +186,11 @@
 
             </div>
             @if (isset($data['error']))
-            <div id="overlayError"
-                style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffcccc; padding: 20px; border-radius: 5px; z-index: 1000;">
-                Kullanıcı adı daha önceden de kullanıldığı için öğrenci kaydedilemedi.
-            </div>
-        @endif
+                <div id="overlayError"
+                    style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffcccc; padding: 20px; border-radius: 5px; z-index: 1000;">
+                    Kullanıcı adı daha önceden de kullanıldığı için öğrenci kaydedilemedi.
+                </div>
+            @endif
         </div>
     </div>
 
@@ -224,7 +238,7 @@
 
     searchInput.addEventListener('input', function() {
         const searchQuery = this.value.toLowerCase();
-        const elements = document.querySelectorAll('.listele a');
+        const elements = document.querySelectorAll('.listitems a');
 
         elements.forEach(function(element) {
             const text = element.textContent.toLowerCase();
@@ -252,10 +266,10 @@
     });
 </script>
 <script>
-    document.querySelectorAll('.sinif-item').forEach(item => {
+    document.querySelectorAll('.class-item').forEach(item => {
         item.addEventListener('click', function() {
             let selectedText = this.textContent.trim();
-            let sinifDropdown = document.querySelector('.sinif-dropdown');
+            let sinifDropdown = document.querySelector('.class-dropdown');
             sinifDropdown.textContent = selectedText;
         });
     });
@@ -267,7 +281,7 @@
     }
 
     function resetDropdowns() {
-        document.querySelector('.sinif-dropdown').textContent = 'Seçiniz';
+        document.querySelector('.class-dropdown').textContent = 'Seçiniz';
         document.getElementById('classroom_id').value = '';
     }
 </script>
@@ -281,11 +295,11 @@
             event.preventDefault(); // Prevent form submission
 
             // Show overlay message for select element
-            document.getElementById('overlayError_2').style.display = 'block';
+            document.getElementById('overlayError2').style.display = 'block';
 
             // Hide overlay message after 3 seconds (adjust as needed)
             setTimeout(function() {
-                document.getElementById('overlayError_2').style.display = 'none';
+                document.getElementById('overlayError2').style.display = 'none';
             }, 2000);
         }
     });
@@ -297,12 +311,37 @@
     var errorMessage = document.querySelector('.error');
     if (errorMessage && errorMessage.innerText === "Bu username daha önce kullanıldı") {
         event.preventDefault(); // Prevent form submission
-        document.getElementById('overlayError_3').style.display = 'block';
+        document.getElementById('overlayError3').style.display = 'block';
         // Overlay stays open because of the error
     } else {
         // Overlay closes as there's no error
         document.getElementById('myModal').style.display = 'none';
     }
+</script>
+<script>
+    function navigateToRoute(route) {
+        window.location.href = route;
+    }
+
+    let sidebar = document.querySelector('.sidebar');
+    let topmenuBtn = document.getElementById('topmenuBtn');
+
+    // Toggle the sidebar when topmenuBtn is clicked
+    topmenuBtn.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+    });
+
+    // Toggle the sidebar when the initial sidebar toggle button is clicked
+    document.getElementById('btn').addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+    });
+</script>
+
+
+<script>
+    document.querySelector('.back-btn').addEventListener('click', function() {
+        window.history.back();
+    });
 </script>
 
 </html>

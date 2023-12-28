@@ -7,8 +7,7 @@ html {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.buttondiv_1 {
-
+.buttondiv1 {
     text-align: center;
     margin: 1rem;
 }
@@ -19,7 +18,7 @@ html {
     height: 100vh;
 }
 
-.duyurular {
+.Announcements {
 
     overflow: auto;
     display: block;
@@ -35,19 +34,19 @@ html {
 }
 
 
-.listele {
+.listitems {
     background: #3b6653;
     width: 92%;
     margin-left: 4%;
     height: 93%;
 }
 
-.listele2 {
+.listitems2 {
     overflow: auto;
     height: 85%;
 }
 
-.duyuru-satiri {
+.announcementline {
     display: flex;
     border-radius: 5px;
     margin-top: 1%;
@@ -62,7 +61,7 @@ html {
 }
 
 
-.duyuru-satiri-yazisi {
+.announcementlinetext {
     padding: 1%;
     margin-left: 5%;
     display: inline-block;
@@ -76,8 +75,8 @@ html {
     text-overflow:ellipsis;
 }
 
-.satir:link,
-.satir:visited {
+.line:link,
+.line:visited {
     background-color: white;
     color: black;
     border: 2px solid #5a906f;
@@ -86,8 +85,8 @@ html {
     display: inline-block;
 }
 
-.satir:hover,
-.satir:active {
+.line:hover,
+.line:active {
     background-color: #5a906f;
     color: white;
 }
@@ -133,8 +132,10 @@ html {
 }
 
 @media (max-width: 500px) {
-
-    .duyurular {
+    .listitems {
+        height: 75%;
+    }
+    .Announcements {
         width: 100%;
         top: 3rem;
         height: calc(100vh - 3rem);
@@ -143,14 +144,14 @@ html {
     }
 
 
-    .duyuru-satiri {
+    .announcementline {
         margin-top: 1%;
         margin-left: 2%;
         width: 96%;
         min-width: 255px;
     }
 
-    .duyuru-satiri-yazisi {
+    .announcementlinetext {
         margin-left: 5%;
         padding: 1%;
         height: 9%;
@@ -162,7 +163,7 @@ html {
 
 @media (min-width: 500px) and (max-width: 1100px) {
 
-    .duyurular {
+    .Announcements {
         margin-left: 3rem; 
     }
  

@@ -8,9 +8,9 @@
     <title>Ogrenci Duzenle Ekrani</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
     <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/studentEdit.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="icon" href="/images/square_logo2.png" type="image/x-icon">
@@ -25,7 +25,7 @@
         @include('sidemenu')
         <!-- sidebar tasarımı son -->
 
-        <div id="mainbox" class="duzenle container">
+        <div id="mainbox" class="edit container">
             <form id="yourFormId" action="{{ route('get-update-student') }}" method="POST">
 
                 <p id="backbutton_1"><button id="toclick" style="color: black;" class="btn back-btn"><i
@@ -34,22 +34,22 @@
                     <div class="col-md-4">
 
                         <div class="photo">
-                            <img src="{{ $data['student'] }}">
+                            <img src="{{ $data['student']->student_image }}" alt="Student Image">
                         </div>
 
 
-                        <div class="kayıt_divi">
+                        <div class="regdiv">
                             @csrf
-                            <div class="kayıt">
+                            <div class="reg">
 
-                                <button type="submit" class="btn btn-light kayıt_design_1"><strong>
+                                <button type="submit" class="btn btn-light regdesign1"><strong>
                                         Öğrenciyi Kaydet</strong></button>
 
                             </div>
 
                             @csrf
-                            <div class="kayıt">
-                                <button id="del" type="submit" class="btn btn-light kayıt_design_2"
+                            <div class="reg">
+                                <button id="del" type="submit" class="btn btn-light regdesign2"
                                     form="del"><strong>
                                         Öğrenciyi Sil</strong></button>
                             </div>
@@ -73,7 +73,7 @@
                                 <div class="LABEL col-sm-4"><b>Sınıf</b></div>
 
                                 <button style="font-size:16px; background-color: #F5F4F6; color: black;"
-                                    class="btn btn-secondary dropdown-toggle btn-sm sinif-dropdown INPUT col-sm-7"
+                                    class="btn btn-secondary dropdown-toggle btn-sm class-dropdown INPUT col-sm-7"
                                     type="button" id="sinifDropdownButton" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false">
                                     {{ isset($data['student']->classroom->classroom_name) ? $data['student']->classroom->classroom_name : 'Seçiniz' }}
@@ -84,7 +84,7 @@
                                 <div class="dropdown-menu" aria-labelledby="dersDropdownButton">
 
                                     @foreach ($data['classrooms'] as $item)
-                                        <a class="dropdown-item sinif-item" href="#"
+                                        <a class="dropdown-item class-item" href="#"
                                             data-course-id="{{ $item->classroom_id }}"
                                             onclick="setSelectedClassroom('{{ $item->classroom_name }}', '{{ $item->classroom_id }}')">
                                             {{ $item->classroom_name }}
@@ -95,7 +95,6 @@
 
                             </div>
 
-
                             <div class="row">
                                 <div class="LABEL col-sm-4"><b>Kullanıcı Adı</b></div>
                                 <input type="text" name="username" id="username"
@@ -103,19 +102,26 @@
                                     placeholder="{{ $data['student']->username }}" class="INPUT col-sm-7">
 
                             </div>
+                            <div class="row">
+                                <div class="LABEL col-sm-4"><b>Öğrenci No</b></div>
+                                <input type="number" name="studentnumber" id="studentnumber"
+                                    value="{{ $data['student']->studentnumber }}" required
+                                    placeholder="{{ $data['student']->studentnumber }}" class="INPUT col-sm-7">
 
-                            <div id="kayıtdivi2" class="kayıt_divi_2 row">
+                            </div>
+
+                            <div id="regdiv2" class="registerdiv2 row">
                                 @csrf
-                                <div class="kayıt">
+                                <div class="reg">
 
-                                    <button type="submit" class="btn btn-light kayıt_design_1"><strong>
+                                    <button type="submit" class="btn btn-light regdesign1"><strong>
                                             Öğrenciyi Kaydet</strong></button>
 
                                 </div>
 
                                 @csrf
-                                <div class="kayıt">
-                                    <button id="del" type="submit" class="btn btn-light kayıt_design_3"
+                                <div class="reg">
+                                    <button id="del" type="submit" class="btn btn-light regdesign3"
                                         form="del"><strong>
                                             Öğrenciyi Sil</strong></button>
                                 </div>
@@ -129,8 +135,8 @@
             </form>
         </div>
 
-        <form id="del" action="{{ route('get-delete-student', ['studentId' => $data['student']->student_id]) }}"
-            method="GET">
+        <form id="del"
+            action="{{ route('get-delete-student', ['studentId' => $data['student']->student_id]) }}" method="GET">
             <div id="confirmationModal" class="modal_2">
                 <div class="modal-content_2">
                     <p>Öğrenciyi silmek istediğine emin misin?</p>
@@ -140,10 +146,7 @@
             </div>
         </form>
 
-
-
     </div>
-
 
     <script>
         // Function to display the modal
@@ -163,14 +166,14 @@
             });
         }
 
-        // Listen for click on kayıt_design_2 button
-        document.querySelector('.kayıt_design_2').addEventListener('click', function(event) {
+        // Listen for click on regdesign2 button
+        document.querySelector('.regdesign2').addEventListener('click', function(event) {
             event.preventDefault();
 
             // Show the confirmation modal for deletion
             displayModalForDeletion();
         });
-        document.querySelector('.kayıt_design_3').addEventListener('click', function(event) {
+        document.querySelector('.regdesign3').addEventListener('click', function(event) {
             event.preventDefault();
 
             // Show the confirmation modal for deletion
@@ -195,7 +198,7 @@
 </body>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
         const btn = document.getElementById('btn');
         const toClick = document.getElementById('toclick');
         const sidebar = document.getElementById('sidebar');
@@ -210,7 +213,7 @@
         });
 
         toClick.addEventListener('click', function(event) {
-            window.history.back();
+            window.location.href = "{{ route('get-our-student-page') }}";
             event.preventDefault();
         });
     });
@@ -225,12 +228,30 @@
 </script>
 
 <script>
-    document.querySelectorAll('.sinif-item').forEach(item => {
+    document.querySelectorAll('.class-item').forEach(item => {
         item.addEventListener('click', function() {
             let selectedText = this.textContent.trim();
-            let sinifDropdown = document.querySelector('.sinif-dropdown');
+            let sinifDropdown = document.querySelector('.class-dropdown');
             sinifDropdown.textContent = selectedText;
         });
+    });
+</script>
+<script>
+    function navigateToRoute(route) {
+        window.location.href = route;
+    }
+
+    let sidebar = document.querySelector('.sidebar');
+    let topmenuBtn = document.getElementById('topmenuBtn');
+
+    // Toggle the sidebar when topmenuBtn is clicked
+    topmenuBtn.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+    });
+
+    // Toggle the sidebar when the initial sidebar toggle button is clicked
+    document.getElementById('btn').addEventListener('click', function() {
+        sidebar.classList.toggle('active');
     });
 </script>
 

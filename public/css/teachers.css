@@ -8,7 +8,7 @@ html {
 
 }
 
-.buttondiv_1 {
+.buttondiv1 {
 
     text-align: center;
     margin: 1rem;
@@ -21,7 +21,7 @@ html {
     height: 100vh;
 }
 
-.ogretmenler {
+.Teachers {
 
     overflow: auto;
     display: block;
@@ -37,19 +37,19 @@ html {
 }
 
 
-.listele {
+.listitems {
     background: #3b6653;
     width: 92%;
     margin-left: 4%;
     height: 93%;
 }
 
-.listele2 {
+.listitems2 {
     overflow: auto;
     height: 85%;
 }
 
-.ogretmen-satiri {
+.teacherline {
     display: flex;
     border-radius: 5px;
     margin-top: 1%;
@@ -62,7 +62,7 @@ html {
     justify-content: center;
 }
 
-.ogretmen-satiri-gorseli {
+.lineimg {
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 5px;
@@ -76,7 +76,7 @@ html {
 }
 
 
-.ogretmen-satiri-yazisi {
+.linetext {
     padding: 1%;
     margin-left: 3%;
     display: inline-block;
@@ -90,8 +90,8 @@ html {
     text-overflow: ellipsis; 
 }
 
-.satir:link,
-.satir:visited {
+.line:link,
+.line:visited {
     background-color: white;
     color: black;
     border: 2px solid #5a906f;
@@ -100,8 +100,8 @@ html {
     display: inline-block;
 }
 
-.satir:hover,
-.satir:active {
+.line:hover,
+.line:active {
     background-color: #5a906f;
     color: white;
 }
@@ -148,7 +148,7 @@ html {
 
 @media (max-width: 500px) {
 
-    .ogretmenler {
+    .Teachers {
         width: 100%;
         top: 3rem;
         height: calc(100vh - 3rem);
@@ -157,14 +157,14 @@ html {
     }
 
 
-    .ogretmen-satiri {
+    .teacherline {
         margin-top: 1%;
         margin-left: 2%;
         width: 94%;
         min-width: 255px;
     }
 
-    .ogretmen-satiri-gorseli {
+    .lineimg {
         width: 2.0rem;
         height: 2.0rem;
         border-radius: 5px;
@@ -173,16 +173,21 @@ html {
     }
 
 
-    .ogretmen-satiri-yazisi {
+    .linetext {
         margin-left: 3%;
         padding: 1%;
         height: 9%;
     }
+
+    .listitems {
+        height: 75%;
+    }
+    
 }
 
 @media (min-width: 500px) and (max-width: 1100px) {
 
-    .ogretmenler {
+    .Teachers {
 
         margin-left: 3rem;
       

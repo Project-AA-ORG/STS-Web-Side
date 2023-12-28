@@ -8,10 +8,10 @@
     <title>Ogretmenlerimiz</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
     <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/teachers.css') }}" rel="stylesheet">
     <link href="{{ asset('css/teacherAdd.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="icon" href="/images/square_logo2.png" type="image/x-icon">
@@ -20,12 +20,11 @@
 
 <style>
     #bar2 {
-        width: 10rem;
+        width: 15rem;
         height: 4rem;
     }
 
-    .rowlar {}
-    .dropdown-menu{
+    .dropdown-menu {
         max-height: 7rem;
         overflow: auto;
     }
@@ -39,10 +38,10 @@
         @include('sidemenu')
 
         {{-- Outside div in body to contain everything --}}
-        <div class="ogretmenler" id="fullHeightDiv">
+        <div class="Teachers" id="fullHeightDiv">
 
             <!-- All teachers from database will be listed here -->
-            <div class="listele">
+            <div class="listitems">
                 {{-- search bar --}}
                 <div id="bar" style="width: 100%;" class="d-inline-flex p-2 bd-highlight">
                     <nav style="width: 100%; border-radius: 5px;" class="navbar navbar-light bg-light">
@@ -53,18 +52,38 @@
                     </nav>
                 </div>
                 {{-- Teachers will be listed here --}}
-                <div class="listele2">
-                    @foreach ($data['teachers'] as $item)
-                        <a id="{{ $item->teacher_id }}" class="satir ogretmen-satiri"
+                <div class="listitems2">
+
+                    @php
+                        $locale = 'tr'; // Set the locale to Turkish (change it based on your needs)
+                        $sortedTeachers = $data['teachers']->sort(function ($a, $b) use ($locale) {
+                            return strcmp(
+                                utf8_encode(
+                                    Str::of($a->name)
+                                        ->lower()
+                                        ->slug('-'),
+                                ),
+                                utf8_encode(
+                                    Str::of($b->name)
+                                        ->lower()
+                                        ->slug('-'),
+                                ),
+                            );
+                        });
+                    @endphp
+
+                    {{-- $data['teachers'] --}}
+                    @foreach ($sortedTeachers as $item)
+                        <a id="{{ $item->teacher_id }}" class="line teacherline"
                             href="{{ route('get-update-teacher-page', ['teacherId' => $item->teacher_id]) }}">
-                            <img class="ogretmen-satiri-gorseli" src="{{ $item->teacher_image }}">
-                            <div class="ogretmen-satiri-yazisi" for="name"> {{ $item->name }} </div>
+                            <img class="lineimg" src="{{ $item->teacher_image }}" alt="Teacher image">
+                            <div class="linetext"> {{ $item->name }} </div>
                         </a>
                     @endforeach
                 </div>
 
                 {{-- add teacher button to open overlay  --}}
-                <div class="buttondiv_1">
+                <div class="buttondiv1">
                     <button class="btn btn-light" id="myBtn" style="background-color: #E8D5B9;">Öğretmen
                         Ekle</button>
                 </div>
@@ -73,7 +92,7 @@
 
             <div id="myModal" class="modal">
                 <div class="modal-content">
-                        {{-- model content --}}
+                    {{-- model content --}}
                     <div class="bigbox">
                         {{-- close button --}}
                         <div class="modal-header">
@@ -95,27 +114,40 @@
                                             <input type="text" id="name" name="name" required
                                                 placeholder="giriniz" class="childbox col-sm">
                                         </div>
-                                        {{-- second input classroom array--}}
+                                        {{-- second input classroom array --}}
                                         <div class="row">
 
-                                            <div class="col-sm childbox ">Sınıfları</div>
+                                            <div class="col-sm childbox3">Sınıfları</div>
 
-                                            <div class="col-sm childbox_2 form-check custom-control custom-checkbox ">
+                                            <div class="col-sm childbox2 form-check custom-control custom-checkbox">
+                                                <div>
+                                                    <nav id="searchNav"
+                                                        style="position: sticky; top: 0; z-index: 100; margin: 0; padding: 0; margin-left: -1.5rem; width: 11.5rem; border-radius: 5px;">
+                                                        <form class="form-inline">
+                                                            <input id="searchClass" class="form-control mr-sm-2"
+                                                                type="search" placeholder="&#x1F50E; Sınıf Ara"
+                                                                aria-label="Ara">
+                                                        </form>
+                                                    </nav>
+                                                </div>
 
-                                                @foreach ($data['classroom'] as $item)
-                                                    <div class="rowlar">
-                                                        <input type="checkbox" id="classroom_{{ $item->classroom_id }}"
-                                                            name="classroom_id[]" value="{{ $item->classroom_id }}"
-                                                            class="form-check-input custom-control-input col-sm">
-                                                        <label for="classroom_{{ $item->classroom_id }}"
-                                                            class="form-check-label custom-control-label col-sm"
-                                                            style="cursor: pointer;">
-                                                            {{ $item->classroom_name }}
-                                                        </label>
-                                                    </div>
-                                                @endforeach
-
+                                                <div class="classroom-list">
+                                                    @foreach ($data['classroom'] as $item)
+                                                        <div class="rows">
+                                                            <input type="checkbox"
+                                                                id="classroom_{{ $item->classroom_id }}"
+                                                                name="classroom_id[]" value="{{ $item->classroom_id }}"
+                                                                class="form-check-input custom-control-input col-sm">
+                                                            <label for="classroom_{{ $item->classroom_id }}"
+                                                                class="form-check-label custom-control-label col-sm"
+                                                                style="cursor: pointer;">
+                                                                {{ $item->classroom_name }}
+                                                            </label>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
                                             </div>
+
                                         </div>
 
                                         <!-- course dropdown-->
@@ -123,17 +155,18 @@
                                             <div class="childbox col-sm">Ders</div>
                                             <div class="dropdown">
                                                 <button style="overflow:auto; background-color: #F5F4F6; color:black;"
-                                                    class="col-sm  btn btn-secondary dropdown-toggle btn-sm ders-dropdown DERSDROP"
+                                                    class="col-sm  btn btn-secondary dropdown-toggle btn-sm course-dropdown COURSEDROP"
                                                     type="button" id="dersDropdownButton" data-toggle="dropdown"
                                                     aria-haspopup="true" aria-expanded="false">
                                                     Seçiniz
                                                 </button>
 
-                                                <input type="hidden" name="course_id" id="course_id" value="Seçiniz">
+                                                <input type="hidden" name="course_id" id="course_id"
+                                                    value="Seçiniz">
                                                 <div class="dropdown-menu" aria-labelledby="dersDropdownButton">
 
                                                     @foreach ($data['course'] as $item)
-                                                        <a class="dropdown-item ders-item" href="#"
+                                                        <a class="dropdown-item course-item" href="#"
                                                             data-course-id="{{ $item->course_id }}"
                                                             onclick="setSelectedcourse('{{ $item->course_name }}', '{{ $item->course_id }}')">
                                                             {{ $item->course_name }}
@@ -177,14 +210,14 @@
                 </div>
 
                 {{-- error messages  will be shown as overlays --}}
-                <div id="overlayError_1"
+                <div id="overlayError1"
                     style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999;">
                     <div
                         style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffcccc; padding: 20px; border-radius: 5px;">
                         Lütfen bir ders seçiniz.
                     </div>
                 </div>
-                <div id="overlayError_2"
+                <div id="overlayError2"
                     style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999;">
                     <div
                         style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffcccc; padding: 20px; border-radius: 5px;">
@@ -262,7 +295,7 @@
     let searchInput = document.getElementById('searchInput');
     searchInput.addEventListener('input', function() {
         const searchQuery = this.value.toLowerCase();
-        const elements = document.querySelectorAll('.listele a');
+        const elements = document.querySelectorAll('.listitems a');
 
         elements.forEach(function(element) {
             const text = element.textContent.toLowerCase();
@@ -277,10 +310,10 @@
 
 <script>
     // dropdown
-    document.querySelectorAll('.ders-item').forEach(item => {
+    document.querySelectorAll('.course-item').forEach(item => {
         item.addEventListener('click', function() {
             let selectedText = this.textContent.trim();
-            let dersDropdown = document.querySelector('.ders-dropdown');
+            let dersDropdown = document.querySelector('.course-dropdown');
             dersDropdown.textContent = selectedText;
         });
     });
@@ -297,7 +330,7 @@
     }
     // clears dropdown
     function resetDropdowns() {
-        document.querySelector('.ders-dropdown').textContent = 'Seçiniz';
+        document.querySelector('.course-dropdown').textContent = 'Seçiniz';
         document.getElementById('course_id').value = '';
     }
 </script>
@@ -318,11 +351,11 @@
             event.preventDefault(); // Prevent form submission
 
             // Show overlay error message
-            document.getElementById('overlayError_1').style.display = 'block';
+            document.getElementById('overlayError1').style.display = 'block';
 
             // Hide overlay error message after 3 seconds (adjust as needed)
             setTimeout(function() {
-                document.getElementById('overlayError_1').style.display = 'none';
+                document.getElementById('overlayError1').style.display = 'none';
             }, 2000);
         }
         var selectedCheckboxes = document.querySelectorAll('input[name="classroom_id[]"]:checked');
@@ -331,11 +364,11 @@
             event.preventDefault(); // Prevent form submission
 
             // Show overlay message for classroom selection
-            document.getElementById('overlayError_2').style.display = 'block';
+            document.getElementById('overlayError2').style.display = 'block';
 
             // Hide overlay message after a certain time (adjust as needed)
             setTimeout(function() {
-                document.getElementById('overlayError_2').style.display = 'none';
+                document.getElementById('overlayError2').style.display = 'none';
             }, 2000);
         }
     });
@@ -360,5 +393,51 @@
     }
 </script>
 
+<script>
+    function navigateToRoute(route) {
+        window.location.href = route;
+    }
+
+    let sidebar = document.querySelector('.sidebar');
+    let topmenuBtn = document.getElementById('topmenuBtn');
+
+    // Toggle the sidebar when topmenuBtn is clicked
+    topmenuBtn.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+    });
+
+    // Toggle the sidebar when the initial sidebar toggle button is clicked
+    document.getElementById('btn').addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+    });
+</script>
+
+
+<script>
+    document.querySelector('.back-btn').addEventListener('click', function() {
+        window.history.back();
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput2 = document.getElementById('searchClass');
+        const labels2 = document.querySelectorAll('.classroom-list .form-check-label');
+
+        searchInput2.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+
+            labels2.forEach(label => {
+                const text = label.textContent.toLowerCase();
+                const row = label.parentElement;
+                if (text.includes(searchTerm)) {
+                    row.style.display = 'block';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
 
 </html>

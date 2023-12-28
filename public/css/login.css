@@ -40,18 +40,6 @@ body, html {
     margin: 0;
 }
   
-.bg {
-    /* The image used */
-    background-image: url("/images/background 2.jpg");
-    display: flex;
-    /* Full height */
-    height: 100%;
-  
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
 
 
 .parent {

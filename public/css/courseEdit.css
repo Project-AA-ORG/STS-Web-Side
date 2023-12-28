@@ -19,7 +19,7 @@ html {
     height: 100vh;
 }
 
-.duzenle {
+.edit {
     overflow: auto;
     width: 60%;
     height: 19rem;
@@ -67,7 +67,7 @@ html {
     text-align: center;
 }
 
-.INPUT_2 {
+.INPUT2 {
     display: block;
     border-radius: 8px;
     background: #F5F4F6;
@@ -78,13 +78,13 @@ html {
 }
 
 
-#kayıtdivi {
+#regdiv {
     margin-top: 1rem;
     height: 4rem;
     text-align: center;
 }
 
-.kayıt {
+.reg {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -93,7 +93,7 @@ html {
     height: 3rem;
 }
 
-.kayıt_design_2 {
+.regdesign2 {
     border-radius: 5px;
     background-color: #E8D5B9;
     width: 14rem;
@@ -103,7 +103,7 @@ html {
 }
 
 
-.kayıt_design_3 {
+.regdesign3 {
     border-radius: 5px;
     background-color: #E8D5B9;
     width: 14rem;
@@ -112,17 +112,17 @@ html {
     font-size: 16px;
 }
 
-.kayıt_design_3:hover {
+.regdesign3:hover {
     color: white;
     background-color: #f44336;
 }
 
-.kayıt_design_2:hover {
+.regdesign2:hover {
     color: white;
     background-color: #4CAF50;
 }
 
-.minibox_2 {
+.minibox2 {
 
     display: inline-block;
     text-align: center;
@@ -142,6 +142,12 @@ html {
     -ms-user-select: none;
     user-select: none;
 }
+
+.minibox2:hover{
+    text-decoration: none;
+}
+
+
 
 ::-webkit-scrollbar {
     width: 6px;
@@ -180,7 +186,7 @@ html {
 }
 
 
-#backbutton_1 {
+#backbutton1 {
     margin: 0;
     margin-bottom: -24px;
 }
@@ -233,7 +239,7 @@ html {
 
 @media (max-width: 500px) {
 
-    .duzenle {
+    .edit {
         top: 0;
         max-height: 100%;
         overflow-x: hidden;
@@ -265,7 +271,7 @@ html {
         border: none;
     }
 
-    #backbutton_1 {
+    #backbutton1 {
         pointer-events: none;
         opacity: 0;
     }
@@ -285,7 +291,7 @@ html {
         height: 3rem;
     }
 
-    .INPUT_2 {
+    .INPUT2 {
         height: 5rem;
     }
 
@@ -294,12 +300,12 @@ html {
         margin-top: 2rem;
     }
 
-    .kayıt {
+    .reg {
         width: 12rem;
         margin-top: 0.5rem;
     }
 
-    #kayıtdivi {
+    #regdiv {
         margin-top: 5rem;
         height: 4rem;
         margin-left: 3.2rem;
@@ -323,7 +329,7 @@ html {
         justify-content: flex-end;
     }
 
-    .duzenle {
+    .edit {
         max-height: 90%;
     }
 
@@ -360,7 +366,7 @@ html {
 
     }
 
-    .INPUT_2 {
+    .INPUT2 {
         height: 5rem;
     }
 
@@ -369,16 +375,16 @@ html {
         margin-top: 2rem;
     }
 
-    #backbutton_1 {
+    #backbutton1 {
         margin-left: -90%;
     }
 
-    .kayıt {
+    .reg {
         width: 12rem;
         margin-top: 0.5rem;
     }
 
-    #kayıtdivi {
+    #regdiv {
         margin-top: 5rem;
         height: 4rem;
         margin-left: 5rem;
@@ -397,7 +403,7 @@ html {
 
     }
 
-    .duzenle {
+    .edit {
         max-height: 90%;
     }
 
@@ -432,7 +438,7 @@ html {
 
     }
 
-    .INPUT_2 {
+    .INPUT2 {
         height: 5rem;
     }
 
@@ -440,16 +446,16 @@ html {
         margin-top: 2rem;
     }
 
-    #backbutton_1 {
+    #backbutton1 {
         margin-left: -90%;
     }
 
-    .kayıt {
+    .reg {
         width: 12rem;
         margin-top: 0.5rem;
     }
 
-    #kayıtdivi {
+    #regdiv {
         margin-top: 5rem;
         height: 4rem;
         margin-left: 5.5rem;
@@ -459,11 +465,11 @@ html {
 
 @media (min-width: 768px) and (max-width: 1057px) {
 
-    .kayıt_design_2 {
+    .regdesign2 {
         font-size: 12px;
     }
 
-    .kayıt_design_3 {
+    .regdesign3 {
         font-size: 12px;
     }
 
@@ -476,22 +482,18 @@ html {
 @media (min-width: 768px) and (max-width: 768px) {
 
 
-    .kayıt_design_3 {
+    .regdesign3 {
     }
 
     .LABEL {
         justify-content: center;
     }
 
-    .ogrenci-dropdown {
-        bottom: 0px;
-    }
-
-    #kayıtdivi {
+    #regdiv {
         margin-right: 7.5rem ;
     }
 
-    .kayıt {
+    .reg {
         min-width: 8rem;
     }
 }

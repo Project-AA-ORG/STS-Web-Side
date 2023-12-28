@@ -63,7 +63,7 @@ class CourseController extends Controller
                     $course = Course::getCourseInId($request->course_id);
                     $course->course_name = $request->course_name;
                     $course->save();
-                    return redirect()->route('get-our-course-page');
+                    return redirect()->route('get-update-course-page', ['courseId' => $request->course_id]);
                 }
                 else {
                         return  view("index"); // giriş yapılmadıysa login ekranına yollanır

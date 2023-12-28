@@ -23,6 +23,7 @@ class StudentController extends Controller
                     $student->password = $password;
                     $student->username = $request->username;
                     $student->classroom_id = $request->classroom_id;
+                    $student->student_no = $request->student_no;
 
                     if (!(Student::searchUserName($request->username))) { // daha önce bu username kullanılmış mı kullanılmamış mı diye kontrol ettim.
                         $student->save();
@@ -84,6 +85,7 @@ class StudentController extends Controller
                             $student->name = $request->name;
                             $student->username = $request->username;
                             $student->classroom_id = $request->classroom_id;
+                            $student->student_no = $request->student_no;
                             $student->save();
                             return redirect()->route('get-update-student-page', ['studentId' => $request->student_id]);
                         }
@@ -97,6 +99,7 @@ class StudentController extends Controller
                     else{
                         $student->name = $request->name;
                         $student->classroom_id = $request->classroom_id;
+                        $student->student_no = $request->student_no;
                         $student->save();
                         return redirect()->route('get-update-student-page');
                     }

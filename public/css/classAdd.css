@@ -39,28 +39,6 @@
     align-items: center;
 }
 
-.childbox_2 {
-    width: 12rem;
-    height: 4.5rem;
-    border-radius: 6px;
-    background-color: #F5F4F6;
-    text-align: center;
-    overflow: auto;
-    border: solid white 1px;
-}
-
-
-
-.DERSDROP {
-    border: solid white 1px;
-    display: block;
-    text-align: center;
-    border-radius: 4px;
-    background-color: #F5F4F6;
-    color: black;
-    height: 4.5rem;
-    width: 12rem;
-}
 
 .centeritems {
     display: grid;
@@ -186,16 +164,6 @@
         width: 8rem;
         height: 4rem;
     }
-    
-    .childbox_2 {
-        width: 8rem;
-        height: 4rem;
-    }
-    
-    .DERSDROP {
-        width: 8rem;
-        height: 4rem;
-    }
 
     .buttondiv {
         gap: 2rem;
@@ -205,16 +173,6 @@
 @media (max-width: 300px) {
 
     .childbox {
-        width: 7rem;
-        height: 4rem;
-    }
-    
-    .childbox_2 {
-        width: 7rem;
-        height: 4rem;
-    }
-    
-    .DERSDROP {
         width: 7rem;
         height: 4rem;
     }

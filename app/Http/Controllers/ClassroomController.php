@@ -67,6 +67,7 @@ class ClassroomController extends Controller
                     $classroom->classroom_name = $request->classroom_name;
                     $classroom->save();
                     return redirect()->route('get-our-classroom-page');
+                    return redirect()->route('get-update-classroom-page', ['classroomId' => $request->classroom_id]);
                 }
                 else {
                     return  view("index"); // giriş yapılmadıysa login ekranına yollanır

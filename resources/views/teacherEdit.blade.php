@@ -8,9 +8,9 @@
     <title>Ogretmen Duzenle Ekrani</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
     <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/teacherEdit.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="icon" href="/images/square_logo2.png" type="image/x-icon">
@@ -25,33 +25,33 @@
         @include('sidemenu')
         <!-- sidebar tasarımı son -->
 
-        <div id="mainbox" class="duzenle container">
+        <div id="mainbox" class="edit container">
 
             <form id="yourFormId" action="{{ route('get-update-teacher') }}" method="POST">
 
 
-                <p id="backbutton_1"><button id="toclick" style="color: black;" class="btn back-btn"><i
+                <p id="backbutton1"><button id="toclick" style="color: black;" class="btn back-btn"><i
                             class="fa-solid fa-arrow-left"></i></button></p>
 
-                <div class="row row_1">
+                <div class="row row1">
 
                     <div class="col-md-4">
                         <div class="photo">
-                            <img src="{{ $data['teacher'] }}">
+                            <img src="{{ $data['teacher']->teacher_image }}" alt="Teacher Image">
                         </div>
 
-                        <div class="kayıt_divi">
+                        <div class="regdiv">
                             @csrf
-                            <div class="kayıt">
+                            <div class="reg">
 
-                                <button type="submit" class="btn btn-light kayıt_design_1"><strong>
+                                <button type="submit" class="btn btn-light regdesign1"><strong>
                                         Öğretmeni Kaydet</strong></button>
 
                             </div>
 
                             @csrf
-                            <div class="kayıt">
-                                <button id="del" type="submit" class="btn btn-light kayıt_design_2"
+                            <div class="reg">
+                                <button id="del" type="submit" class="btn btn-light regdesign2"
                                     form="del"><strong>
                                         Öğretmeni Sil</strong></button>
                             </div>
@@ -74,7 +74,7 @@
 
                                     <button
                                         style="border:#F5F4F6; position: absolute; right:5px; justify-content:center; border-radius: 6px; background-color: #F5F4F6; color: black;"
-                                        class="btn btn-secondary dropdown-toggle btn-sm sinif-dropdown" type="button"
+                                        class="btn btn-secondary dropdown-toggle btn-sm class-dropdown" type="button"
                                         id="sinifDropdownButton" data-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
                                         <i class="fa-solid fa-plus"></i>
@@ -82,7 +82,7 @@
 
                                     <div id="classroomdropdown" class="dropdown-menu">
                                         @foreach ($data['classroom'] as $item)
-                                            <div class="sinif-item">
+                                            <div class="class-item">
                                                 <input style="cursor: pointer;" type="checkbox"
                                                     id="classroom_{{ $item->classroom_id }}" name="classroom_id[]"
                                                     value="{{ $item->classroom_id }}">
@@ -95,9 +95,9 @@
                                 </div>
 
                                 {{-- TEMP ORIGINAL LARAVEL CODE --}}
-                                <div id="createminibox" class="INPUT_2 col-sm-7">
+                                <div id="createminibox" class="INPUT2 col-sm-7">
                                     @foreach ($data['teacher']->classrooms as $item)
-                                        <div class="minibox_2">
+                                        <div class="minibox2">
 
                                             <input style="display:none; cursor: pointer;" type="checkbox"
                                                 id="classroom_{{ $item->classroom_id }}" name="classroom_id[]"
@@ -111,10 +111,10 @@
 
                             </div>
 
-                            <div id="dersrowu" class="row">
+                            <div id="courserow" class="row">
                                 <div class="LABEL col-sm-4"><b>Ders</b></div>
                                 <button style="font-size:16px; background-color: #F5F4F6; color: black;"
-                                    class="btn btn-secondary dropdown-toggle btn-sm ders-dropdown INPUT col-sm-7"
+                                    class="btn btn-secondary dropdown-toggle btn-sm course-dropdown INPUT col-sm-7"
                                     type="button" id="dersDropdownButton" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false">
                                     {{ isset($data['teacher']->course->course_name) ? $data['teacher']->course->course_name : 'Seçiniz' }}
@@ -124,7 +124,7 @@
                                     value="{{ $data['teacher']->course_id }}">
                                 <div class="dropdown-menu close_dropdown" aria-labelledby="dersDropdownButton">
                                     @foreach ($data['courses'] as $item)
-                                        <a class="dropdown-item ders-item" href="#"
+                                        <a class="dropdown-item course-item" href="#"
                                             data-course-id="{{ $item->course_id }}"
                                             onclick="setSelectedcourse('{{ $item->course_name }}', '{{ $item->course_id }}')">
                                             {{ $item->course_name }}
@@ -148,18 +148,16 @@
                                     placeholder="{{ $data['teacher']->phone }}" class="INPUT col-sm-7">
                             </div>
 
-                            <div id="kayıtdivi2" class="kayıt_divi_2 row">
+                            <div id="regdiv2" class="registerdiv2 row">
                                 @csrf
-                                <div class="kayıt">
-
-                                    <button type="submit" class="btn btn-light kayıt_design_1"><strong>
+                                <div class="reg">
+                                    <button type="submit" class="btn btn-light regdesign1"><strong>
                                             Öğretmeni Kaydet</strong></button>
-
                                 </div>
 
                                 @csrf
-                                <div class="kayıt">
-                                    <button id="del" type="submit" class="btn btn-light kayıt_design_3"
+                                <div class="reg">
+                                    <button id="del" type="submit" class="btn btn-light regdesign3"
                                         form="del"><strong>
                                             Öğretmeni Sil</strong></button>
                                 </div>
@@ -204,14 +202,14 @@
             });
         }
 
-        // Listen for click on kayıt_design_2 button
-        document.querySelector('.kayıt_design_2').addEventListener('click', function(event) {
+        // Listen for click on regdesign2 button
+        document.querySelector('.regdesign2').addEventListener('click', function(event) {
             event.preventDefault();
 
             // Show the confirmation modal for deletion
             displayModalForDeletion();
         });
-        document.querySelector('.kayıt_design_3').addEventListener('click', function(event) {
+        document.querySelector('.regdesign3').addEventListener('click', function(event) {
             event.preventDefault();
 
             // Show the confirmation modal for deletion
@@ -220,26 +218,26 @@
     </script>
 
     <script>
-        // Listen for changes in sinif-item checkboxes
-        document.querySelectorAll('.sinif-item input[type="checkbox"]').forEach(function(checkbox) {
+        // Listen for changes in class-item checkboxes
+        document.querySelectorAll('.class-item input[type="checkbox"]').forEach(function(checkbox) {
             checkbox.addEventListener('change', function() {
                 const classroomId = this.value; // Get the value of the selected checkbox
 
                 if (this.checked) {
-                    // If checkbox is checked, create a corresponding minibox_2 element
+                    // If checkbox is checked, create a corresponding minibox2 element
                     const minibox = document.createElement('div');
-                    minibox.className = 'minibox_2 checked'; // Add necessary classes
+                    minibox.className = 'minibox2 checked'; // Add necessary classes
                     minibox.innerHTML = `
             <input style="cursor:pointer;" type="checkbox" id="classroom_${classroomId}" name="classroom_id[]" value="${classroomId}" checked>
             <label style="cursor:pointer:" for="classroom_${classroomId}">${this.nextElementSibling.textContent}</label>
             `;
 
-                    // Append the newly created minibox_2 element to the container
+                    // Append the newly created minibox2 element to the container
                     document.getElementById('createminibox').appendChild(minibox);
                 } else {
-                    // If checkbox is unchecked, find and remove the corresponding minibox_2 element
+                    // If checkbox is unchecked, find and remove the corresponding minibox2 element
                     const miniboxToRemove = document.querySelector(
-                        `.minibox_2 input[value="${classroomId}"]`).parentNode;
+                        `.minibox2 input[value="${classroomId}"]`).parentNode;
                     miniboxToRemove.remove();
                 }
             });
@@ -265,8 +263,7 @@
 </body>
 
 <script>
-
-document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
         const btn = document.getElementById('btn');
         const toClick = document.getElementById('toclick');
         const sidebar = document.getElementById('sidebar');
@@ -281,7 +278,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         toClick.addEventListener('click', function(event) {
-            window.history.back();
+            window.location.href = "{{ route('get-our-teacher-page') }}";
             event.preventDefault();
         });
     });
@@ -306,10 +303,10 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <script>
-    document.querySelectorAll('.ders-item').forEach(item => {
+    document.querySelectorAll('.course-item').forEach(item => {
         item.addEventListener('click', function() {
             let selectedText = this.textContent.trim();
-            let dersDropdown = document.querySelector('.ders-dropdown');
+            let dersDropdown = document.querySelector('.course-dropdown');
             dersDropdown.textContent = selectedText;
         });
     });
@@ -328,9 +325,9 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <script>
-    const miniboxes = document.querySelectorAll('.minibox_2');
+    const miniboxes = document.querySelectorAll('.minibox2');
 
-    // Add click event listener to each .minibox_2
+    // Add click event listener to each .minibox2
     miniboxes.forEach((minibox) => {
         const checkbox = minibox.querySelector('input[type="checkbox"]');
 
@@ -354,11 +351,11 @@ document.addEventListener('DOMContentLoaded', function() {
 <script>
     // Simulate checking the checkboxes on page load
     document.addEventListener('DOMContentLoaded', function() {
-        const checkboxes = document.querySelectorAll('.minibox_2 input[type="checkbox"]');
+        const checkboxes = document.querySelectorAll('.minibox2 input[type="checkbox"]');
 
         checkboxes.forEach((checkbox) => {
             checkbox.checked = true; // Simulate check
-            const minibox = checkbox.parentNode; // Get the parent .minibox_2 element
+            const minibox = checkbox.parentNode; // Get the parent .minibox2 element
             minibox.classList.add('checked'); // Add a class to change color when checked
         });
     });
@@ -366,7 +363,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const miniboxes = document.querySelectorAll('.minibox_2');
+        const miniboxes = document.querySelectorAll('.minibox2');
         const input2Container = document.getElementById('classroom_id');
         const existingLabels = new Set(); // To store existing label names
 
@@ -392,27 +389,44 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-    const existingClassroomIds = new Set(); // To store existing classroom IDs
+        const existingClassroomIds = new Set(); // To store existing classroom IDs
 
-    const miniboxes = document.querySelectorAll('.minibox_2');
-    const input2Container = document.getElementById('classroom_id');
+        const miniboxes = document.querySelectorAll('.minibox2');
+        const input2Container = document.getElementById('classroom_id');
 
-    miniboxes.forEach((minibox) => {
-        const checkbox = minibox.querySelector('input[type="checkbox"]');
-        const classroomId = checkbox.value;
+        miniboxes.forEach((minibox) => {
+            const checkbox = minibox.querySelector('input[type="checkbox"]');
+            const classroomId = checkbox.value;
 
-        if (existingClassroomIds.has(classroomId)) {
-            minibox.remove(); // Remove duplicates
-        } else {
-            existingClassroomIds.add(classroomId); // Add the classroom ID to the Set
-        }
+            if (existingClassroomIds.has(classroomId)) {
+                minibox.remove(); // Remove duplicates
+            } else {
+                existingClassroomIds.add(classroomId); // Add the classroom ID to the Set
+            }
+        });
+
+        miniboxes.forEach((minibox) => {
+            input2Container.appendChild(minibox); // Append only unique checkboxes
+        });
+    });
+</script>
+<script>
+    function navigateToRoute(route) {
+        window.location.href = route;
+    }
+
+    let sidebar = document.querySelector('.sidebar');
+    let topmenuBtn = document.getElementById('topmenuBtn');
+
+    // Toggle the sidebar when topmenuBtn is clicked
+    topmenuBtn.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
     });
 
-    miniboxes.forEach((minibox) => {
-        input2Container.appendChild(minibox); // Append only unique checkboxes
+    // Toggle the sidebar when the initial sidebar toggle button is clicked
+    document.getElementById('btn').addEventListener('click', function() {
+        sidebar.classList.toggle('active');
     });
-});
-
 </script>
 
 </html>

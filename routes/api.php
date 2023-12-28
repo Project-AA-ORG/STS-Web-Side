@@ -43,3 +43,5 @@ Route::post('/v1/announcements/update', [AuthController::class, 'updateAnnouncem
 Route::post('/v1/homework/result/add', [AuthController::class, 'saveResultToDB']);
 //ödev puanını güncellemek için route
 Route::post('/v1/homework/result/update', [AuthController::class, 'updateResult']);
+//duyuru ve etkinlikleri göndermek için route
+Route::get('/v1/event/announcement', [AuthController::class, 'sendEventsAndAnnouncements']);
