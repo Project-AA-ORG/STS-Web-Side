@@ -137,9 +137,9 @@ class AuthController extends Controller
                     foreach ($homeworkWithResults as $homework) {
                         $imagePath = $homework->image;
                         // Eğer dosya varsa, base64 formatına çevir ve JSON yanıta ekle
-                        if (Storage::disk('public')->exists($imagePath)) {
+                        if ($imagePath && Storage::disk('public')->exists($imagePath)) {
                             $homework->image = base64_encode(File::get(storage_path("app/public/{$imagePath}")));
-                        }
+                        } 
                     }
                 } else{
                     $imagePath = $homeworkWithResults[0]->image;
@@ -173,7 +173,7 @@ class AuthController extends Controller
                 foreach ($homeworks as $homework) {
                     $imagePath = $homework->image;
                     // Eğer dosya varsa, base64 formatına çevir ve JSON yanıta ekle
-                    if (Storage::disk('public')->exists($imagePath)) {
+                    if ($imagePath && Storage::disk('public')->exists($imagePath)) {
                         $homework->image = base64_encode(File::get(storage_path("app/public/{$imagePath}")));
                     }
                 }
@@ -335,15 +335,16 @@ class AuthController extends Controller
     }
 
     public function sendEventsAndAnnouncements(){
-        $events = Event::getAllEvent();
+        $events = Event::getLast10Records();
         foreach ($events as $event) {
             $imagePath = $event->event_image;
             // Eğer dosya varsa, base64 formatına çevir ve JSON yanıta ekle
-            if (Storage::disk('public')->exists($imagePath)) {
+            if ($imagePath && Storage::disk('public')->exists($imagePath)) {
                 $event->event_image = base64_encode(File::get(storage_path("app/public/{$imagePath}")));
             }
         }
-        $announcements = GeneralAnnouncement::getAllAnnouncement();
+        $announcements = GeneralAnnouncement::getLast10Records();
         return response()->json(['events' => $events, 'announcements' => $announcements], 200);
     }
 }
+

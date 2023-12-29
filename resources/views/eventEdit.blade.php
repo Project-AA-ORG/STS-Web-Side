@@ -17,7 +17,7 @@
 
 </head>
 <style>
-    #toclick:hover{
+    #toclick:hover {
         color: white;
     }
 </style>
@@ -57,7 +57,11 @@
 
                                     <div class="photodiv">
 
-                                        <img id="myImage" src="{{ asset('storage/' . $data['event']->event_image) }}"
+                                        {{-- <img id="myImage" src="{{ asset('storage/' . $data['event']->event_image) }}"
+                                            alt="Event Image" class="photoimg">  --}}
+
+                                        <img id="myImage"
+                                            src="data:image/jpeg;base64,{{ $data['event']->event_image }}"
                                             alt="Event Image" class="photoimg">
 
                                         <div class="buttons">

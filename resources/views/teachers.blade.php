@@ -29,6 +29,10 @@
         overflow: auto;
     }
 
+    #dersDropdown {
+        max-width: 14rem;
+        max-height: 12rem;
+    }
 </style>
 
 <body>
@@ -122,9 +126,10 @@
                                             <div class="col-sm childbox2 form-check custom-control custom-checkbox">
                                                 <div>
                                                     <nav id="searchNav"
-                                                        style="position: sticky; top: 0; z-index: 100; margin: 0; padding: 0; margin-left: -1.5rem; width: 11.5rem; border-radius: 5px;">
+                                                        style="margin: 0; padding: 0; margin-left: -1.5rem; width:120%; border-radius: 5px;">
                                                         <form class="form-inline">
-                                                            <input id="searchClass" class="form-control mr-sm-2"
+                                                            <input style="height:1.7rem; font-size: 15px;"
+                                                                id="searchClass" class="form-control mr-sm-2"
                                                                 type="search" placeholder="&#x1F50E; Sınıf Ara"
                                                                 aria-label="Ara">
                                                         </form>
@@ -154,7 +159,8 @@
                                         <div class="row">
                                             <div class="childbox col-sm">Ders</div>
                                             <div class="dropdown">
-                                                <button style="overflow:auto; background-color: #F5F4F6; color:black;"
+                                                <button
+                                                    style="font-size:15px; overflow:auto; background-color: #F5F4F6; color:black;"
                                                     class="col-sm  btn btn-secondary dropdown-toggle btn-sm course-dropdown COURSEDROP"
                                                     type="button" id="dersDropdownButton" data-toggle="dropdown"
                                                     aria-haspopup="true" aria-expanded="false">
@@ -163,15 +169,44 @@
 
                                                 <input type="hidden" name="course_id" id="course_id"
                                                     value="Seçiniz">
-                                                <div class="dropdown-menu" aria-labelledby="dersDropdownButton">
+                                                <div class="dropdown-menu" id="dersDropdown">
+                                                    <div>
+                                                        <nav id="searchNav2" style="width:90%; border-radius: 5px;">
+                                                            <form class="form-inline">
+                                                                <input style="height:1.7rem; font-size: 15px;"
+                                                                    id="searchClass2" class="form-control mr-sm-2"
+                                                                    type="search" placeholder="&#x1F50E; Ders Ara"
+                                                                    aria-label="Ara">
+                                                            </form>
+                                                        </nav>
+                                                    </div>
 
-                                                    @foreach ($data['course'] as $item)
+                                                    @php
+                                                        $locale = 'tr'; // Set the locale to Turkish (change it based on your needs)
+                                                        $sortedCourses = $data['course']->sort(function ($a, $b) use ($locale) {
+                                                            return strcmp(
+                                                                utf8_encode(
+                                                                    Str::of($a->course_name)
+                                                                        ->lower()
+                                                                        ->slug('-'),
+                                                                ),
+                                                                utf8_encode(
+                                                                    Str::of($b->course_name)
+                                                                        ->lower()
+                                                                        ->slug('-'),
+                                                                ),
+                                                            );
+                                                        });
+                                                    @endphp
+
+                                                    @foreach ($sortedCourses as $item)
                                                         <a class="dropdown-item course-item" href="#"
                                                             data-course-id="{{ $item->course_id }}"
                                                             onclick="setSelectedcourse('{{ $item->course_name }}', '{{ $item->course_id }}')">
                                                             {{ $item->course_name }}
                                                         </a>
                                                     @endforeach
+
 
                                                 </div>
                                             </div>
@@ -434,6 +469,26 @@
                     row.style.display = 'block';
                 } else {
                     row.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput3 = document.getElementById('searchClass2');
+        const labels3 = document.querySelectorAll('#dersDropdown .dropdown-item');
+
+        searchInput3.addEventListener('input', function() {
+            const searchTerm2 = this.value.toLowerCase();
+
+            labels3.forEach(label => {
+                const text = label.textContent.toLowerCase();
+                if (text.includes(searchTerm2)) {
+                    label.style.display = 'block';
+                } else {
+                    label.style.display = 'none';
                 }
             });
         });

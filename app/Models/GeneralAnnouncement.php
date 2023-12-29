@@ -15,6 +15,11 @@ class GeneralAnnouncement extends Model
         return GeneralAnnouncement::all();
     }
 
+    public static function getLast10Records(){
+        $recordCount = GeneralAnnouncement::get()->count();
+        return ($recordCount < 10) ? GeneralAnnouncement::get() : GeneralAnnouncement::latest()->take(10)->get();
+    }
+
     public static function getAnnouncementInId($announcementId){
         return GeneralAnnouncement::where("general_announcement_id", $announcementId)->first();
     }

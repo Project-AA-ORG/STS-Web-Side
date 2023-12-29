@@ -18,6 +18,15 @@
 
 </head>
 
+<style>
+    #classroomdropdown {
+        min-height: 2rem;
+        max-height: 8rem;
+        max-width: 5rem;
+        border: 1px solid gray;
+    }
+</style>
+
 <body>
 
     <div class="centerEdit">
@@ -81,7 +90,25 @@
                                     </button>
 
                                     <div id="classroomdropdown" class="dropdown-menu">
-                                        @foreach ($data['classroom'] as $item)
+                                        <div>
+                                            <nav id="searchNav" style="max-width: 10rem; border-radius: 5px;">
+                                                <form class="form-inline">
+                                                    <input style="height:1.7rem; font-size: 15px;" id="searchClass"
+                                                        class="form-control mr-sm-2" type="search"
+                                                        placeholder="&#x1F50E; Sınıf Ara" aria-label="Ara">
+                                                </form>
+                                            </nav>
+                                        </div>
+                                        @php
+                                            // Sort the $data['classroom'] array by classroom_name with Turkish locale
+                                            $sortedClassrooms = $data['classroom']->sort(function ($a, $b) {
+                                                setlocale(LC_COLLATE, 'tr_TR.UTF-8'); // Set Turkish locale for comparison
+
+                                                return strcoll($a->classroom_name, $b->classroom_name);
+                                            });
+                                        @endphp
+
+                                        @foreach ($sortedClassrooms as $item)
                                             <div class="class-item">
                                                 <input style="cursor: pointer;" type="checkbox"
                                                     id="classroom_{{ $item->classroom_id }}" name="classroom_id[]"
@@ -90,6 +117,7 @@
                                                     for="classroom_{{ $item->classroom_id }}">{{ $item->classroom_name }}</label>
                                             </div>
                                         @endforeach
+
                                     </div>
 
                                 </div>
@@ -115,21 +143,58 @@
                                 <div class="LABEL col-sm-4"><b>Ders</b></div>
                                 <button style="font-size:16px; background-color: #F5F4F6; color: black;"
                                     class="btn btn-secondary dropdown-toggle btn-sm course-dropdown INPUT col-sm-7"
-                                    type="button" id="dersDropdownButton" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
+                                    type="button" id="dersDropdownButton" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
                                     {{ isset($data['teacher']->course->course_name) ? $data['teacher']->course->course_name : 'Seçiniz' }}
 
                                 </button>
                                 <input type="hidden" name="course_id" id="course_id"
                                     value="{{ $data['teacher']->course_id }}">
                                 <div class="dropdown-menu close_dropdown" aria-labelledby="dersDropdownButton">
-                                    @foreach ($data['courses'] as $item)
+                                    <div>
+                                        <nav id="searchNav3" style="width:90%; border-radius: 5px;">
+                                            <form class="form-inline">
+                                                <input style="height:1.7rem; font-size: 15px;" id="searchClass3"
+                                                    class="form-control mr-sm-2" type="search"
+                                                    placeholder="&#x1F50E; Ders Ara" aria-label="Ara">
+                                            </form>
+                                        </nav>
+                                    </div>
+
+                                    @php
+                                        $locale = 'tr'; // Set the locale to Turkish (change it based on your needs)
+                                        $sortedCourses = $data['courses']->sort(function ($a, $b) use ($locale) {
+                                            return strcmp(
+                                                utf8_encode(
+                                                    Str::of($a->course_name)
+                                                        ->lower()
+                                                        ->slug('-'),
+                                                ),
+                                                utf8_encode(
+                                                    Str::of($b->course_name)
+                                                        ->lower()
+                                                        ->slug('-'),
+                                                ),
+                                            );
+                                        });
+                                    @endphp
+
+                                    @foreach ($sortedCourses as $item)
                                         <a class="dropdown-item course-item" href="#"
                                             data-course-id="{{ $item->course_id }}"
                                             onclick="setSelectedcourse('{{ $item->course_name }}', '{{ $item->course_id }}')">
                                             {{ $item->course_name }}
                                         </a>
                                     @endforeach
+
+
+                                    {{-- @foreach ($data['courses'] as $item)
+                                        <a class="dropdown-item course-item" href="#"
+                                            data-course-id="{{ $item->course_id }}"
+                                            onclick="setSelectedcourse('{{ $item->course_name }}', '{{ $item->course_id }}')">
+                                            {{ $item->course_name }}
+                                        </a>
+                                    @endforeach --}}
                                 </div>
                             </div>
 
@@ -428,5 +493,50 @@
         sidebar.classList.toggle('active');
     });
 </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchClass');
+        const classItems = document.querySelectorAll('.class-item');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+
+            classItems.forEach(item => {
+                const label = item.querySelector('label');
+                const text = label.textContent.toLowerCase();
+
+                if (text.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput3 = document.getElementById('searchClass3');
+        const labels3 = document.querySelectorAll('.course-item');
+
+        searchInput3.addEventListener('input', function() {
+            const searchTerm2 = this.value.toLowerCase();
+
+            labels3.forEach(label => {
+                const text = label.textContent.toLowerCase();
+                if (text.includes(searchTerm2)) {
+                    label.style.display = 'block';
+                } else {
+                    label.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+
+
+
 
 </html>

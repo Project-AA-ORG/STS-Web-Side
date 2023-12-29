@@ -15,7 +15,6 @@
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="icon" href="/images/square_logo2.png" type="image/x-icon">
 
-
 </head>
 
 <body>
@@ -104,9 +103,9 @@
                             </div>
                             <div class="row">
                                 <div class="LABEL col-sm-4"><b>Öğrenci No</b></div>
-                                <input type="number" name="studentnumber" id="studentnumber"
-                                    value="{{ $data['student']->studentnumber }}" required
-                                    placeholder="{{ $data['student']->studentnumber }}" class="INPUT col-sm-7">
+                                <input type="number" name="student_no" id="student_no"
+                                    value="{{ $data['student']->student_no }}" required
+                                    placeholder="{{ $data['student']->student_no }}" class="INPUT col-sm-7">
 
                             </div>
 

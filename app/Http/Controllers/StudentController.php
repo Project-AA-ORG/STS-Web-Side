@@ -101,7 +101,7 @@ class StudentController extends Controller
                         $student->classroom_id = $request->classroom_id;
                         $student->student_no = $request->student_no;
                         $student->save();
-                        return redirect()->route('get-update-student-page');
+                        return redirect()->route('get-update-student-page', ['studentId' => $request->student_id]);
                     }
                 }
                 else {

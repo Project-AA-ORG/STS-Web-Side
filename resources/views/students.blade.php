@@ -153,7 +153,7 @@
 
                                         <div class="row">
                                             <div class="childbox col-sm">Öğrenci No</div>
-                                            <input type = "number" id="studentnumber" name="studentnumber" required
+                                            <input type = "number" id="student_no" name="student_no" required
                                                 placeholder="giriniz" class="childbox col-sm">
                                         </div>
 
