@@ -12,7 +12,7 @@ class Classroom extends Model
     protected $primaryKey = 'classroom_id';
 
     public static function getAllClassrooms(){
-        return classroom::all();
+        return classroom::orderBy('classroom_name')->get();
     }
 
     public static function getClassroomInId($classroomId){

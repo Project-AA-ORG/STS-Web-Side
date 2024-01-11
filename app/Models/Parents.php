@@ -12,11 +12,11 @@ class Parents extends Model
     protected $primaryKey = 'parent_id';
 
     public static function getAllParents(){
-        return Parents::all();
+        return Parents::orderBy('name')->get();
     }
 
     public function students() {
-        return $this->belongsToMany(Student::class, 'parent_student', 'parent_id', 'student_id');
+        return $this->belongsToMany(Student::class, 'parent_student', 'parent_id', 'student_id')->with('classroom');
     }
 
     public static function studentsDoNotHaveThisParent($parentId){
@@ -25,8 +25,20 @@ class Parents extends Model
         return Student::whereNotIn('student_id', $parentStudent)->get();
     }
 
+    public static function getStudentsByParentId($parentId){
+        $parent = Parents::where("parent_id", $parentId)->first();
+        if ($parent) {
+            return $parent->students;
+        }
+        return null;
+    }
+
     public static function getParentWithStudent($parentId){
         return Parents::with('students')->where("parent_id", $parentId)->first();
+    }
+
+    public static function getParentsWithStudents(){
+        return Parents::with('students')->get();
     }
 
     public static function getParentInId($parentId){
