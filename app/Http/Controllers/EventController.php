@@ -6,6 +6,7 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
@@ -63,6 +64,7 @@ class EventController extends Controller
         }
         return  view("index");
     }
+
     public function updateEvent(Request $request){
         if ($request->isMethod('post')) {
             if (session()->has('login_control')) {
@@ -71,6 +73,10 @@ class EventController extends Controller
                     $event->event_title = $request->event_title;
                     $event->event_content = $request->event_content;
                     if ($request->hasFile('event_image')) {
+                        $event = Event::getEventInId($request->event_id);
+                        if ($event->event_image){
+                            Storage::disk('public')->delete($event->event_image);
+                        }
                         $image = $request->file('event_image');
                         $filename = Str::random(40) . '.' . $image->getClientOriginalExtension();
                         $path = $image->storeAs('event_images', $filename, 'public');
@@ -93,6 +99,10 @@ class EventController extends Controller
     public function deleteEvent($eventId){
         if (session()->has('login_control')) {
             if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
+                $event = Event::getEventInId($eventId);
+                if ($event->event_image){
+                    Storage::disk('public')->delete($event->event_image);
+                }
                 Event::deleteEvent($eventId);
                 return redirect()->route('get-our-event-page');
             } else {

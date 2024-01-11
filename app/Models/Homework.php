@@ -53,6 +53,10 @@ class Homework extends Model
         return homework::where("homework_id", $homeworkId)->first();
     }
 
+    public static function getLastHomeworkByClassroomId($classroomId){
+        return homework::where('classroom_id', $classroomId)->orderByDesc('created_at')->first();
+    }
+
     public static function deleteHomeworkInId($homeworkId){
         homework::where("homework_id", $homeworkId)->delete();
         HomeworkResult::where('homework_id', $homeworkId)->delete();

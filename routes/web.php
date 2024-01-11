@@ -64,6 +64,3 @@ Route::get('/ourCourses/deleteCourse/{courseId}', 'App\Http\Controllers\CourseCo
 Route::get('/ourClassrooms/deleteCourse/{classroomId}', 'App\Http\Controllers\ClassroomController@deleteClassroom')->name('get-delete-classroom');
 Route::get('/ourAnnouncements/deleteAnnouncement/{announcementId}', 'App\Http\Controllers\GeneralAnnouncementController@deleteAnnouncement')->name('get-delete-announcement');
 Route::get('/ourEvents/deleteEvent/{eventId}', 'App\Http\Controllers\EventController@deleteEvent')->name('get-delete-event');
-
-//Route to get img
-// Route::get('/get-event-image/{filename}', 'FileController@getEventImage')->name('getEventImage');

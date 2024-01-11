@@ -15,6 +15,11 @@ class Event extends Model
         return Event::all();
     }
 
+    public static function getLast10Records(){
+        $recordCount = Event::get()->count();
+        return ($recordCount < 10) ? Event::get() : Event::latest()->take(10)->get();
+    }
+
     public static function getEventInId($eventId){
         return Event::where("event_id", $eventId)->first();
     }

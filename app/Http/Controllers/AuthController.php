@@ -49,6 +49,15 @@ class AuthController extends Controller
                 foreach ($parentInfo as $parent){
                     if ($parent->username == $request->username){
                         if ($parent->password == $request->password){
+                            if (is_iterable($parent->students)){
+                                foreach ($parent->students as $student){
+                                    $imagePath = $student->student_image;
+                                    // Eğer dosya varsa, base64 formatına çevir ve JSON yanıta ekle
+                                    if ($imagePath && Storage::disk('public')->exists($imagePath)) {
+                                        $student->student_image = base64_encode(File::get(storage_path("app/public/{$imagePath}")));
+                                    }
+                                }
+                            }
                             return response()->json(['user' => $parent], 203);
                         }
                     }
@@ -56,6 +65,45 @@ class AuthController extends Controller
             }
         }
         return response()->json(['$error' => "Kullanıcı adı veya şifre hatalı!"], 404);
+    }
+    
+    public function changeTeacherPassword(Request $request){
+        if ($request->isMethod('post')) {
+            $teacher = Teacher::getTeacher($request->teacher_id);
+            if (isset($teacher)){
+                $teacher->password = $request->password;
+                $teacher->save();
+            }
+            return response()->json(['$success' => "Şifre değiştirildi"], 200);
+        } else{
+            return redirect()->route('home-page');
+        }
+    }
+
+    public function changeStudentPassword(Request $request){
+        if ($request->isMethod('post')) {
+            $student = Student::getStudentInId($request->student_id);
+            if (isset($student)){
+                $student->password = $request->password;
+                $student->save();
+            }
+            return response()->json(['$success' => "Şifre değiştirildi"], 200);
+        } else{
+            return redirect()->route('home-page');
+        }
+    }
+
+    public function changeParentPassword(Request $request){
+        if ($request->isMethod('post')) {
+            $parent = Parents::getParentInId($request->parent_id);
+            if (isset($parent)){
+                $parent->password = $request->password;
+                $parent->save();
+            }
+            return response()->json(['$success' => "Şifre değiştirildi"], 200);
+        } else{
+            return redirect()->route('home-page');
+        }
     }
 
     //bir velinin öğrencilerini json tipinde döndürür.
@@ -82,14 +130,12 @@ class AuthController extends Controller
             if (isset($request->course_name)){
                 $homework->course_name = $request->course_name;
             }
-            if ($request->hasFile('event_image')){
-                // $imageData = $request->image;
-                // $decodedImage = base64_decode($imageData);
-                // $homework->image = $decodedImage;
-                $image = $request->file('image');
-                $filename = Str::random(40) . '.' . $image->getClientOriginalExtension();
-                $path = $image->storeAs('images', $filename, 'public');
-                $homework->image = $path;
+            if (isset($request->hw_image)){
+                $imageData = $request->hw_image;
+                $image = base64_decode($imageData);
+                $filename = Str::random(40) . '.jpg';
+                Storage::disk('public')->put("images/{$filename}", $image);
+                $homework->image =  "images/{$filename}";
             }
             if (isset($request->due_date)){
                 $homework->due_date = $request->due_date;
@@ -129,17 +175,17 @@ class AuthController extends Controller
     }
 
     //classroom_id alıp o sınıfta yapılan duyurular verilen ödevler ve ödevlerin sonuçlarını dönderir. Veli ödev ve duyuru kısımlarını görüntülemek istediğinde gönderiyorum.
-    public function giveInformationAboutClass($classroomId, $studentId){
-        if (isset($studentId)){
+    public function giveInformationAboutClassHomework($classroomId, $studentId){
+        if (isset($studentId) && isset($classroomId)){
             $homeworkWithResults = Homework::getHomeworkWithResultsInId($studentId, $classroomId);
             if (isset($homeworkWithResults)){
                 if (is_iterable($homeworkWithResults)){
                     foreach ($homeworkWithResults as $homework) {
                         $imagePath = $homework->image;
                         // Eğer dosya varsa, base64 formatına çevir ve JSON yanıta ekle
-                        if (Storage::disk('public')->exists($imagePath)) {
+                        if ($imagePath && Storage::disk('public')->exists($imagePath)) {
                             $homework->image = base64_encode(File::get(storage_path("app/public/{$imagePath}")));
-                        }
+                        } 
                     }
                 } else{
                     $imagePath = $homeworkWithResults[0]->image;
@@ -149,12 +195,70 @@ class AuthController extends Controller
         } else{
             return response()->json(['error' => 'Informations cannot be given'], 400);
         }
+        return response()->json(['homeworks' => $homeworkWithResults], 200);
+    }
+
+    public function giveInformationAboutClassAnnouncement($classroomId){
         if (isset($classroomId)){
             $classroom_announcement = ClassroomAnnouncement::getAnnouncementInClassroom($classroomId);
         } else{
             return response()->json(['error' => 'Informations cannot be given'], 400);
         }
-        return response()->json(['classroom_announcements' => $classroom_announcement, 'homeworks' => $homeworkWithResults], 200);
+        return response()->json(['classroom_announcements' => $classroom_announcement], 200);
+    }
+
+    public function getImageForTeacher(Request $request){
+        if ($request->isMethod('post')){
+            $teacher = Teacher::getTeacher($request->teacherId);
+            if (isset($request->image_teacher)){
+                if ($teacher->teacher_image){
+                    Storage::disk('public')->delete($teacher->teacher_image);
+                }
+                $imageData = $request->image_teacher;
+                $image = base64_decode($imageData);
+                $filename = Str::random(40) . '.jpg';
+                Storage::disk('public')->put("images/{$filename}", $image);
+                $teacher->teacher_image =  "images/{$filename}";
+                $teacher->save();
+                return response()->json(['success' => 'Save is successful'], 200);
+            } else {
+                if ($teacher->teacher_image){
+                    Storage::disk('public')->delete($teacher->teacher_image);
+                }
+                $teacher->teacher_image = null;
+                $teacher->save();
+                return response()->json(['success' => 'Null save is successful'], 200);
+            }
+        } else {
+            return redirect()->route('home-page');
+        }
+    }
+
+    public function getImageForStudent(Request $request){
+        if ($request->isMethod('post')){
+            $student = Student::getStudentInId($request->studentId);
+            if (isset($request->image_student)){
+                if ($student->student_image){
+                    Storage::disk('public')->delete($student->student_image);
+                }
+                $imageData = $request->image_student;
+                $image = base64_decode($imageData);
+                $filename = Str::random(40) . '.jpg';
+                Storage::disk('public')->put("images/{$filename}", $image);
+                $student->student_image =  "images/{$filename}";
+                $student->save();
+                return response()->json(['success' => 'Save is successful'], 200);
+            } else {
+                if ($student->student_image){
+                    Storage::disk('public')->delete($student->student_image);
+                }
+                $student->student_image = null;
+                $student->save();
+                return response()->json(['success' => 'Null save is successful'], 200);
+            }
+        } else {
+            return redirect()->route('home-page');
+        }
     }
 
     public function classroomOfTeacher($teacherId){
@@ -165,15 +269,14 @@ class AuthController extends Controller
         return response()->json(['classrooms' => $classrooms], 200); 
     }
 
-    public function giveInformationAboutClassForTeacher($classroomId){
+    public function giveInformationAboutClassHomeworksForTeacher($classroomId){
         if (isset($classroomId)){
-            $classroom_announcement = ClassroomAnnouncement::getAnnouncementInClassroom($classroomId);
             $homeworks = Homework::getHomeworksWithResultsInId($classroomId);
             if (is_iterable($homeworks)){
                 foreach ($homeworks as $homework) {
                     $imagePath = $homework->image;
                     // Eğer dosya varsa, base64 formatına çevir ve JSON yanıta ekle
-                    if (Storage::disk('public')->exists($imagePath)) {
+                    if ($imagePath && Storage::disk('public')->exists($imagePath)) {
                         $homework->image = base64_encode(File::get(storage_path("app/public/{$imagePath}")));
                     }
                 }
@@ -182,7 +285,30 @@ class AuthController extends Controller
                 $homeworks[0]->image = base64_encode(File::get(storage_path("app/public/{$imagePath}")));
             } 
             $students = Student::getStudentInClassroomId($classroomId);
-            return response()->json(['classroom-announcements' => $classroom_announcement, 'homeworks' => $homeworks, 'students' => $students], 200);
+            if (is_iterable($students)){
+                foreach($students as $student){
+                    $imagePath = $student->student_image;
+                    // Eğer dosya varsa, base64 formatına çevir ve JSON yanıta ekle
+                    if ($imagePath && Storage::disk('public')->exists($imagePath)) {
+                        $student->student_image = base64_encode(File::get(storage_path("app/public/{$imagePath}")));
+                    }
+                }
+            } else{
+                $imagePath = $students[0]->student_image;
+                if ($imagePath && Storage::disk('public')->exists($imagePath)) {
+                    $students[0]->student_image = base64_encode(File::get(storage_path("app/public/{$imagePath}")));
+                }
+            }
+            return response()->json(['homeworks' => $homeworks, 'students' => $students], 200);
+        } else{
+            return response()->json(['error' => 'Informations cannot be given'], 400);
+        }
+    }
+
+    public function giveInformationAboutClassAnnouncementsForTeacher($classroomId){
+        if (isset($classroomId)){
+            $classroom_announcement = ClassroomAnnouncement::getAnnouncementInClassroom($classroomId);
+            return response()->json(['classroom-announcements' => $classroom_announcement], 200);
         } else{
             return response()->json(['error' => 'Informations cannot be given'], 400);
         }
@@ -200,6 +326,10 @@ class AuthController extends Controller
 
     public function deleteHomeworkInId($homeworkId){
         if (isset($homeworkId)){
+            $homework = Homework::getHomeworkInHomeworkId($homeworkId);
+            if ($homework->image){
+                Storage::disk('public')->delete($homework->image);
+            }
             Homework::deleteHomeworkInId($homeworkId);
             return response()->json(['success' => 'Homework is deleted'], 200);
         }
@@ -237,14 +367,15 @@ class AuthController extends Controller
             if (isset($request->course_name)){
                 $homework->course_name = $request->course_name;
             }
-            if (isset($request->image)){
-                // $imageData = $request->image;
-                // $decodedImage = base64_decode($imageData);
-                // $homework->image = $decodedImage;
-                $image = $request->file('image');
-                $filename = Str::random(40) . '.' . $image->getClientOriginalExtension();
-                $path = $image->storeAs('images', $filename, 'public');
-                $homework->image = $path;
+            if (isset($request->hw_image)){
+                if ($homework->image){
+                    Storage::disk('public')->delete($homework->image);
+                }
+                $imageData = $request->hw_image;
+                $image = base64_decode($imageData);
+                $filename = Str::random(40) . '.jpg';
+                Storage::disk('public')->put("images/{$filename}", $image);
+                $homework->image =  "images/{$filename}";
             }
             if (isset($request->due_date)){
                 $homework->due_date = $request->due_date;
@@ -335,15 +466,39 @@ class AuthController extends Controller
     }
 
     public function sendEventsAndAnnouncements(){
-        $events = Event::getAllEvent();
+        $events = Event::getLast10Records();
         foreach ($events as $event) {
             $imagePath = $event->event_image;
             // Eğer dosya varsa, base64 formatına çevir ve JSON yanıta ekle
-            if (Storage::disk('public')->exists($imagePath)) {
+            if ($imagePath && Storage::disk('public')->exists($imagePath)) {
                 $event->event_image = base64_encode(File::get(storage_path("app/public/{$imagePath}")));
             }
         }
-        $announcements = GeneralAnnouncement::getAllAnnouncement();
+        $announcements = GeneralAnnouncement::getLast10Records();
         return response()->json(['events' => $events, 'announcements' => $announcements], 200);
     }
+
+    public function getLastHomeworkAndAnnouncementId($studentId){
+        if (isset($studentId)){
+            $student = Student::getStudentInId($studentId);
+            if (isset($student)){
+                $classroomId = $student->classroom_id;
+                $lastHomework = Homework::getLastHomeworkByClassroomId($classroomId);
+                $lastAnnouncement = ClassroomAnnouncement::getLastAnnouncementByClassroomId($classroomId);
+                if (!(isset($lastHomework))){
+                    if (!(isset($lastAnnouncement))){
+                        return response()->json(['state' => "There is no homework and announcement"], 201);
+                    }
+                    return response()->json(['state' => "There is no homework", 'announcement_id' => $lastAnnouncement->classroom_announcement_id], 202);
+                }
+                if (!(isset($lastAnnouncement))){
+                    return response()->json(['state' => "There is no announcement", 'homework_id' => $lastHomework->homework_id], 203);
+                }
+                return response()->json(['homework_id' => $lastHomework->homework_id, 'announcement_id' => $lastAnnouncement->classroom_announcement_id], 200);
+            }
+            return response()->json(['state' => "There is no student in that id"], 204);
+        }
+        return response()->json(['error' => "This id is not valid or null"], 400);
+    }
 }
+

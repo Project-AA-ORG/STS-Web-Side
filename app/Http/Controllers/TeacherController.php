@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\File;
 
 class TeacherController extends Controller
 {
@@ -70,6 +71,21 @@ class TeacherController extends Controller
                 $data["classroom"] = Classroom::getAllClassrooms();
                 $data["course"] = Course::getAllCourses();
                 $data["teachers"] = Teacher::getAllTeachers();
+                if (isset($data["teachers"])){
+                    if (is_iterable($data["teachers"])){
+                        foreach($data["teachers"] as $teacher){
+                            $imagePath = $teacher->teacher_image;
+                            if ($imagePath){
+                                $teacher->teacher_image = base64_encode(File::get(storage_path("app/public/{$imagePath}")));
+                            } 
+                        }
+                    } else {
+                        $imagePath = $data["teachers"][0]->teacher_image;
+                        if ($imagePath){
+                            $data["teachers"][0]->teacher_image = base64_encode(File::get(storage_path("app/public/{$imagePath}")));
+                        } 
+                    }
+                }
                 //dd($data);
                 return view("teachers", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
             } else {
@@ -85,6 +101,10 @@ class TeacherController extends Controller
         if (session()->has('login_control')) {
             if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
                 $data["teacher"] = Teacher::getClassroomsWithTeacher($teacherId);
+                $imagePath = $data["teacher"]->teacher_image;
+                if ($imagePath){
+                    $data["teacher"]->teacher_image = base64_encode(File::get(storage_path("app/public/{$imagePath}")));
+                }
                 $data["classroom"] = Teacher::classroomsDoNotEnterThisTeacher($teacherId);
                 $data["courses"] = Course::getAllCourses();
                 return view("teacherEdit", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
@@ -110,6 +130,11 @@ class TeacherController extends Controller
                             $teacher->username = $request->username;
                             $teacher->phone = $request->phone;
                             $teacher->course_id = $request->course_id;
+                            if (isset($request->control)){
+                                if ($request->control){
+                                    $teacher->teacher_image = null;
+                                }
+                            }
                             $teacher->save();
                             
                             if (isset($request->classroom_id)){
@@ -144,6 +169,11 @@ class TeacherController extends Controller
                         $teacher->name = $request->name;    
                         $teacher->phone = $request->phone;
                         $teacher->course_id = $request->course_id;
+                        if (isset($request->control)){
+                            if ($request->control){
+                                $teacher->teacher_image = null;
+                            }
+                        }
                         $teacher->save();
 
                         if (isset($request->classroom_id)){
