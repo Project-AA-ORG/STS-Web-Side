@@ -84,12 +84,12 @@
                                     <div class="row">
                                         <div class="childbox col-sm">Duyuru Başlığı</div>
                                         <input type="text" id="announcement_title" name="announcement_title" required
-                                            placeholder="giriniz" class="childbox col-sm">
+                                            placeholder="giriniz" class="childbox col-sm" maxlength="50">
                                     </div>
 
                                     <div id="textrowu" class="row">
                                         <textarea style="resize: none;" id="announcement_content" name="announcement_content" required
-                                            placeholder="Duyuru içeriğini giriniz" class="contentbox col"></textarea>
+                                            placeholder="Duyuru içeriğini giriniz" class="contentbox col" maxlength="50000"></textarea>
                                     </div>
 
 
@@ -191,11 +191,5 @@
     });
 </script>
 
-
-<script>
-    document.querySelector('.back-btn').addEventListener('click', function() {
-        window.history.back();
-    });
-</script>
 
 </html>

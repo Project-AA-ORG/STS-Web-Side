@@ -200,8 +200,12 @@
     
     .childbox2 {
         max-width: 8rem;
-        height: 4rem;
     }
+
+    .childbox3 {
+        max-width: 8rem;
+    }
+    
     
     .COURSEDROP {
         width: 8rem;
@@ -222,8 +226,11 @@
     
     .childbox2 {
         max-width: 7rem;
-        height: 4rem;
     }
+    .childbox3 {
+        max-width: 7rem;
+    }
+    
     
     .COURSEDROP {
         width: 7rem;

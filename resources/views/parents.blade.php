@@ -102,15 +102,25 @@
                                         <div class="row">
                                             <div class="childbox col-sm">Ad Soyad</div>
                                             <input type="text" id="name" name="name" required
-                                                placeholder="giriniz" class="childbox col-sm">
+                                                placeholder="giriniz" class="childbox col-sm" maxlength="50">
                                         </div>
 
                                         <div class="row">
 
-                                            <div class="col-sm childbox ">Öğrencileri</div>
+                                            <div class="col-sm childbox3 ">Öğrencileri</div>
 
                                             <div class="col-sm childbox2 form-check custom-control custom-checkbox ">
-
+                                                <div>
+                                                    <nav
+                                                        style="margin: 0; padding: 0; margin-left: -1.5rem; width:120%; border-radius: 5px;">
+                                                        <form class="form-inline">
+                                                            <input style="height:1.7rem; font-size: 15px;"
+                                                                id="searchClass" class="form-control mr-sm-2"
+                                                                type="search" placeholder="&#x1F50E; Ara"
+                                                                aria-label="Ara">
+                                                        </form>
+                                                    </nav>
+                                                </div>
                                                 @foreach ($data['students'] as $item)
                                                     <div class="rows">
                                                         <input type="checkbox" id="students_{{ $item->student_id }}"
@@ -132,20 +142,21 @@
                                         <div class="row">
                                             <div class="col-sm childbox">Kullanıcı Adı</div>
                                             <input type="text" id="username" name="username" required
-                                                placeholder="giriniz" class="col-sm childbox ">
+                                                placeholder="giriniz" class="col-sm childbox" maxlength="50">
                                         </div>
 
                                         {{-- phone number input --}}
                                         <div class="row">
                                             <div class="childbox col-sm">Telefon No</div>
                                             <input type="tel" id="phone" name="phone" required
-                                                placeholder="giriniz" class="childbox col-sm">
+                                                placeholder="giriniz" class="childbox col-sm" maxlength="20">
                                         </div>
 
                                     </div>
                                     {{-- buttons in overlay --}}
                                     <div class="buttondiv">
-                                        <button type="reset" class="btn btn-light" style="background-color: #FF9595;"
+                                        <button type="reset" class="btn btn-light"
+                                            style="background-color: #FF9595;"
                                             onclick="resetDropdowns()">Temizle</button>
 
 
@@ -310,10 +321,44 @@
     });
 </script>
 
+<script>
+    let searchClassInput = document.getElementById('searchClass');
+
+    searchClassInput.addEventListener('input', function() {
+        const searchQuery = this.value.toLowerCase();
+        const studentLabels = document.querySelectorAll('.student-names');
+
+        studentLabels.forEach(function(label) {
+            const text = label.textContent.toLowerCase();
+            const parentDiv = label.parentElement;
+            if (text.includes(searchQuery)) {
+                parentDiv.style.display = 'block';
+            } else {
+                parentDiv.style.display = 'none';
+            }
+        });
+    });
+</script>
+<script>
+    function generateUsernameFromName(name) {
+        // Convert the name to lowercase and remove spaces
+        const formattedName = name.toLowerCase().replace(/\s/g, '');
+
+        // Generate a random string of characters (e.g., using Math.random())
+        const randomString = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+
+        const uniqueUsername = formattedName + randomString; // Combine name and random string
+        return uniqueUsername; // Return the generated username
+    }
+</script>
 
 <script>
-    document.querySelector('.back-btn').addEventListener('click', function() {
-        window.history.back();
+    document.getElementById('name').addEventListener('input', function() {
+        const enteredName = this.value;
+        const generatedUsername = generateUsernameFromName(enteredName);
+
+        // You can then populate your username input field with the generated username
+        document.getElementById('username').value = generatedUsername;
     });
 </script>
 

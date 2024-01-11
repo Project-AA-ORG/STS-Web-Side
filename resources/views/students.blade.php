@@ -26,6 +26,11 @@
             max-height: 7rem;
             overflow: auto;
         }
+
+        #sinifDropdown {
+            max-width: 7rem;
+            max-height: 8rem;
+        }
     </style>
 </head>
 
@@ -73,7 +78,8 @@
                     @foreach ($sortedStudents as $item)
                         <a id="line" class="line studentline"
                             href="{{ route('get-update-student-page', ['studentId' => $item->student_id]) }}">
-                            <img class="studentlineimg" src="{{ $item->student_image }}" alt="Student Image">
+                            <img class="studentlineimg" src="data:image/jpeg;base64,{{ $item->student_image }}"
+                                alt="">
                             <div class="studentlinetext"> {{ $item->name }}</div>
                         </a>
                     @endforeach
@@ -109,7 +115,7 @@
                                         <div class="row">
                                             <div class="childbox col-sm">Ad Soyad</div>
                                             <input type="text" id="name" name="name" required
-                                                placeholder="giriniz" class="childbox col-sm">
+                                                placeholder="giriniz" class="childbox col-sm" maxlength="50">
                                         </div>
 
 
@@ -130,9 +136,26 @@
 
                                                 <input type="hidden" name="classroom_id" id="classroom_id"
                                                     value="Seçiniz">
-                                                <div class="dropdown-menu" aria-labelledby="sinifDropdownButton">
+                                                <div class="dropdown-menu" aria-labelledby="sinifDropdownButton"
+                                                    id="sinifDropdown">
+                                                    <div>
+                                                        <nav id="searchNav2" style="width:90%; border-radius: 5px;">
+                                                            <form class="form-inline">
+                                                                <input style="height:1.7rem; font-size: 15px;"
+                                                                    id="searchClass2" class="form-control mr-sm-2"
+                                                                    type="search" placeholder="&#x1F50E; Ara"
+                                                                    aria-label="Ara">
+                                                            </form>
+                                                        </nav>
+                                                    </div>
 
-                                                    @foreach ($data['classrooms'] as $item)
+                                                    @php
+                                                        $sortedClasses = $data['classrooms']->sort(function ($a, $b) {
+                                                            return strnatcmp($a->classroom_name, $b->classroom_name);
+                                                        });
+                                                    @endphp
+
+                                                    @foreach ($sortedClasses as $item)
                                                         <a class="dropdown-item class-item" href="#"
                                                             data-classroom-id="{{ $item->classroom_id }}"
                                                             onclick="setSelectedClassroom('{{ $item->classroom_name }}', '{{ $item->classroom_id }}')">
@@ -148,13 +171,13 @@
                                         <div class="row">
                                             <div class="col-sm childbox">Kullanıcı Adı</div>
                                             <input type="text" id="username" name="username" required
-                                                placeholder="giriniz" class="col-sm childbox ">
+                                                placeholder="giriniz" class="col-sm childbox" maxlength="50">
                                         </div>
 
                                         <div class="row">
                                             <div class="childbox col-sm">Öğrenci No</div>
-                                            <input type = "number" id="student_no" name="student_no" required
-                                                placeholder="giriniz" class="childbox col-sm">
+                                            <input type = "tel" id="student_no" name="student_no" required
+                                                placeholder="giriniz" class="childbox col-sm" maxlength="30">
                                         </div>
 
                                     </div>
@@ -337,10 +360,51 @@
     });
 </script>
 
+<script>
+    let searchInput2 = document.getElementById(
+        'searchClass2'); // Assuming 'searchClass2' is the ID of your second search input
+    searchInput2.addEventListener('input', function() {
+        const searchQuery2 = this.value.toLowerCase();
+        const elements2 = document.querySelectorAll(
+            '.dropdown-menu .dropdown-item'
+            ); // Assuming this is the selector for the elements you want to filter
+
+        elements2.forEach(function(element) {
+            const text2 = element.textContent.toLowerCase();
+            if (text2.includes(searchQuery2)) {
+                element.style.display = 'block';
+            } else {
+                element.style.display = 'none';
+            }
+        });
+    });
+</script>
 
 <script>
-    document.querySelector('.back-btn').addEventListener('click', function() {
-        window.history.back();
+    document.getElementById('student_no').addEventListener('input', function() {
+        this.value = this.value.replace(/\D/g, ''); // Remove non-numeric characters
+    });
+</script>
+<script>
+    function generateUsernameFromName(name) {
+        // Convert the name to lowercase and remove spaces
+        const formattedName = name.toLowerCase().replace(/\s/g, '');
+
+        // Generate a random string of characters (e.g., using Math.random())
+        const randomString = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+
+        const uniqueUsername = formattedName + randomString; // Combine name and random string
+        return uniqueUsername; // Return the generated username
+    }
+</script>
+
+<script>
+    document.getElementById('name').addEventListener('input', function() {
+        const enteredName = this.value;
+        const generatedUsername = generateUsernameFromName(enteredName);
+
+        // You can then populate your username input field with the generated username
+        document.getElementById('username').value = generatedUsername;
     });
 </script>
 

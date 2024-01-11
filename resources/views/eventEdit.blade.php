@@ -14,11 +14,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="icon" href="/images/square_logo2.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
 </head>
 <style>
-    #toclick:hover {
-        color: white;
+    /* Add styles for the overlay */
+    #overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.95);
+        /* Adjust the opacity as needed */
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #overlay img {
+        max-width: 95%;
+        max-height: 95%;
     }
 </style>
 
@@ -28,7 +45,9 @@
         <!-- Sidebar tasarımı baslangıc -->
         @include('sidemenu')
         <!-- sidebar tasarımı son -->
-
+        <div id="overlay">
+            <img style="cursor: pointer;" id="overlayImage" src="" alt="Overlay Image">
+        </div>
         <div id="mainbox" class="edit container">
 
             <p id="backbutton1"><button id="toclick" style="color: black;" class="btn back-btn"><i
@@ -46,7 +65,7 @@
                             <div class="row">
                                 <input type="text" name="event_title" id="event_title"
                                     value="{{ $data['event']->event_title }}" required placeholder="event_title"
-                                    class="INPUT">
+                                    class="INPUT" maxlength="50">
                             </div>
 
                             <hr id="actualline">
@@ -60,10 +79,11 @@
                                         {{-- <img id="myImage" src="{{ asset('storage/' . $data['event']->event_image) }}"
                                             alt="Event Image" class="photoimg">  --}}
 
-                                        <img id="myImage"
-                                            src="data:image/jpeg;base64,{{ $data['event']->event_image }}"
-                                            alt="Event Image" class="photoimg">
-
+                                        <div class="photoimg">
+                                            <img id="myImage"
+                                                src="data:image/jpeg;base64,{{ $data['event']->event_image }}"
+                                                alt="Event Image" style="cursor: pointer;">
+                                        </div>
                                         <div class="buttons">
                                             <button type="button" class="btn btn-light my_button"
                                                 onclick="changeImage()">Görseli Değiştir</button>
@@ -81,7 +101,7 @@
 
                                 <div class="col-sm">
                                     <textarea style="resize: none; padding:5px;" id="event_content" name="event_content" required
-                                        placeholder="{{ $data['event']->event_content }}" class="INPUT2">{{ $data['event']->event_content }}</textarea>
+                                        placeholder="{{ $data['event']->event_content }}" class="INPUT2" maxlength="50000" >{{ $data['event']->event_content }}</textarea>
                                 </div>
                             </div>
 
@@ -281,6 +301,24 @@
     // Toggle the sidebar when the initial sidebar toggle button is clicked
     document.getElementById('btn').addEventListener('click', function() {
         sidebar.classList.toggle('active');
+    });
+</script>
+<script>
+    // Add a click event listener to the image for overlay
+    document.getElementById('myImage').addEventListener('click', function() {
+        const overlay = document.getElementById('overlay');
+        const overlayImage = document.getElementById('overlayImage');
+        const clickedImageSrc = this.src;
+
+        overlayImage.src = clickedImageSrc; // Set the clicked image to the overlay
+
+        // Show the overlay
+        overlay.style.display = 'flex';
+    });
+
+    // Close the overlay when clicking on it
+    document.getElementById('overlay').addEventListener('click', function() {
+        this.style.display = 'none'; // Hide the overlay
     });
 </script>
 

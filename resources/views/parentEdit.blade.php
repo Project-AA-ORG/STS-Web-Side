@@ -42,7 +42,7 @@
                             <div class="row">
                                 <div class="LABEL col-sm-4"><b>Ad Soyad</b> </div>
                                 <input type="text" name="name" id="name" value="{{ $data['parent']->name }}"
-                                    required placeholder="{{ $data['parent']->name }}" class="INPUT col-sm-7">
+                                    required placeholder="{{ $data['parent']->name }}" class="INPUT col-sm-7" maxlength="50">
                             </div>
 
 
@@ -52,13 +52,41 @@
                                     <button
                                         style="border:#F5F4F6; position: absolute; right:5px; justify-content:center; border-radius: 6px; background-color: #F5F4F6; color: black;"
                                         class="btn btn-secondary dropdown-toggle btn-sm student-dropdown" type="button"
-                                        id="ogrenciDropdown" data-toggle="dropdown" aria-haspopup="true"
+                                        id="studentDropdownButton" data-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
                                         <i class="fa-solid fa-plus"></i>
                                     </button>
 
                                     <div id="studentDropdownButton" class="dropdown-menu">
-                                        @foreach ($data['students'] as $item)
+
+                                        <div>
+                                            <nav id="searchNav" style="max-width: 14rem; border-radius: 5px;">
+                                                <form class="form-inline">
+                                                    <input style="height:1.7rem; font-size: 15px;" id="searchClass"
+                                                        class="form-control mr-sm-2" type="search"
+                                                        placeholder="&#x1F50E; Ara" aria-label="Ara">
+                                                </form>
+                                            </nav>
+                                        </div>
+                                        @php
+                                            $locale = 'tr'; // Set the locale to Turkish (change it based on your needs)
+                                            $sortedstudents = $data['students']->sort(function ($a, $b) use ($locale) {
+                                                return strcmp(
+                                                    utf8_encode(
+                                                        Str::of($a->name)
+                                                            ->lower()
+                                                            ->slug('-'),
+                                                    ),
+                                                    utf8_encode(
+                                                        Str::of($b->name)
+                                                            ->lower()
+                                                            ->slug('-'),
+                                                    ),
+                                                );
+                                            });
+                                        @endphp
+
+                                        @foreach ($sortedstudents as $item)
                                             <div class="student-item">
                                                 <input style="cursor: pointer;" type="checkbox"
                                                     id="student_{{ $item->student_id }}" name="student_id[]"
@@ -92,7 +120,7 @@
                                 <div class="LABEL col-sm-4"><b>Kullanıcı Adı</b></div>
                                 <input type="text" name="username" id="username"
                                     value="{{ $data['parent']->username }}" required
-                                    placeholder="{{ $data['parent']->username }}" class="INPUT col-sm-7">
+                                    placeholder="{{ $data['parent']->username }}" class="INPUT col-sm-7" maxlength="50">
 
                             </div>
 
@@ -100,7 +128,7 @@
                                 <div class="LABEL col-sm-4"><b>Telefon No</b></div>
                                 <input type="tel" name="phone" id="phone"
                                     value="{{ $data['parent']->phone }}" required
-                                    placeholder="{{ $data['parent']->phone }}" class="INPUT col-sm-7">
+                                    placeholder="{{ $data['parent']->phone }}" class="INPUT col-sm-7" maxlength="20">
                             </div>
                             <div id="regdiv" class="row">
                                 <div class="col-md-1"></div>
@@ -322,6 +350,69 @@
     // Toggle the sidebar when the initial sidebar toggle button is clicked
     document.getElementById('btn').addEventListener('click', function() {
         sidebar.classList.toggle('active');
+    });
+</script>
+
+<script>
+    document.getElementById('searchClass').addEventListener('input', function() {
+        const searchQuery = this.value.toLowerCase();
+        const studentLabels = document.querySelectorAll('.student-item label');
+
+        studentLabels.forEach(function(label) {
+            const text = label.textContent.toLowerCase();
+            const parentDiv = label.parentElement;
+            if (text.includes(searchQuery)) {
+                parentDiv.style.display = 'block';
+            } else {
+                parentDiv.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const yourForm = document.getElementById('yourFormId');
+
+        // Handle form submission
+        yourForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Remove duplicate inputs
+            const uniqueClassroomIds = new Set();
+            const classroomInputs = document.querySelectorAll('input[name="student_id[]"]');
+
+            classroomInputs.forEach(input => {
+                if (uniqueClassroomIds.has(input.value)) {
+                    input.remove(); // Remove duplicate inputs
+                } else {
+                    uniqueClassroomIds.add(input.value); // Add unique input values to the Set
+                }
+            });
+
+            // Submit the form without duplicate inputs
+            yourForm.submit();
+        });
+
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const miniboxContainer = document.getElementById('createminibox');
+
+        miniboxContainer.addEventListener('mouseenter', function() {
+            this.focus();
+        });
+
+        miniboxContainer.addEventListener('mouseleave', function() {
+            this.blur();
+        });
+
+        miniboxContainer.addEventListener('wheel', function(event) {
+            event.preventDefault();
+            this.scrollLeft += event.deltaY;
+        });
     });
 </script>
 

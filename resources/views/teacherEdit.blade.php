@@ -46,7 +46,7 @@
 
                     <div class="col-md-4">
                         <div class="photo">
-                            <img src="{{ $data['teacher']->teacher_image }}" alt="Teacher Image">
+                            <img src="data:image/jpeg;base64,{{ $data['teacher']->teacher_image }}" alt="">
                         </div>
 
                         <div class="regdiv">
@@ -75,7 +75,7 @@
                             <div class="row">
                                 <div class="LABEL col-sm-4"><b>Ad Soyad</b> </div>
                                 <input type="text" name="name" id="name" value="{{ $data['teacher']->name }}"
-                                    required placeholder="{{ $data['teacher']->name }}" class="INPUT col-sm-7">
+                                    required placeholder="{{ $data['teacher']->name }}" class="INPUT col-sm-7" maxlength="50">
                             </div>
 
                             <div class="row">
@@ -84,7 +84,7 @@
                                     <button
                                         style="border:#F5F4F6; position: absolute; right:5px; justify-content:center; border-radius: 6px; background-color: #F5F4F6; color: black;"
                                         class="btn btn-secondary dropdown-toggle btn-sm class-dropdown" type="button"
-                                        id="sinifDropdownButton" data-toggle="dropdown" aria-haspopup="true"
+                                        id="classroomdropdown1" data-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
                                         <i class="fa-solid fa-plus"></i>
                                     </button>
@@ -95,20 +95,17 @@
                                                 <form class="form-inline">
                                                     <input style="height:1.7rem; font-size: 15px;" id="searchClass"
                                                         class="form-control mr-sm-2" type="search"
-                                                        placeholder="&#x1F50E; Sınıf Ara" aria-label="Ara">
+                                                        placeholder="&#x1F50E; Ara" aria-label="Ara">
                                                 </form>
                                             </nav>
                                         </div>
                                         @php
-                                            // Sort the $data['classroom'] array by classroom_name with Turkish locale
-                                            $sortedClassrooms = $data['classroom']->sort(function ($a, $b) {
-                                                setlocale(LC_COLLATE, 'tr_TR.UTF-8'); // Set Turkish locale for comparison
-
-                                                return strcoll($a->classroom_name, $b->classroom_name);
+                                            $sortedClasses = $data['classroom']->sort(function ($a, $b) {
+                                                return strnatcmp($a->classroom_name, $b->classroom_name);
                                             });
                                         @endphp
 
-                                        @foreach ($sortedClassrooms as $item)
+                                        @foreach ($sortedClasses as $item)
                                             <div class="class-item">
                                                 <input style="cursor: pointer;" type="checkbox"
                                                     id="classroom_{{ $item->classroom_id }}" name="classroom_id[]"
@@ -156,7 +153,7 @@
                                             <form class="form-inline">
                                                 <input style="height:1.7rem; font-size: 15px;" id="searchClass3"
                                                     class="form-control mr-sm-2" type="search"
-                                                    placeholder="&#x1F50E; Ders Ara" aria-label="Ara">
+                                                    placeholder="&#x1F50E; Ara" aria-label="Ara">
                                             </form>
                                         </nav>
                                     </div>
@@ -202,7 +199,7 @@
                                 <div class="LABEL col-sm-4"><b>Kullanıcı Adı</b></div>
                                 <input type="text" name="username" id="username"
                                     value="{{ $data['teacher']->username }}" required
-                                    placeholder="{{ $data['teacher']->username }}" class="INPUT col-sm-7">
+                                    placeholder="{{ $data['teacher']->username }}" class="INPUT col-sm-7" maxlength="50">
 
                             </div>
 
@@ -210,7 +207,7 @@
                                 <div class="LABEL col-sm-4"><b>Telefon No</b></div>
                                 <input type="tel" name="phone" id="phone"
                                     value="{{ $data['teacher']->phone }}" required
-                                    placeholder="{{ $data['teacher']->phone }}" class="INPUT col-sm-7">
+                                    placeholder="{{ $data['teacher']->phone }}" class="INPUT col-sm-7" maxlength="20">
                             </div>
 
                             <div id="regdiv2" class="registerdiv2 row">
@@ -360,8 +357,8 @@
 
         // Close dropdown on document click when it's open
         $(document).on('click', function() {
-            if ($('#classroomdropdown').hasClass('show')) {
-                $('#classroomdropdown').removeClass('show');
+            if ($('#classroomdropdown1').hasClass('show')) {
+                $('#classroomdropdown1').removeClass('show');
             }
         });
     });
@@ -537,6 +534,51 @@
 </script>
 
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const yourForm = document.getElementById('yourFormId');
 
+        // Handle form submission
+        yourForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Remove duplicate inputs
+            const uniqueClassroomIds = new Set();
+            const classroomInputs = document.querySelectorAll('input[name="classroom_id[]"]');
+
+            classroomInputs.forEach(input => {
+                if (uniqueClassroomIds.has(input.value)) {
+                    input.remove(); // Remove duplicate inputs
+                } else {
+                    uniqueClassroomIds.add(input.value); // Add unique input values to the Set
+                }
+            });
+
+            // Submit the form without duplicate inputs
+            yourForm.submit();
+        });
+
+        // Other code...
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const miniboxContainer = document.getElementById('createminibox');
+
+        miniboxContainer.addEventListener('mouseenter', function() {
+            this.focus();
+        });
+
+        miniboxContainer.addEventListener('mouseleave', function() {
+            this.blur();
+        });
+
+        miniboxContainer.addEventListener('wheel', function(event) {
+            event.preventDefault();
+            this.scrollLeft += event.deltaY;
+        });
+    });
+</script>
 
 </html>

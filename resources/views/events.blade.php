@@ -85,7 +85,7 @@
                                     <div class="row">
                                         <div class="childbox col-sm">Etkinlik Başlığı</div>
                                         <input type="text" id="event_title" name="event_title" required
-                                            placeholder="giriniz" class="childbox col-sm">
+                                            placeholder="giriniz" class="childbox col-sm" maxlength="50">
                                     </div>
 
                                     <div class="row">
@@ -103,7 +103,7 @@
                                         </div>
 
                                         <textarea style="resize: none;" id="event_content" name="event_content" required
-                                            placeholder="Etkinlik İçeriğini Giriniz" class="contentbox col-sm"></textarea>
+                                            placeholder="Etkinlik İçeriğini Giriniz" class="contentbox col-sm" maxlength="50000"></textarea>
 
                                     </div>
                                     <div class="buttondiv">
@@ -225,11 +225,5 @@
     });
 </script>
 
-
-<script>
-    document.querySelector('.back-btn').addEventListener('click', function() {
-        window.history.back();
-    });
-</script>
 
 </html>

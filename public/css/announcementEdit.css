@@ -8,6 +8,25 @@ html {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Style for input fields */
+textarea {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+input[type="text"] {
+    font-size: 30px;
+    font-weight: 700;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-style: italic;
+}
+
+input[type="text"]::placeholder,
+textarea::placeholder {
+    color: #999595;
+    /* Adjust placeholder text color */
+}
+
 .centerEdit {
     display: flex;
     justify-content: center;
@@ -18,7 +37,7 @@ html {
     overflow: auto;
     width: 60%;
     height: 35rem;
-    top: calc((100vh - 35rem) / 2);
+    top: calc((100vh - 80%) / 2);
     /* max-height: 31rem; */
     border-radius: 8px;
     background-color: #3b6653;
@@ -36,7 +55,7 @@ html {
     margin-top: 1.5rem;
 }
 
-#actualline{
+#actualline {
     width: 99.5%;
     margin: 1rem;
     margin-left: -0.000000001px;
@@ -147,8 +166,9 @@ html {
 }
 
 #backbutton1 {
-    margin: 0;
-    margin-bottom: -24px;
+    position: relative;
+    z-index: 15;
+    margin-bottom: -1rem;
 }
 
 /* Style for the modal */
@@ -203,6 +223,10 @@ html {
         overflow-x: hidden;
     }
 
+    .INPUT2 {
+        font-size: 14px;
+    }
+
     #mainbox {
         text-align: center;
         margin-top: 2rem;
@@ -222,14 +246,19 @@ html {
         opacity: 1;
         pointer-events: all;
     }
-    .reg{
+
+    .reg {
         margin: 0.3rem;
         max-width: 12rem;
         margin-left: calc((100% - 12rem) / 2);
     }
 
-    #regdiv{
+    #regdiv {
         margin-top: 0;
+    }
+
+    input[type="text"] {
+        font-size: 24px;
     }
 }
 
@@ -241,13 +270,13 @@ html {
         top: calc((100vh - 37rem) / 2);
     }
 
-    .reg{
+    .reg {
         margin: 0.3rem;
         max-width: 15rem;
         margin-left: calc((100% - 15rem) / 2);
     }
 
-    #regdiv{
+    #regdiv {
         margin-top: 0;
     }
 }
@@ -260,24 +289,25 @@ html {
         top: calc((100vh - 37rem) / 2);
     }
 
-    .reg{
+    .reg {
         margin: 0.3rem;
         max-width: 15rem;
         margin-left: calc((100% - 15rem) / 2);
     }
 
-    #regdiv{
+    #regdiv {
         margin-top: 0;
     }
 }
 
 @media (min-width: 768px) and (max-width: 1057px) {
 
-    #mainbox{
+    #mainbox {
         width: 70%;
     }
 
-    .regdesign2, .regdesign3 {
+    .regdesign2,
+    .regdesign3 {
         font-size: 12px;
     }
 
@@ -287,5 +317,24 @@ html {
 
 @media (min-width: 768px) and (max-width: 768px) {
 
- 
+    #mainbox {
+        width: 86%;
+    }
+
+    .col-md-1 {
+        display: block;
+    }
+
+    .col-md-2 {
+        display: none;
+    }
+
+    #regdiv {
+        margin-top: 0.5rem;
+    }
+
+    .reg {
+        margin: 0.7rem;
+    }
+
 }

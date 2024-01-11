@@ -41,13 +41,26 @@
 
 .childbox2 {
     max-width: 12rem;
-    height: 4.5rem;
+    height: 6rem;
     border-radius: 6px;
     background-color: #F5F4F6;
     text-align: center;
     overflow: auto;
     border: solid white 1px;
 }
+
+.childbox3 {
+    display: flex;
+    width: 12rem;
+    height: 6rem;
+    border-radius: 6px;
+    background-color: #F5F4F6;
+    text-align: center;
+    border: solid white 1px;
+    justify-content: center;
+    align-items: center;
+}
+
 
 .centeritems {
     display: grid;
@@ -173,10 +186,14 @@
         width: 8rem;
         height: 4rem;
     }
-    
+
     .childbox2 {
         max-width: 8rem;
-        height: 4rem;
+        /* height: 4rem; */
+    }
+    .childbox3 {
+        max-width: 8rem;
+        /* height: 4rem; */
     }
 
     .buttondiv {
@@ -190,12 +207,17 @@
         width: 7rem;
         height: 4rem;
     }
-    
+
     .childbox2 {
         max-width: 7rem;
-        height: 4rem;
+        /* height: 4rem; */
     }
-    
+
+    .childbox3 {
+        max-width: 7rem;
+        /* height: 4rem; */
+    }
+
     .buttondiv {
         gap: 1rem;
     }

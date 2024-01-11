@@ -33,7 +33,7 @@
                     <div class="col-md-4">
 
                         <div class="photo">
-                            <img src="{{ $data['student']->student_image }}" alt="Student Image">
+                            <img src="data:image/jpeg;base64,{{ $data['student']->student_image }}" alt="">
                         </div>
 
 
@@ -64,7 +64,7 @@
                             <div class="row">
                                 <div class="LABEL col-sm-4"><b>Ad Soyad</b> </div>
                                 <input type="text" name="name" id="name" value="{{ $data['student']->name }}"
-                                    required placeholder="{{ $data['student']->name }}" class="INPUT col-sm-7">
+                                    required placeholder="{{ $data['student']->name }}" class="INPUT col-sm-7" maxlength="50">
                             </div>
 
 
@@ -82,14 +82,29 @@
                                     value="{{ $data['student']->classroom_id }}">
                                 <div class="dropdown-menu" aria-labelledby="dersDropdownButton">
 
-                                    @foreach ($data['classrooms'] as $item)
+                                    <div>
+                                        <nav id="searchNav2" style="width:90%; border-radius: 5px;">
+                                            <form class="form-inline">
+                                                <input style="height:1.7rem; font-size: 15px;" id="searchClass2"
+                                                    class="form-control mr-sm-2" type="search"
+                                                    placeholder="&#x1F50E; Ara" aria-label="Ara">
+                                            </form>
+                                        </nav>
+                                    </div>
+
+                                    @php
+                                        $sortedClasses = $data['classrooms']->sort(function ($a, $b) {
+                                            return strnatcmp($a->classroom_name, $b->classroom_name);
+                                        });
+                                    @endphp
+
+                                    @foreach ($sortedClasses as $item)
                                         <a class="dropdown-item class-item" href="#"
-                                            data-course-id="{{ $item->classroom_id }}"
+                                            data-classroom-id="{{ $item->classroom_id }}"
                                             onclick="setSelectedClassroom('{{ $item->classroom_name }}', '{{ $item->classroom_id }}')">
                                             {{ $item->classroom_name }}
                                         </a>
                                     @endforeach
-
                                 </div>
 
                             </div>
@@ -98,14 +113,14 @@
                                 <div class="LABEL col-sm-4"><b>Kullanıcı Adı</b></div>
                                 <input type="text" name="username" id="username"
                                     value="{{ $data['student']->username }}" required
-                                    placeholder="{{ $data['student']->username }}" class="INPUT col-sm-7">
+                                    placeholder="{{ $data['student']->username }}" class="INPUT col-sm-7" maxlength="50">
 
                             </div>
                             <div class="row">
                                 <div class="LABEL col-sm-4"><b>Öğrenci No</b></div>
-                                <input type="number" name="student_no" id="student_no"
+                                <input type="tel" name="student_no" id="student_no"
                                     value="{{ $data['student']->student_no }}" required
-                                    placeholder="{{ $data['student']->student_no }}" class="INPUT col-sm-7">
+                                    placeholder="{{ $data['student']->student_no }}" class="INPUT col-sm-7" maxlength="30">
 
                             </div>
 
@@ -251,6 +266,32 @@
     // Toggle the sidebar when the initial sidebar toggle button is clicked
     document.getElementById('btn').addEventListener('click', function() {
         sidebar.classList.toggle('active');
+    });
+</script>
+
+<script>
+    let searchInput2 = document.getElementById(
+        'searchClass2'); // Assuming 'searchClass2' is the ID of your second search input
+    searchInput2.addEventListener('input', function() {
+        const searchQuery2 = this.value.toLowerCase();
+        const elements2 = document.querySelectorAll(
+            '.dropdown-menu .dropdown-item'
+            ); // Assuming this is the selector for the elements you want to filter
+
+        elements2.forEach(function(element) {
+            const text2 = element.textContent.toLowerCase();
+            if (text2.includes(searchQuery2)) {
+                element.style.display = 'block';
+            } else {
+                element.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+<script>
+    document.getElementById('student_no').addEventListener('input', function() {
+        this.value = this.value.replace(/\D/g, ''); // Remove non-numeric characters
     });
 </script>
 

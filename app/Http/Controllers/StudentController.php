@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\File;
 
 class StudentController extends Controller
 {
@@ -53,6 +54,21 @@ class StudentController extends Controller
             if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
                 $data["classrooms"] = Classroom::getAllClassrooms();
                 $data["students"] = Student::getAllStudents();
+                if (isset($data["students"])){
+                    if (is_iterable($data["students"])){
+                        foreach($data["students"] as $student){
+                            $imagePath = $student->student_image;
+                            if ($imagePath){
+                                $student->student_image = base64_encode(File::get(storage_path("app/public/{$imagePath}")));
+                            } 
+                        }
+                    } else {
+                        $imagePath = $data["students"][0]->student_image;
+                        if ($imagePath){
+                            $data["students"][0]->student_image = base64_encode(File::get(storage_path("app/public/{$imagePath}")));
+                        } 
+                    }
+                }
                 return view("students", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
             } else {
                 return  view("index"); // giriş yapılmadıysa login ekranına yollanır
@@ -66,6 +82,10 @@ class StudentController extends Controller
             if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
                 $data["classrooms"] = Classroom::getAllClassrooms();
                 $data["student"] = Student::getClassroomWithStudent($studentId);
+                $imagePath = $data["student"]->student_image;
+                if ($imagePath){
+                    $data["student"]->student_image = base64_encode(File::get(storage_path("app/public/{$imagePath}")));
+                } 
                 return view("studentEdit", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
             } else {
                 return  view("index"); // giriş yapılmadıysa login ekranına yollanır
@@ -86,6 +106,11 @@ class StudentController extends Controller
                             $student->username = $request->username;
                             $student->classroom_id = $request->classroom_id;
                             $student->student_no = $request->student_no;
+                            if (isset($request->control)){
+                                if ($request->control){
+                                    $student->student_image = null;
+                                }
+                            }
                             $student->save();
                             return redirect()->route('get-update-student-page', ['studentId' => $request->student_id]);
                         }
@@ -100,6 +125,11 @@ class StudentController extends Controller
                         $student->name = $request->name;
                         $student->classroom_id = $request->classroom_id;
                         $student->student_no = $request->student_no;
+                        if (isset($request->control)){
+                            if ($request->control){
+                                $student->student_image = null;
+                            }
+                        }
                         $student->save();
                         return redirect()->route('get-update-student-page', ['studentId' => $request->student_id]);
                     }

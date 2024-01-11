@@ -24,17 +24,21 @@ Route::post('/v1/homework/add', [AuthController::class, 'saveHomeworkToDB']);
 //classroom announcement ı database e eklemek için route
 Route::post('/v1/announcement/add', [AuthController::class, 'saveAnnouncementToDB']);
 //classroom announcement ve homeworks ü yollamak için route
-Route::get('/v1/homeworks/announcements/{classroomId}/{studentId}', [AuthController::class, 'giveInformationAboutClass']);
+Route::get('/v1/homeworks/{classroomId}/{studentId}', [AuthController::class, 'giveInformationAboutClassHomework']);
+//classroom announcement ve homeworks ü yollamak için route
+Route::get('/v1/announcements/{classroomId}', [AuthController::class, 'giveInformationAboutClassAnnouncement']);
 //teacher_id alıp o öğretmenin girdiği sınıfları dönmek için route
 Route::get('v1/classrooms/{teacherId}', [AuthController::class, 'classroomOfTeacher']);
 //classroom_id alıp öğretmen için o sınıfın tüm ödev(sonuçlarla birlikte), duyurularını ve öğrencilerini dönmek için route
-Route::get('/v1/teacher/homeworks/announcements/{classroomId}', [AuthController::class, 'giveInformationAboutClassForTeacher']);
+Route::get('/v1/teacher/homeworks/{classroomId}', [AuthController::class, 'giveInformationAboutClassHomeworksForTeacher']);
+//classroom_id alıp öğretmen için o sınıfın tüm ödev(sonuçlarla birlikte), duyurularını ve öğrencilerini dönmek için route
+Route::get('/v1/teacher/announcements/{classroomId}', [AuthController::class, 'giveInformationAboutClassAnnouncementsForTeacher']);
 //belirli bir öğrencinin belirli bir dersinin sonucunu return edecek fonksiyon için route
 Route::get('/v1/homework/result/{homeworkId}/{studentId}', [AuthController::class, 'getHomeworkResultsInSomeId']);
 //belirli bir ödevi databaseden silmek için route
-Route::get('/v1/homework/{homeworkId}', [AuthController::class, 'deleteHomeworkInId']);
+Route::get('/v1/homework/delete/{homeworkId}', [AuthController::class, 'deleteHomeworkInId']);
 //belirli bir sınıf duyurusunu silmek için route
-Route::get('/v1/announcements/{classroomAnnouncementId}', [AuthController::class, 'deleteClassroomAnnouncementInId']);
+Route::get('/v1/announcement/delete/{classroomAnnouncementId}', [AuthController::class, 'deleteClassroomAnnouncementInId']);
 //ödevi güncellemek için route
 Route::post('/v1/homework/update', [AuthController::class, 'updateHomework']);
 //duyuruyu güncellemek için route
@@ -45,3 +49,15 @@ Route::post('/v1/homework/result/add', [AuthController::class, 'saveResultToDB']
 Route::post('/v1/homework/result/update', [AuthController::class, 'updateResult']);
 //duyuru ve etkinlikleri göndermek için route
 Route::get('/v1/event/announcement', [AuthController::class, 'sendEventsAndAnnouncements']);
+//öğretmen resmini database ekleme
+Route::post('/v1/teacher/add/image', [AuthController::class, 'getImageForTeacher']);
+//öğrenci resmini database ekleme
+Route::post('/v1/student/add/image', [AuthController::class, 'getImageForStudent']);
+//öğrenci id alıp sınıfındaki son duyurunun ve ödevin id sini gönder
+Route::get('/v1/notification/{studentId}', [AuthController::class, 'getLastHomeworkAndAnnouncementId']);
+//öğretmen şifre değiştirme
+Route::post('/v1/teacher/password', [AuthController::class, 'changeTeacherPassword']);
+//öğrenci şifre değiştirme
+Route::post('/v1/student/password', [AuthController::class, 'changeStudentPassword']);
+//öğrenci şifre değiştirme
+Route::post('/v1/parent/password', [AuthController::class, 'changeParentPassword']);

@@ -27,7 +27,11 @@ class ClassroomAnnouncement extends Model
         return ClassroomAnnouncement::where("classroom_id", $classroomId)->with('teacher')->get();
     }
 
+    public static function getLastAnnouncementByClassroomId($classroomId){
+        return ClassroomAnnouncement::where('classroom_id', $classroomId)->orderByDesc('created_at')->first();
+    }
+
     public static function deleteAnnouncementInId($classroomAnnouncementId){
-        ClassroomAnnouncement::where("classroom_announcement_id	", $classroomAnnouncementId)->delete();
+        ClassroomAnnouncement::where("classroom_announcement_id", $classroomAnnouncementId)->delete();
     }
 }

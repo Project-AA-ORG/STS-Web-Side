@@ -14,10 +14,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="icon" href="/images/square_logo2.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
-
+    <style>
+  
+    </style>
 </head>
-
 <body>
     <div class="centerEdit">
 
@@ -44,14 +46,14 @@
                             <div class="row">
                                 <input type="text" name="announcement_title" id="announcement_title"
                                     value="{{ $data['announcement']->announcement_title }}" required
-                                    placeholder="{{ $data['announcement']->general_announcement_id }}" class="INPUT">
+                                    placeholder="{{ $data['announcement']->announcement_title }}" class="INPUT" maxlength="50">
                             </div>
 
                             <hr id="actualline">
 
                             <div class="row">
                                 <textarea style="resize: none; padding:7px;" id="announcement_content" name="announcement_content" required
-                                    placeholder="{{ $data['announcement']->announcement_content }}" class="INPUT2">{{ $data['announcement']->announcement_content }}</textarea>
+                                    placeholder="{{ $data['announcement']->announcement_content }}" class="INPUT2" maxlength="50000">{{ $data['announcement']->announcement_content }}</textarea>
                             </div>
 
                             <div id="regdiv" class="row">

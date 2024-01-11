@@ -80,7 +80,7 @@
                     @foreach ($sortedTeachers as $item)
                         <a id="{{ $item->teacher_id }}" class="line teacherline"
                             href="{{ route('get-update-teacher-page', ['teacherId' => $item->teacher_id]) }}">
-                            <img class="lineimg" src="{{ $item->teacher_image }}" alt="Teacher image">
+                            <img class="lineimg" src="data:image/jpeg;base64,{{ $item->teacher_image }}" alt="">
                             <div class="linetext"> {{ $item->name }} </div>
                         </a>
                     @endforeach
@@ -116,7 +116,7 @@
                                         <div class="row">
                                             <div class="childbox col-sm">Ad Soyad</div>
                                             <input type="text" id="name" name="name" required
-                                                placeholder="giriniz" class="childbox col-sm">
+                                                placeholder="giriniz" class="childbox col-sm" maxlength="50">
                                         </div>
                                         {{-- second input classroom array --}}
                                         <div class="row">
@@ -130,14 +130,18 @@
                                                         <form class="form-inline">
                                                             <input style="height:1.7rem; font-size: 15px;"
                                                                 id="searchClass" class="form-control mr-sm-2"
-                                                                type="search" placeholder="&#x1F50E; Sınıf Ara"
+                                                                type="search" placeholder="&#x1F50E; Ara"
                                                                 aria-label="Ara">
                                                         </form>
                                                     </nav>
                                                 </div>
-
+                                                @php
+                                                    $sortedClasses = $data['classroom']->sort(function ($a, $b) {
+                                                        return strnatcmp($a->classroom_name, $b->classroom_name);
+                                                    });
+                                                @endphp
                                                 <div class="classroom-list">
-                                                    @foreach ($data['classroom'] as $item)
+                                                    @foreach ($sortedClasses as $item)
                                                         <div class="rows">
                                                             <input type="checkbox"
                                                                 id="classroom_{{ $item->classroom_id }}"
@@ -175,7 +179,7 @@
                                                             <form class="form-inline">
                                                                 <input style="height:1.7rem; font-size: 15px;"
                                                                     id="searchClass2" class="form-control mr-sm-2"
-                                                                    type="search" placeholder="&#x1F50E; Ders Ara"
+                                                                    type="search" placeholder="&#x1F50E; Ara"
                                                                     aria-label="Ara">
                                                             </form>
                                                         </nav>
@@ -216,14 +220,14 @@
                                         <div class="row">
                                             <div class="col-sm childbox">Kullanıcı Adı</div>
                                             <input type="text" id="username" name="username" required
-                                                placeholder="giriniz" class="col-sm childbox ">
+                                                placeholder="giriniz" class="col-sm childbox " maxlength="50">
                                         </div>
 
                                         {{-- phone number input --}}
                                         <div class="row">
                                             <div class="childbox col-sm">Telefon No</div>
                                             <input type="tel" id="phone" name="phone" required
-                                                placeholder="giriniz" class="childbox col-sm">
+                                                placeholder="giriniz" class="childbox col-sm" maxlength="20">
                                         </div>
                                     </div>
                                     {{-- buttons in overlay --}}
@@ -492,6 +496,29 @@
                 }
             });
         });
+    });
+</script>
+
+<script>
+    function generateUsernameFromName(name) {
+        // Convert the name to lowercase and remove spaces
+        const formattedName = name.toLowerCase().replace(/\s/g, '');
+
+        const randomString = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+
+
+        const uniqueUsername = formattedName + randomString; // Combine name and random string
+        return uniqueUsername; // Return the generated username
+    }
+</script>
+
+<script>
+    document.getElementById('name').addEventListener('input', function() {
+        const enteredName = this.value;
+        const generatedUsername = generateUsernameFromName(enteredName);
+
+        // You can then populate your username input field with the generated username
+        document.getElementById('username').value = generatedUsername;
     });
 </script>
 

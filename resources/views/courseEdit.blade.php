@@ -44,7 +44,7 @@
                                 <div class="LABEL col-sm-4"><b>Ders Adı</b> </div>
                                 <input type="text" name="course_name" id="course_name"
                                     value="{{ $data['course']->course_name }}" required
-                                    placeholder="{{ $data['course']->course_name }}" class="INPUT col-sm-7">
+                                    placeholder="{{ $data['course']->course_name }}" class="INPUT col-sm-7" maxlength="50">
                             </div>
 
                             <div class="row">

@@ -90,9 +90,20 @@
     <script>
         function navigateToRoute(route) {
             window.location.href = route;
-        } 
+        }
     </script>
-    
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const topmenuBtn = document.getElementById('backbutton2');
+
+            topmenuBtn.addEventListener('click', function() {
+                window.history.back();
+            });
+        });
+    </script>
+
 </body>
 
 </html>

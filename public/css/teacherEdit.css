@@ -240,9 +240,11 @@ select.form-control {
 }
 
 #backbutton1 {
-    margin: 0;
-    margin-bottom: -24px;
+    position: relative;
+    z-index: 15;
+    margin-bottom: -1.5rem;
 }
+
 
 .dropdown-menu {
     max-height: 8rem;
@@ -255,9 +257,6 @@ select.form-control {
     max-height: 6rem;
     max-width: 4rem;
 }
-
-
-
 
 /* Style for the modal */
 .modal_2 {
@@ -616,17 +615,17 @@ select.form-control {
         
         .col-md-4 {
             margin: 0;
-            position: relative;
-            left: calc((100% - 16rem) / 2);
+            min-width: 100%;
+            margin-left: -3rem;
         }
     
     
         .col-md-8 {
             margin: 0;
-            margin-left: 4rem;
+            min-width: 100%;
+            margin-left: -3rem;
+
         }
-     
-  
      
         .reg{
             width: 20rem;
@@ -638,7 +637,7 @@ select.form-control {
         }
     
         .photo {
-            margin-left: -1rem;
+            margin-left: 1.5rem;
             margin-top: 3rem;
             bottom: 1.5rem;
             width: 18rem;

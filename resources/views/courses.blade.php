@@ -101,7 +101,7 @@
                                         <div class="row">
                                             <div class="childbox col-sm">Ders Adı</div>
                                             <input type="text" id="course_name" name="course_name" required
-                                                placeholder="giriniz" class="childbox col-sm">
+                                                placeholder="giriniz" class="childbox col-sm" maxlength="50">
                                         </div>
                                     </div>
 
@@ -204,10 +204,5 @@
 </script>
 
 
-<script>
-    document.querySelector('.back-btn').addEventListener('click', function() {
-        window.history.back();
-    });
-</script>
 
 </html>
