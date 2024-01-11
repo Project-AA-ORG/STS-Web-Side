@@ -48,7 +48,7 @@ class TeacherController extends Controller
                         $data["classroom"] = Classroom::getAllClassrooms();
                         $data["course"] = Course::getAllCourses();
                         $data["error"] = "Bu username daha önce kullanıldı";
-                        return view("ogretmenlerimiz", compact("data"));
+                        return view("teachers", compact("data"));
                     }
                     return redirect()->route('get-our-teacher-page');
                 }
@@ -71,7 +71,7 @@ class TeacherController extends Controller
                 $data["course"] = Course::getAllCourses();
                 $data["teachers"] = Teacher::getAllTeachers();
                 //dd($data);
-                return view("ogretmenlerimiz", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
+                return view("teachers", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
             } else {
                 return  view("index"); // giriş yapılmadıysa login ekranına yollanır
             }
@@ -87,7 +87,7 @@ class TeacherController extends Controller
                 $data["teacher"] = Teacher::getClassroomsWithTeacher($teacherId);
                 $data["classroom"] = Teacher::classroomsDoNotEnterThisTeacher($teacherId);
                 $data["courses"] = Course::getAllCourses();
-                return view("ogretmen_duzenle", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
+                return view("teacherEdit", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
             } else {
                 return  view("index"); // giriş yapılmadıysa login ekranına yollanır
             }
@@ -128,14 +128,14 @@ class TeacherController extends Controller
                                     $teacher_classroom->save();
                                 }
                             }
-                            return redirect()->route('get-our-teacher-page');
+                            return redirect()->route('get-update-teacher-page', ['teacherId' => $request->teacher_id]);
                         }
                         else{
                             $data["teachers"] = Teacher::getAllTeachers();
                             $data["classroom"] = Classroom::getAllClassrooms();
                             $data["course"] = Course::getAllCourses();
                             $data["error"] = "Bu username daha önce kullanıldı";
-                            return view("ogretmenlerimiz", compact("data"));
+                            return view("teachers", compact("data"));
                         }
                     }
                     else{//Eğer güncelleme yaparken username değiştirilmemişse
@@ -161,7 +161,7 @@ class TeacherController extends Controller
                                 $teacher_classroom->save();
                             }
                         }
-                        return redirect()->route('get-our-teacher-page');
+                        return redirect()->route('get-update-teacher-page', ['teacherId' => $request->teacher_id]);
                     }
                 }
                 else {
@@ -184,7 +184,7 @@ class TeacherController extends Controller
                 $data["teachers"] = Teacher::getAllTeachers();
                 $data["classroom"] = Classroom::getAllClassrooms();
                 $data["course"] = Course::getAllCourses();
-                return view("ogretmenlerimiz", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
+                return view("teachers", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
             }
             else {
                 return  view("index"); // giriş yapılmadıysa login ekranına yollanır

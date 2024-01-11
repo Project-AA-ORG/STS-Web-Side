@@ -23,6 +23,7 @@ class StudentController extends Controller
                     $student->password = $password;
                     $student->username = $request->username;
                     $student->classroom_id = $request->classroom_id;
+                    $student->student_no = $request->student_no;
 
                     if (!(Student::searchUserName($request->username))) { // daha önce bu username kullanılmış mı kullanılmamış mı diye kontrol ettim.
                         $student->save();
@@ -32,7 +33,7 @@ class StudentController extends Controller
                         $data["classrooms"] = Classroom::getAllClassrooms();
                         $data["students"] = Student::getAllStudents();
                         $data["error"] = "Bu username daha önce kullanıldı";
-                        return view("ogrencilerimiz", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
+                        return view("students", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
                     }
                 }
                 else {
@@ -52,7 +53,7 @@ class StudentController extends Controller
             if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
                 $data["classrooms"] = Classroom::getAllClassrooms();
                 $data["students"] = Student::getAllStudents();
-                return view("ogrencilerimiz", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
+                return view("students", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
             } else {
                 return  view("index"); // giriş yapılmadıysa login ekranına yollanır
             }
@@ -65,7 +66,7 @@ class StudentController extends Controller
             if (session('login_control') == 1) { // daha önce login girişi yapıldı mı kontrolü yapar
                 $data["classrooms"] = Classroom::getAllClassrooms();
                 $data["student"] = Student::getClassroomWithStudent($studentId);
-                return view("ogrenci_duzenle", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
+                return view("studentEdit", compact("data")); // !!!buraya yazılmış olan blade in adı girilecek şuan öylesine koydum
             } else {
                 return  view("index"); // giriş yapılmadıysa login ekranına yollanır
             }
@@ -84,21 +85,23 @@ class StudentController extends Controller
                             $student->name = $request->name;
                             $student->username = $request->username;
                             $student->classroom_id = $request->classroom_id;
+                            $student->student_no = $request->student_no;
                             $student->save();
-                            return redirect()->route('get-our-student-page');
+                            return redirect()->route('get-update-student-page', ['studentId' => $request->student_id]);
                         }
                         else{
                             $data["classrooms"] = Classroom::getAllClassrooms();
                             $data["students"] = Student::getAllStudents();
                             $data["error"] = "Bu username daha önce kullanıldı";
-                            return view("ogrencilerimiz", compact("data"));
+                            return view("students", compact("data"));
                         }
                     }
                     else{
                         $student->name = $request->name;
                         $student->classroom_id = $request->classroom_id;
+                        $student->student_no = $request->student_no;
                         $student->save();
-                        return redirect()->route('get-our-student-page');
+                        return redirect()->route('get-update-student-page', ['studentId' => $request->student_id]);
                     }
                 }
                 else {
@@ -119,7 +122,7 @@ class StudentController extends Controller
                 ParentStudent::deleteRowsByStudentId($studentId);
                 $data["classrooms"] = Classroom::getAllClassrooms();
                 $data["students"] = Student::getAllStudents();
-                return view("ogrencilerimiz", compact("data"));
+                return view("students", compact("data"));
             }
             else {
                 return  view("index"); // giriş yapılmadıysa login ekranına yollanır

@@ -1,0 +1,686 @@
+body,
+html {
+
+    background: #c4c4c4;
+    /* height: 100vh; */
+    margin: 0;
+    overflow: auto;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.centerEdit {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+
+#backbutton1 {
+    position: relative;
+    z-index: 15;
+    margin-bottom: -1.5rem;
+}
+#confirmationButton{
+    position: absolute;
+    top: 1.7rem; 
+    left: 15px;
+    z-index: 2; /* Ensure button stays above the image */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    /* border-radius: 50%; */
+    display: none;
+    opacity: 0.5;
+}
+.photo:hover #confirmationButton {
+    display: block; /* Show the button on hover */
+}
+.edit {
+    overflow: auto;
+    width: 80%;
+    height: 31rem;
+    top: calc((100vh - 65%) / 2);
+    /* max-height: 31rem; */
+    border-radius: 8px;
+    background-color: #3b6653;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    display: block;
+    position: relative;
+
+}
+
+
+.row {
+    height: 5rem;
+    margin-top: 0.5rem;
+}
+
+.col-sm-7 {
+    margin-left: 0.5rem;
+}
+
+.row_1 {
+    margin-left: 4%;
+}
+
+.LABEL {
+    display: flex;
+    border-radius: 8px;
+    background: #F5F4F6;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.INPUT {
+    align-items: center;
+    border-radius: 8px;
+    background: #F5F4F6;
+    text-align: center;
+}
+
+.INPUT_2 {
+    display: block;
+    border-radius: 8px;
+    background: #F5F4F6;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.reg {
+    display: flex;
+    width: 17rem;
+    height: 3rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background: #F5F4F6;
+    margin-top: 0.6rem;
+
+}
+
+.regdesign1 {
+    border-radius: 5px;
+    background-color: #E8D5B9;
+    width: 90%;
+    height: 80%;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.regdesign2 {
+    border-radius: 5px;
+    background-color: #E8D5B9;
+    width: 90%;
+    height: 80%;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.regdesign1:hover {
+    color: white;
+    background-color: #4CAF50;
+}
+
+.regdesign3 {
+    border-radius: 5px;
+    background-color: #E8D5B9;
+    width: 90%;
+    height: 80%;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.regdesign3:hover {
+    color: white;
+    background-color: #f44336;
+}
+
+.regdesign2:hover {
+    color: white;
+    background-color: #f44336;
+}
+
+.photo {
+    display: flex;
+    width: 17rem;
+    height: 17rem;
+    margin-top: 1.7rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background: #F5F4F6;
+}
+
+.photo img {
+    width: 92%;
+    height: 92%;
+}
+
+.select-classes {
+
+    text-align: center;
+
+}
+
+.minibox_2 {
+
+    display: inline-block;
+    text-align: center;
+    height: 3rem;
+    margin: 0.5rem;
+    margin-top: 1rem;
+    padding: 10px 5px 10px 12px;
+    border-radius: 5px;
+    border: 1px solid #000;
+    text-decoration: none;
+    color: #000;
+    background: red;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+
+.minibox_2.checked {
+    color: white;
+    background-color: green;
+}
+
+/* Hide default checkbox */
+.minibox_2 input[type="checkbox"] {
+    display: none;
+}
+
+/* Change color when checkbox is checked */
+.minibox_2 input[type="checkbox"]:checked+label {
+    background-color: green;
+    color: white;
+    /* Optional: Change text color */
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 8px;
+    /* Width of the scrollbar */
+    border-radius: 4px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    /* Color of the scrollbar handle */
+    border-radius: 4px;
+    /* Rounded corners */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    /* Color when hovering over scrollbar */
+    border-radius: 4px;
+}
+
+/* For horizontal scrollbar */
+::-webkit-scrollbar-track {
+    background: #F5F4F6;
+    /* Color of the scrollbar track */
+    border-radius: 4px;
+}
+
+/* Handle */
+::-webkit-scrollbar-track-piece:end {
+    background: #F5F4F6;
+    /* Color of the space after the scrollbar handle */
+    border-radius: 4px;
+}
+
+select.form-control {
+
+    &[size],
+    &[multiple] {
+        height: 5rem;
+    }
+}
+
+.regdiv {
+
+    opacity: 1;
+    pointer-events: all;
+}
+
+.registerdiv2 {
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.dropdown .btn.ders-dropdown,
+.INPUT {
+    width: 100%;
+    /* Set the width to fill the column */
+}
+
+#backbutton_1 {
+    margin: 0;
+    margin-bottom: -24px;
+}
+
+.dropdown-menu {
+    max-height: 8rem;
+    overflow: auto;
+    text-align: center;
+}
+
+#classroomdropdown {
+    min-height: 2rem;
+    max-height: 6rem;
+    max-width: 4rem;
+}
+
+
+
+
+/* Style for the modal */
+.modal_2 {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content_2 {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    text-align: center;
+    border-radius: 5px;
+}
+
+/* Style for buttons inside the modal */
+#confirmationModal button {
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#confirmYes {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+}
+
+#confirmNo {
+    background-color: #f44336;
+    color: white;
+    border: none;
+}
+
+
+
+@media (min-width: 576px) and (max-width: 768px) {
+    #mainbox {
+        height: 90%;
+        text-align: center;
+        overflow-x: hidden;
+        top: calc((100vh - 90%) / 2);
+        left: 1.5rem;
+
+    }
+
+    .edit {
+        max-height: 90%;
+    }
+
+    .regdiv {
+        display: none;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .registerdiv2 {
+        bottom: 0;
+        display: inline-block;
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .row_1 {
+        margin: 0;
+        display: block;
+    }
+
+    .col-md-4 {
+        margin: 0;
+        left: calc((100% - 18rem) / 2);
+    }
+
+
+    .photo {
+        margin-top: 0;
+    }
+
+    .col-md-8 {
+        margin: 0;
+        padding: 0;
+    }
+
+    #regdiv2 {
+        margin-bottom: 4rem;
+    }
+
+    .col-sm-7 {
+        margin: 0.2rem;
+        height: 3rem;
+        min-width: 90%;
+        left: calc((100% - 90%) / 2);
+
+    }
+
+    .col-sm-4 {
+        margin: 0.1rem;
+        height: 3rem;
+        min-width: 90%;
+        left: calc((100% - 90%) / 2);
+
+    }
+
+    .INPUT_2 {
+        height: 5rem;
+    }
+
+
+    .row {
+        margin-top: 2rem;
+    }
+
+    #dersrowu {
+        margin-top: 4rem;
+    }
+
+    .reg {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 15rem;
+    }
+
+    .regdesign1,
+    .regdesign2,
+    .regdesign3 {
+        display: inline;
+    }
+
+    #backbutton_1 {
+        position: absolute;
+        /* float: left; */
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1100px) {
+
+    .row {
+        margin-left: 5rem;
+        margin-right: 0;
+    }
+
+    .row_1 {
+        margin: 0;
+    }
+
+}
+
+@media (min-width: 768px) and (max-width: 768px) {
+
+    .col-md-4 {
+        margin: 0;
+        min-width: 100%;
+        margin-left: -3rem;
+    }
+
+
+    .col-md-8 {
+        margin: 0;
+        min-width: 100%;
+        margin-left: -3rem;
+
+    }
+
+    .reg {
+        width: 20rem;
+    }
+
+    #regdiv2 {
+        margin-left: 4rem;
+        margin-bottom: 4rem;
+    }
+
+    .photo {
+        margin-left: 1.5rem;
+        margin-top: 3rem;
+        bottom: 1.5rem;
+        width: 18rem;
+        height: 18rem;
+    }
+}
+
+
+@media (min-width: 500px) {
+    .col-md-8 {
+        margin-top: 2.5rem;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .edit {
+        top: 0;
+        max-height: 100%;
+        overflow-x: hidden;
+    }
+
+    .regdiv {
+        display: none;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .registerdiv2 {
+        bottom: 0;
+        display: inline-block;
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .row_1 {
+        margin: 0;
+        display: block;
+    }
+
+    .col-md-4 {
+        margin: 0;
+        position: relative;
+        left: calc((100% - 16rem) / 2);
+    }
+
+
+    .photo {
+        margin-top: 0;
+        bottom: 1.5rem;
+        width: 14rem;
+        height: 14rem;
+    }
+
+    .col-md-8 {
+        margin: 0;
+        padding: 0;
+    }
+
+    #mainbox {
+        text-align: center;
+        margin-top: 2rem;
+        width: 100%;
+        height: calc(100% - 2rem);
+        border-radius: 0;
+        box-shadow: none;
+        border: none;
+    }
+
+    #regdiv2 {
+        margin-bottom: 4rem;
+    }
+
+
+
+    #backbutton_1 {
+        pointer-events: none;
+        opacity: 0;
+    }
+
+    #backbutton_2 {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .col-sm-7 {
+        margin: 0.2rem;
+        height: 3rem;
+    }
+
+    .col-sm-4 {
+        margin: 0.1rem;
+        height: 3rem;
+    }
+
+    .INPUT_2 {
+        height: 5rem;
+    }
+
+
+    .row {
+        margin-top: 2rem;
+    }
+
+    #dersrowu {
+        margin-top: 4rem;
+    }
+
+    .reg {
+        width: 12rem;
+    }
+
+
+}
+
+@media (min-width: 501px) and (max-width: 576px) {
+    #mainbox {
+        height: 90%;
+        width: 80%;
+        text-align: center;
+        overflow-x: hidden;
+        top: calc((100vh - 90%) / 2);
+        left: 1.5rem;
+
+    }
+
+    .centerEdit {
+        justify-content: flex-end;
+    }
+
+    .edit {
+        max-height: 90%;
+    }
+
+    .regdiv {
+        display: none;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .registerdiv2 {
+        bottom: 0;
+        display: inline-block;
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .row_1 {
+        margin: 0;
+        display: block;
+        height: 100%;
+        width: 100%;
+    }
+
+    .col-md-4 {
+        margin: 0;
+        left: calc((100% - 18rem) / 2);
+    }
+
+
+    .photo {
+        margin-top: 0;
+    }
+
+    .col-md-8 {
+        margin: 0;
+        padding: 0;
+    }
+
+    #regdiv2 {
+        margin-bottom: 4rem;
+    }
+
+    .col-sm-7 {
+        margin: 0.2rem;
+        height: 3rem;
+        min-width: 90%;
+
+    }
+
+    .col-sm-4 {
+        margin: 0.1rem;
+        height: 3rem;
+        min-width: 90%;
+
+    }
+
+    .INPUT_2 {
+        height: 5rem;
+    }
+
+
+    .row {
+        margin-top: 2rem;
+    }
+
+    #dersrowu {
+        margin-top: 4rem;
+    }
+
+    .reg {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 15rem;
+    }
+
+    .regdesign1,
+    .regdesign2,
+    .regdesign3 {
+        display: inline;
+    }
+
+    #backbutton_1 {
+        position: absolute;
+        /* float: left; */
+    }
+}

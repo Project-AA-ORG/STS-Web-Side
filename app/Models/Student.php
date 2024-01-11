@@ -12,7 +12,7 @@ class Student extends Model
     protected $primaryKey = 'student_id';
 
     public static function getAllStudents(){
-        return student::all();
+        return student::orderBy('name')->get();
     }
 
     public function classroom() {
@@ -21,6 +21,10 @@ class Student extends Model
 
     public static function getClassroomWithStudent($studentId){
         return student::with('classroom')->where("student_id", $studentId)->first();
+    }
+
+    public static function getClassroomWithStudents(){
+        return student::with('classroom')->get();
     }
 
     public static function getStudentInId($studentId){

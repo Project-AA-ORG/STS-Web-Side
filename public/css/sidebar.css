@@ -1,0 +1,224 @@
+/* Default settings for the bar */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+/* top left corner */
+/* properties of sidebar */
+.sidebar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 4.5rem;
+    background-image: url("/images/green.jpg");
+    background-size: cover; /* or 'contain' */
+    background-repeat: no-repeat;
+    background-position: center; /* or specify position */
+    padding: 0.4rem 0.8rem;
+    transition: all 0.5s ease;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 20;
+    opacity: 1;
+}
+
+.topmenu{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3rem;
+    background-image: url("/images/green.jpg");
+    background-size: cover; /* or 'contain' */
+    background-repeat: no-repeat;
+    background-position: center; /* or specify position */
+    padding: 0.4rem 0.8rem;
+    transition: all 0.5s ease;
+    z-index: 10;
+    opacity: 0;
+}
+
+/* adjust width of sidebar while active */
+.sidebar.active{
+    width: clamp(200px, 17%, 400px);
+}
+
+.sidebar #btn{
+    position: absolute;
+    top: .4rem;
+    left: 50%;
+    font-size: 1.2rem;
+    line-height: 2.5rem;
+    transform: translateX(-50%);
+    cursor: pointer;
+}
+
+.sidebar.sidebar.active #btn{
+    left: 90%
+}
+
+.sidebar .top .logo i{
+    font-size: 2rem;
+    margin-right: 5px;
+}
+
+
+.topmenu #topmenuBtn{
+    position: absolute;
+    top: .3rem;
+    left: 1rem;
+    font-size: 1.2rem;
+    line-height: 2.5rem;
+    cursor: pointer;
+}
+
+.topmenu  #backbutton2{
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 1.2rem;
+    line-height: 2.5rem;
+    cursor: pointer;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.user-img {
+    min-width: 3rem; /* Adjust the width of the image */
+    border-radius: 50%; 
+    border: 1px solid black; 
+    opacity: 1;
+}
+
+.user p{
+    color: #fff;
+    opacity: 1;
+    margin-left: 1rem;
+}
+
+.sidebar.active .user img{
+    max-width: 40%;
+}
+
+.bold{
+    font-weight: 600;
+}
+
+.sidebar p{
+    opacity: 0;    
+}
+
+.sidebar.active p{
+    opacity: 1;
+}
+
+.sidebar ul li{
+    position: relative;
+    list-style-type: none;
+    max-width: auto;
+    margin: 0.2rem 0;
+    line-height: 2rem;
+    padding: 1px;
+}
+
+.sidebar ul li a{
+    color: #fff;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 0.8rem;
+}
+
+.sidebar ul li a:hover{
+    background-color: #fff;
+    color: #12171e;
+}
+
+.sidebar ul li a i{
+    min-width: 3rem;
+    text-align: center;
+    border-radius: 25%;
+}
+
+.sidebar ul li a span{
+    max-width: 3rem;
+    text-align: center;
+    border-radius: 25%;
+    line-height: 3rem;
+}
+
+.sidebar .nav-item{
+    opacity: 0;
+}   
+
+.sidebar.active .nav-item{
+    opacity: 1;
+}
+
+
+hr {
+    border: 0.5px solid black; 
+    margin: 15px; 
+    
+}
+
+/* For Webkit-based browsers */
+/* Width and rounded corners of the scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    border-radius: 5px;
+}
+
+/* Scrollbar handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Scrollbar track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+}
+
+/* Space after scrollbar handle */
+::-webkit-scrollbar-track-piece:end {
+    background: #ddd;
+    border-radius: 5px;
+}
+
+
+@media (max-width: 500px){
+ 
+    .topmenu{
+        z-index: 30;
+        opacity: 1;
+    }
+
+    .sidebar {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .sidebar.sidebar.active{
+        z-index: 40;
+        opacity: 1;
+        width: 90%;
+        pointer-events: all;
+    }
+    
+}

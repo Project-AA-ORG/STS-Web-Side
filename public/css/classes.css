@@ -1,0 +1,185 @@
+body,
+html {
+    background-color: #C4C4C4;
+    margin: 0;
+    overflow: auto;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+.buttondiv1 {
+
+    text-align: center;
+    margin: 1rem;
+
+}
+#bar{
+    margin-left: 0.5%;
+}
+.center {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+
+.Classes {
+
+    overflow: auto;
+    display: block;
+    position: relative;
+    width: 37%;
+    min-width: 24rem;
+    top: 2%;
+    height: clamp(42rem,96%,86rem);
+    border-radius: 5px;
+    border: 1px solid #000;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    background-color: #3b6653;
+}
+
+
+.listitems {
+    background: #3b6653;
+    width: 92%;
+    margin-left: 4%;
+    height: 93%;
+}
+
+.listitems2 {
+    overflow: auto;
+    height: 85%;
+}
+
+.classline {
+    display: flex;
+    border-radius: 5px;
+    margin-top: 1%;
+    margin-left: 2%;
+    width: 96%;
+    min-width: 21rem;
+    max-height: 4rem;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.classlinetext {
+    padding: 1%;
+    margin-left: 5%;
+    display: inline-block;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 90%;
+    height: 2.5rem;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+}
+
+.line:link,
+.line:visited {
+    background-color: white;
+    color: black;
+    border: 2px solid #5a906f;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.line:hover,
+.line:active {
+    background-color: #5a906f;
+    color: white;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    /* Width of the scrollbar */
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    /* Color of the scrollbar handle */
+    border-radius: 5px;
+    /* Rounded corners */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    /* Color when hovering over scrollbar */
+    border-radius: 5px;
+}
+
+/* For horizontal scrollbar */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    /* Color of the scrollbar track */
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-track-piece:end {
+    background: #ddd;
+    /* Color of the space after the scrollbar handle */
+    border-radius: 5px;
+}
+
+.error {
+    color: red;
+    font: bold;
+}
+
+@media (max-width: 500px) {
+    .listitems {
+        height: 75%;
+    }
+    .Classes {
+        width: 100%;
+        top: 3rem;
+        height: calc(100vh - 3rem);
+        border: #888;
+        border-radius: 0;
+        min-width: 16rem;
+        text-align: center;
+        
+    }
+    #bar{
+        margin-left: 1%;
+    }
+
+    .center{
+        overflow-x: hidden;
+    }
+
+    .classline {
+        margin-top: 1%;
+        margin-left: 2%;
+        width: 96%;
+        min-width: 210px;
+    }
+
+    .classlinetext {
+        margin-left: 5%;
+        padding: 1%;
+        height: 9%;
+    }
+    .student-names{
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 500.1px) and (max-width: 1100px) {
+
+    .Classes {
+
+        margin-left: 3rem;
+      
+    }
+
+ 
+}
