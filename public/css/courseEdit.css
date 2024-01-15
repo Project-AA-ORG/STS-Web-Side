@@ -1,0 +1,496 @@
+body,
+html {
+
+    background: #c4c4c4;
+    margin: 0;
+    overflow: auto;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.centerEdit {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+
+.edit {
+    overflow: auto;
+    width: 60%;
+    height: 19rem;
+    top: calc((100vh - 50%) / 2);
+    border-radius: 8px;
+    background-color: #3b6653;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    display: block;
+    position: relative;
+
+}
+
+
+.row {
+    height: 5rem;
+    margin-top: 0.5rem;
+}
+
+.col-sm-7 {
+    margin-left: 0.5rem;
+}
+
+.row_1 {
+    margin-top: 1.5rem;
+    margin-left: 5%;
+}
+
+.col-sm {
+    margin-left: 2.4rem;
+}
+
+.LABEL {
+    display: flex;
+    border-radius: 8px;
+    background: #F5F4F6;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.INPUT {
+    align-items: center;
+    border-radius: 8px;
+    background: #F5F4F6;
+    text-align: center;
+}
+
+.INPUT2 {
+    display: block;
+    border-radius: 8px;
+    background: #F5F4F6;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    text-align: center;
+}
+
+
+#regdiv {
+    margin-top: 1rem;
+    height: 4rem;
+    text-align: center;
+}
+
+.reg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background: #F5F4F6;
+    height: 3rem;
+}
+
+.regdesign2 {
+    border-radius: 5px;
+    background-color: #E8D5B9;
+    width: 14rem;
+    height: 2.5rem;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    font-size: 16px;
+}
+
+
+.regdesign3 {
+    border-radius: 5px;
+    background-color: #E8D5B9;
+    width: 14rem;
+    height: 2.5rem;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    font-size: 16px;
+}
+
+.regdesign3:hover {
+    color: white;
+    background-color: #f44336;
+}
+
+.regdesign2:hover {
+    color: white;
+    background-color: #4CAF50;
+}
+
+.minibox2 {
+
+    display: inline-block;
+    text-align: center;
+    height: 3rem;
+    margin: 0.5rem;
+    margin-top: 1rem;
+    padding: 10px 5px 10px 12px;
+    border-radius: 5px;
+    border: 1px solid #000;
+    text-decoration: none;
+    color: #000;
+    background: #E8D5B9;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.minibox2:hover{
+    text-decoration: none;
+}
+
+
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 8px;
+    /* Width of the scrollbar */
+    border-radius: 4px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    /* Color of the scrollbar handle */
+    border-radius: 4px;
+    /* Rounded corners */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    /* Color when hovering over scrollbar */
+    border-radius: 4px;
+}
+
+/* For horizontal scrollbar */
+::-webkit-scrollbar-track {
+    background: #F5F4F6;
+    /* Color of the scrollbar track */
+    border-radius: 4px;
+}
+
+/* Handle */
+::-webkit-scrollbar-track-piece:end {
+    background: #F5F4F6;
+    /* Color of the space after the scrollbar handle */
+    border-radius: 4px;
+}
+
+
+#backbutton1 {
+    position: relative;
+    z-index: 15;
+    margin-bottom: -2rem;
+}
+
+
+
+/* Style for the modal */
+.modal_2 {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content_2 {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    text-align: center;
+    border-radius: 5px;
+}
+
+/* Style for buttons inside the modal */
+#confirmationModal button {
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#confirmYes {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+}
+
+#confirmNo {
+    background-color: #f44336;
+    color: white;
+    border: none;
+}
+
+
+
+@media (min-width: 576px) and (max-width: 768px) {
+    #mainbox {
+        height: 65%;
+        text-align: center;
+        overflow-x: hidden;
+        top: calc((100vh - 65%) / 2);
+        left: 1.5rem;
+        width: 80%;
+
+    }
+
+    .edit {
+        max-height: 90%;
+    }
+
+    .row_1 {
+        margin: 0;
+        display: block;
+    }
+
+    .col-md-4 {
+        margin: 0;
+        left: calc((100% - 18rem) / 2);
+    }
+
+    .col-md-8 {
+        margin: 0;
+        padding: 0;
+    }
+
+    .col-sm-7 {
+        margin: 0.2rem;
+        height: 3rem;
+        min-width: 90%;
+        left: calc((100% - 90%) / 2);
+
+    }
+
+    .col-sm-4 {
+        margin: 0.1rem;
+        height: 3rem;
+        min-width: 90%;
+        left: calc((100% - 90%) / 2);
+
+    }
+
+    .INPUT2 {
+        height: 5rem;
+    }
+
+    .row {
+        margin-top: 2rem;
+    }
+
+    #backbutton1 {
+        margin-left: -90%;
+    }
+
+    .reg {
+        width: 12rem;
+        margin-top: 0.5rem;
+    }
+
+    #regdiv {
+        margin-top: 5rem;
+        height: 4rem;
+        margin-left: 5.5rem;
+        margin-bottom: 4rem;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1057px) {
+
+    .regdesign2 {
+        font-size: 12px;
+    }
+
+    .regdesign3 {
+        font-size: 12px;
+    }
+
+    .LABEL {
+        justify-content: left;
+    }
+}
+
+
+@media (min-width: 768px) and (max-width: 768px) {
+
+
+    .regdesign3 {
+    }
+
+    .LABEL {
+        justify-content: center;
+    }
+
+    #regdiv {
+        margin-right: 7.5rem ;
+    }
+
+    .reg {
+        min-width: 8rem;
+    }
+}
+
+
+@media (max-width: 500px) {
+
+    .edit {
+        top: 0;
+        max-height: 100%;
+        overflow-x: hidden;
+    }
+
+    .row_1 {
+        margin: 0;
+        display: block;
+    }
+
+    .col-md-4 {
+        margin: 0;
+        position: relative;
+        left: calc((100% - 16rem) / 2);
+    }
+
+    .col-md-8 {
+        margin: 0;
+        padding: 0;
+    }
+
+    #mainbox {
+        text-align: center;
+        margin-top: 1rem;
+        width: 100%;
+        height: calc(100% - 1rem);
+        border-radius: 0;
+        box-shadow: none;
+        border: none;
+    }
+
+    #backbutton1 {
+        pointer-events: none;
+        opacity: 0;
+    }
+
+    #backbutton_2 {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .col-sm-7 {
+        margin: 0.2rem;
+        height: 3rem;
+    }
+
+    .col-sm-4 {
+        margin: 0.1rem;
+        height: 3rem;
+    }
+
+    .INPUT2 {
+        height: 5rem;
+    }
+
+
+    .row {
+        margin-top: 2rem;
+    }
+
+    .reg {
+        width: 12rem;
+        margin-top: 0.5rem;
+    }
+
+    #regdiv {
+        margin-top: 5rem;
+        height: 4rem;
+        margin-left: 3.2rem;
+    }
+
+
+}
+
+@media (min-width: 501px) and (max-width: 576px) {
+    #mainbox {
+        height: 65%;
+        width: 80%;
+        text-align: center;
+        overflow-x: hidden;
+        top: calc((100vh - 65%) / 2);
+        left: 1.5rem;
+
+    }
+
+    .centerEdit {
+        justify-content: flex-end;
+    }
+
+    .edit {
+        max-height: 90%;
+    }
+
+    .row_1 {
+        margin: 0;
+        display: block;
+        height: 100%;
+        width: 100%;
+    }
+
+    .col-md-4 {
+        margin: 0;
+        left: calc((100% - 18rem) / 2);
+    }
+
+    .col-md-8 {
+        margin: 0;
+        padding: 0;
+    }
+
+
+
+    .col-sm-7 {
+        margin: 0.2rem;
+        height: 3rem;
+        min-width: 90%;
+
+    }
+
+    .col-sm-4 {
+        margin: 0.1rem;
+        height: 3rem;
+        min-width: 90%;
+
+    }
+
+    .INPUT2 {
+        height: 5rem;
+    }
+
+
+    .row {
+        margin-top: 2rem;
+    }
+
+    #backbutton1 {
+        margin-left: -90%;
+    }
+
+    .reg {
+        width: 12rem;
+        margin-top: 0.5rem;
+    }
+
+    #regdiv {
+        margin-top: 5rem;
+        height: 4rem;
+        margin-left: 5rem;
+        margin-bottom: 4rem;
+    }
+}
