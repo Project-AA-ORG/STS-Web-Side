@@ -174,14 +174,19 @@
     }
 
     .col-sm {
-        margin-left: 0.2rem;
+        margin-left: 0.1rem;
         max-width: 10rem;
+    }
+    #searchNav{
+        min-width: 9rem;
     }
 }
 
 
 @media (max-width: 360px) {
-
+    #searchNav{
+        min-width: 7rem;
+    }
     .childbox {
         width: 8rem;
         height: 4rem;
@@ -207,7 +212,9 @@
         width: 7rem;
         height: 4rem;
     }
-
+    #searchNav{
+        min-width: 6rem;
+    }
     .childbox2 {
         max-width: 7rem;
         /* height: 4rem; */

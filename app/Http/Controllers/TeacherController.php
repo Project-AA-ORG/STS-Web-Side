@@ -131,7 +131,7 @@ class TeacherController extends Controller
                             $teacher->phone = $request->phone;
                             $teacher->course_id = $request->course_id;
                             if (isset($request->control)){
-                                if ($request->control){
+                                if ($request->control == "true"){
                                     $teacher->teacher_image = null;
                                 }
                             }
@@ -170,7 +170,7 @@ class TeacherController extends Controller
                         $teacher->phone = $request->phone;
                         $teacher->course_id = $request->course_id;
                         if (isset($request->control)){
-                            if ($request->control){
+                            if ($request->control == "true"){
                                 $teacher->teacher_image = null;
                             }
                         }

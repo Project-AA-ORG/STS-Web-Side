@@ -2,12 +2,6 @@ body,
 html {
 
     background: #c4c4c4;
-    /* background-image: url("/images/edit.png");
-    background-size: cover; 
-    background-repeat: no-repeat;
-    background-position: center; 
-   */
-    height: 100vh;
     margin: 0;
     overflow: auto;
     font-family: Arial, Helvetica, sans-serif;
@@ -24,7 +18,6 @@ html {
     width: 60%;
     height: 31rem;
     top: calc((100vh - 65%) / 2);
-    /* max-height: 31rem; */
     border-radius: 8px;
     background-color: #3b6653;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -281,6 +274,121 @@ html {
 }
 
 
+
+@media (min-width: 576px) and (max-width: 768px) {
+    #mainbox {
+        height: 90%;
+        text-align: center;
+        overflow-x: hidden;
+        top: calc((100vh - 90%) / 2);
+        left: 1.5rem;
+        width: 80%;
+
+    }
+
+    .edit {
+        max-height: 90%;
+    }
+
+    .row1 {
+        margin: 0;
+        display: block;
+    }
+
+    .col-md-4 {
+        margin: 0;
+        left: calc((100% - 18rem) / 2);
+    }
+
+    .col-md-8 {
+        margin: 0;
+        padding: 0;
+    }
+
+    .col-sm-7 {
+        margin: 0.2rem;
+        height: 3rem;
+        min-width: 90%;
+        left: calc((100% - 90%) / 2);
+
+    }
+
+    .col-sm-4 {
+        margin: 0.1rem;
+        height: 3rem;
+        min-width: 90%;
+        left: calc((100% - 90%) / 2);
+
+    }
+
+    .INPUT2 {
+        height: 5rem;
+    }
+
+    .row {
+        margin-top: 2rem;
+    }
+
+    #usernamerowu {
+        margin-top: 4rem;
+    }
+
+    #backbutton1 {
+        margin-left: -90%;
+    }
+
+    .reg {
+        width: 12rem;
+        margin-top: 0.5rem;
+    }
+
+    #regdiv {
+        margin-top: 2.5rem;
+        height: 4rem;
+        margin-left: 5.5rem;
+        margin-bottom:4rem;
+        display: none;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1057px) {
+
+    .regdesign2 {
+        font-size: 12px;
+    }
+
+    .regdesign3 {
+        font-size: 12px;
+    }
+
+    .LABEL {
+        justify-content: left;
+    }
+
+    .student-dropdown {
+        bottom: 0px;
+    }
+}
+
+
+@media (min-width: 768px) and (max-width: 768px) {
+
+
+    .LABEL {
+        justify-content: center;
+    }
+
+    .student-dropdown {
+        bottom: 0px;
+    }
+
+    #regdiv {
+        left: 0;
+        margin-right: 7rem;
+    }
+}
+
+
 @media (max-width: 500px) {
 
     .edit {
@@ -307,9 +415,9 @@ html {
 
     #mainbox {
         text-align: center;
-        margin-top: 1rem;
+        margin-top: 2rem;
         width: 100%;
-        height: 100%;
+        height: calc(100% - 2rem);
         border-radius: 0;
         box-shadow: none;
         border: none;
@@ -357,14 +465,12 @@ html {
         margin-top: 2.5rem;
         height: 4rem;
         margin-left: 3.2rem;
-        margin-bottom: 4rem;
-
+        padding-bottom: 8rem;
     }
-
 
 }
 
-@media (min-width: 500.0001px) and (max-width: 576px) {
+@media (min-width: 501px) and (max-width: 576px) {
     #mainbox {
         height: 90%;
         width: 80%;
@@ -444,117 +550,5 @@ html {
         height: 4rem;
         margin-left: 5rem;
         margin-bottom: 4rem;
-    }
-}
-
-@media (min-width: 576px) and (max-width: 768px) {
-    #mainbox {
-        height: 90%;
-        text-align: center;
-        overflow-x: hidden;
-        top: calc((100vh - 90%) / 2);
-        left: 1.5rem;
-        width: 80%;
-
-    }
-
-    .edit {
-        max-height: 90%;
-    }
-
-    .row1 {
-        margin: 0;
-        display: block;
-    }
-
-    .col-md-4 {
-        margin: 0;
-        left: calc((100% - 18rem) / 2);
-    }
-
-    .col-md-8 {
-        margin: 0;
-        padding: 0;
-    }
-
-    .col-sm-7 {
-        margin: 0.2rem;
-        height: 3rem;
-        min-width: 90%;
-        left: calc((100% - 90%) / 2);
-
-    }
-
-    .col-sm-4 {
-        margin: 0.1rem;
-        height: 3rem;
-        min-width: 90%;
-        left: calc((100% - 90%) / 2);
-
-    }
-
-    .INPUT2 {
-        height: 5rem;
-    }
-
-    .row {
-        margin-top: 2rem;
-    }
-
-    #usernamerowu {
-        margin-top: 4rem;
-    }
-
-    #backbutton1 {
-        margin-left: -90%;
-    }
-
-    .reg {
-        width: 12rem;
-        margin-top: 0.5rem;
-    }
-
-    #regdiv {
-        margin-top: 2.5rem;
-        height: 4rem;
-        margin-left: 5.5rem;
-        margin-bottom: 4rem;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 1057px) {
-
-    .regdesign2 {
-        font-size: 12px;
-    }
-
-    .regdesign3 {
-        font-size: 12px;
-    }
-
-    .LABEL {
-        justify-content: left;
-    }
-
-    .student-dropdown {
-        bottom: 0px;
-    }
-}
-
-
-@media (min-width: 768px) and (max-width: 768px) {
-
-
-    .LABEL {
-        justify-content: center;
-    }
-
-    .student-dropdown {
-        bottom: 0px;
-    }
-
-    #regdiv {
-        left: 0;
-        margin-right: 7rem;
     }
 }

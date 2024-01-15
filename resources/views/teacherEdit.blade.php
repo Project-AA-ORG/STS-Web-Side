@@ -46,7 +46,9 @@
 
                     <div class="col-md-4">
                         <div class="photo">
-                            <img src="data:image/jpeg;base64,{{ $data['teacher']->teacher_image }}" alt="">
+                            <img id="teacherphoto" src="data:image/jpeg;base64,{{ $data['teacher']->teacher_image }}" alt="">
+                            <input type="hidden" id="booleanValue" name="control" value="false">
+                            <button type="button" id="confirmationButton" class="btn btn-light">&times;</button>
                         </div>
 
                         <div class="regdiv">
@@ -75,7 +77,8 @@
                             <div class="row">
                                 <div class="LABEL col-sm-4"><b>Ad Soyad</b> </div>
                                 <input type="text" name="name" id="name" value="{{ $data['teacher']->name }}"
-                                    required placeholder="{{ $data['teacher']->name }}" class="INPUT col-sm-7" maxlength="50">
+                                    required placeholder="{{ $data['teacher']->name }}" class="INPUT col-sm-7"
+                                    maxlength="50">
                             </div>
 
                             <div class="row">
@@ -199,7 +202,8 @@
                                 <div class="LABEL col-sm-4"><b>Kullanıcı Adı</b></div>
                                 <input type="text" name="username" id="username"
                                     value="{{ $data['teacher']->username }}" required
-                                    placeholder="{{ $data['teacher']->username }}" class="INPUT col-sm-7" maxlength="50">
+                                    placeholder="{{ $data['teacher']->username }}" class="INPUT col-sm-7"
+                                    maxlength="50">
 
                             </div>
 
@@ -207,7 +211,8 @@
                                 <div class="LABEL col-sm-4"><b>Telefon No</b></div>
                                 <input type="tel" name="phone" id="phone"
                                     value="{{ $data['teacher']->phone }}" required
-                                    placeholder="{{ $data['teacher']->phone }}" class="INPUT col-sm-7" maxlength="20">
+                                    placeholder="{{ $data['teacher']->phone }}" class="INPUT col-sm-7"
+                                    maxlength="14"  pattern="[0-9]{4}-[0-9]{3}-[0-9]{2}-[0-9]{2}" required>
                             </div>
 
                             <div id="regdiv2" class="registerdiv2 row">
@@ -578,6 +583,34 @@
             event.preventDefault();
             this.scrollLeft += event.deltaY;
         });
+    });
+</script>
+<script>
+    document.getElementById('confirmationButton').addEventListener('click', function() {
+        const val = document.getElementById('booleanValue');
+        val.value = true;
+        const pht = document.getElementById('teacherphoto');
+        pht.src = "";
+
+    });
+</script>
+<script>
+    const phoneInput = document.getElementById('phone');
+
+    phoneInput.addEventListener('input', function(event) {
+        const input = event.target.value.replace(/\D/g, '').substring(0, 14); // Remove non-numeric characters
+
+        // Define the format using regex patterns
+        const formattedInput = input.replace(/(\d{4})(\d{1,3})?(\d{1,2})?(\d{0,2})?/, function(match, p1, p2,
+            p3, p4) {
+            let formatted = `${p1}`;
+            if (p2) formatted += `-${p2}`;
+            if (p3) formatted += `-${p3}`;
+            if (p4) formatted += `-${p4}`;
+            return formatted;
+        });
+
+        event.target.value = formattedInput;
     });
 </script>
 

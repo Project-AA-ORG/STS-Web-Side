@@ -42,7 +42,8 @@
                             <div class="row">
                                 <div class="LABEL col-sm-4"><b>Ad Soyad</b> </div>
                                 <input type="text" name="name" id="name" value="{{ $data['parent']->name }}"
-                                    required placeholder="{{ $data['parent']->name }}" class="INPUT col-sm-7" maxlength="50">
+                                    required placeholder="{{ $data['parent']->name }}" class="INPUT col-sm-7"
+                                    maxlength="50">
                             </div>
 
 
@@ -120,7 +121,8 @@
                                 <div class="LABEL col-sm-4"><b>Kullanıcı Adı</b></div>
                                 <input type="text" name="username" id="username"
                                     value="{{ $data['parent']->username }}" required
-                                    placeholder="{{ $data['parent']->username }}" class="INPUT col-sm-7" maxlength="50">
+                                    placeholder="{{ $data['parent']->username }}" class="INPUT col-sm-7"
+                                    maxlength="50">
 
                             </div>
 
@@ -128,8 +130,10 @@
                                 <div class="LABEL col-sm-4"><b>Telefon No</b></div>
                                 <input type="tel" name="phone" id="phone"
                                     value="{{ $data['parent']->phone }}" required
-                                    placeholder="{{ $data['parent']->phone }}" class="INPUT col-sm-7" maxlength="20">
+                                    placeholder="{{ $data['parent']->phone }}" class="INPUT col-sm-7" maxlength="14"
+                                    attern="[0-9]{4}-[0-9]{3}-[0-9]{2}-[0-9]{2}" required>
                             </div>
+
                             <div id="regdiv" class="row">
                                 <div class="col-md-1"></div>
                                 @csrf
@@ -413,6 +417,25 @@
             event.preventDefault();
             this.scrollLeft += event.deltaY;
         });
+    });
+</script>
+<script>
+    const phoneInput = document.getElementById('phone');
+
+    phoneInput.addEventListener('input', function(event) {
+        const input = event.target.value.replace(/\D/g, '').substring(0, 14); // Remove non-numeric characters
+
+        // Define the format using regex patterns
+        const formattedInput = input.replace(/(\d{4})(\d{1,3})?(\d{1,2})?(\d{0,2})?/, function(match, p1, p2,
+            p3, p4) {
+            let formatted = `${p1}`;
+            if (p2) formatted += `-${p2}`;
+            if (p3) formatted += `-${p3}`;
+            if (p4) formatted += `-${p4}`;
+            return formatted;
+        });
+
+        event.target.value = formattedInput;
     });
 </script>
 

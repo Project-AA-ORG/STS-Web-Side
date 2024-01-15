@@ -2,7 +2,6 @@ body,
 html {
 
     background: #c4c4c4;
-    height: 100vh;
     margin: 0;
     overflow: auto;
     font-family: Arial, Helvetica, sans-serif;
@@ -11,7 +10,6 @@ html {
 .centerEdit {
     display: flex;
     justify-content: center;
-    /* align-items: center; */
     height: 100vh;
 }
 
@@ -332,7 +330,7 @@ textarea::placeholder {
     }
 }
 
-@media (min-width: 500.0001px) and (max-width: 576px) {
+@media (min-width: 501px) and (max-width: 576px) {
     #mainbox {
         width: 80%;
         left: 2rem;
@@ -347,6 +345,8 @@ textarea::placeholder {
 
     #regdiv {
         margin-top: 0.5rem;
+        padding-bottom: 8rem;
+
     }
 
     .INPUT2 {
@@ -380,6 +380,7 @@ textarea::placeholder {
     #regdiv {
         margin-top: 0.7rem;
         margin-left: calc((100% - 81%)/2);
+        padding-bottom: 8rem;
     }
 
 
@@ -443,7 +444,7 @@ textarea::placeholder {
         text-align: center;
         margin-top: 2rem;
         width: 100%;
-        height: 100%;
+        height: calc(100% - 2rem);
         border-radius: 0;
         box-shadow: none;
         border: none;
@@ -467,6 +468,8 @@ textarea::placeholder {
 
     #regdiv {
         margin-top: 0.5rem;
+        padding-bottom: 8rem;
+
     }
 }
 
@@ -511,7 +514,7 @@ textarea::placeholder {
         text-align: center;
         margin-top: 2rem;
         width: 100%;
-        height: 100%;
+        height: calc(100% - 2rem);
         border-radius: 0;
         box-shadow: none;
         border: none;
@@ -535,5 +538,7 @@ textarea::placeholder {
 
     #regdiv {
         margin-top: 0.5rem;
+        padding-bottom: 8rem;
+
     }
 }

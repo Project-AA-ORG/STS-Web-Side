@@ -111,7 +111,7 @@
 
                                             <div class="col-sm childbox2 form-check custom-control custom-checkbox ">
                                                 <div>
-                                                    <nav
+                                                    <nav id = "searchNav"
                                                         style="margin: 0; padding: 0; margin-left: -1.5rem; width:120%; border-radius: 5px;">
                                                         <form class="form-inline">
                                                             <input style="height:1.7rem; font-size: 15px;"
@@ -148,8 +148,10 @@
                                         {{-- phone number input --}}
                                         <div class="row">
                                             <div class="childbox col-sm">Telefon No</div>
-                                            <input type="tel" id="phone" name="phone" required
-                                                placeholder="giriniz" class="childbox col-sm" maxlength="20">
+                                            <input class="childbox col-sm" maxlength="14" type="tel"
+                                                id="phone" name="phone" placeholder="8888 888 88 88"
+                                                pattern="[0-9]{4}-[0-9]{3}-[0-9]{2}-[0-9]{2}" required />
+
                                         </div>
 
                                     </div>
@@ -284,11 +286,7 @@
     });
 </script>
 
-<script>
-    document.getElementById('phone').addEventListener('input', function() {
-        this.value = this.value.replace(/\D/g, ''); // Remove non-numeric characters
-    });
-</script>
+
 <script>
     // Here you might have your error logic, for example:
     var errorMessage = document.querySelector('.error');
@@ -359,6 +357,25 @@
 
         // You can then populate your username input field with the generated username
         document.getElementById('username').value = generatedUsername;
+    });
+</script>
+<script>
+    const phoneInput = document.getElementById('phone');
+
+    phoneInput.addEventListener('input', function(event) {
+        const input = event.target.value.replace(/\D/g, '').substring(0, 14); // Remove non-numeric characters
+
+        // Define the format using regex patterns
+        const formattedInput = input.replace(/(\d{4})(\d{1,3})?(\d{1,2})?(\d{0,2})?/, function(match, p1, p2,
+            p3, p4) {
+            let formatted = `${p1}`;
+            if (p2) formatted += `-${p2}`;
+            if (p3) formatted += `-${p3}`;
+            if (p4) formatted += `-${p4}`;
+            return formatted;
+        });
+
+        event.target.value = formattedInput;
     });
 </script>
 

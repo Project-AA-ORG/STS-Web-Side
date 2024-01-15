@@ -108,24 +108,6 @@
 
                             </div>
 
-                            {{-- <div id="regdiv" class="row">
-                                <div class="col-md-1"></div>
-                                @csrf
-                                <div class="reg col-md-4">
-                                    <button type="submit" class="btn btn-light regdesign2"><strong>
-                                            Sınıfı Kaydet</strong></button>
-                                </div>
-                                <div class="col-md-2"></div>
-
-                                @csrf
-                                <div class="reg col-md-4">
-                                    <button id="del" type="submit" class="btn btn-light regdesign3"
-                                        form="del">
-                                        <strong>Sınıfı Sil</strong> </button>
-                                </div>
-                                <div class="col-md-1"></div>
-
-                            </div> --}}
                         </form>
                     </div>
                 </div>

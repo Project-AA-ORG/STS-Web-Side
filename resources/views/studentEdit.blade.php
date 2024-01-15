@@ -33,7 +33,9 @@
                     <div class="col-md-4">
 
                         <div class="photo">
-                            <img src="data:image/jpeg;base64,{{ $data['student']->student_image }}" alt="">
+                            <img id="studentphoto" src="data:image/jpeg;base64,{{ $data['student']->student_image }}" alt="">
+                            <button type="button" id="confirmationButton" class="btn btn-light">&times;</button>
+                            <input type="hidden" id="booleanValue" name="control" value="false">
                         </div>
 
 
@@ -293,6 +295,18 @@
     document.getElementById('student_no').addEventListener('input', function() {
         this.value = this.value.replace(/\D/g, ''); // Remove non-numeric characters
     });
+</script>
+
+<script>
+
+    document.getElementById('confirmationButton').addEventListener('click', function() {
+        const val = document.getElementById('booleanValue');
+        val.value = true;
+        const pht = document.getElementById('studentphoto');
+        pht.src = "";
+
+    });
+
 </script>
 
 </html>

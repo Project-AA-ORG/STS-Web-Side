@@ -1,7 +1,6 @@
 body,
 html {
     background-color: #C4C4C4;
-    height: 100vh;
     margin: 0;
     overflow: auto;
     font-family: Arial, Helvetica, sans-serif;
@@ -35,7 +34,9 @@ html {
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     background-color: #3b6653;
 }
-
+#bar{
+    margin-left: 0.5%;
+}
 
 .listitems {
     background: #3b6653;
@@ -147,34 +148,39 @@ html {
 }
 
 @media (max-width: 500px) {
-
+ 
     .Teachers {
-        width: 100%;
+        width: 100vw;
         top: 3rem;
-        height: calc(100vh - 3rem);
+        height: calc(100% - 3rem);
         border: #888;
         border-radius: 0;
+        text-align: center;
+        min-width: 16rem;
     }
-
+  
+    .center{
+        overflow-x: hidden;
+    }
 
     .teacherline {
         margin-top: 1%;
         margin-left: 2%;
         width: 94%;
-        min-width: 255px;
+        min-width: 210px;
     }
 
     .lineimg {
-        width: 2.0rem;
-        height: 2.0rem;
+        width: 2rem;
+        height: 2rem;
         border-radius: 5px;
-        margin-left: 1%;
-        margin-right: calc(1% - 1.33%);
+        margin-left: 0;
+        margin-right: 0;
     }
 
 
     .linetext {
-        margin-left: 3%;
+        margin-left: 1%;
         padding: 1%;
         height: 9%;
     }
@@ -182,16 +188,15 @@ html {
     .listitems {
         height: 75%;
     }
-    
+    #bar{
+        margin-left: 1%;
+    }
 }
 
-@media (min-width: 500px) and (max-width: 1100px) {
+@media (min-width: 500.1px) and (max-width: 1100px) {
 
     .Teachers {
-
-        margin-left: 3rem;
-      
+        margin-left: 3rem; 
     }
-
  
 }

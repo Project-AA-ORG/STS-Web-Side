@@ -164,7 +164,7 @@
 
 
 
-@media (max-width: 500px) {
+@media (min-width:0px) and (max-width: 500px) {
 
     .modal-content {
         width: 100%;
@@ -181,17 +181,22 @@
     }
 
     .row {
-        margin-top: 0.3rem;
+        margin-top: 0.2rem;
     }
 
     .col-sm {
-        margin-left: 0.2rem;
+        margin-left: 0.1rem;
         max-width: 10rem;
     }
 }
 
+@media (min-width:360px) and (max-width:500px){
+    #searchNav{
+        min-width: 9rem;
+    }
+}
 
-@media (max-width: 360px) {
+@media (min-width:300px) and (max-width: 360px) {
 
     .childbox {
         width: 8rem;
@@ -201,7 +206,9 @@
     .childbox2 {
         max-width: 8rem;
     }
-
+    #searchNav{
+        min-width: 7rem;
+    }
     .childbox3 {
         max-width: 8rem;
     }
@@ -230,7 +237,9 @@
     .childbox3 {
         max-width: 7rem;
     }
-    
+    #searchNav{
+        min-width: 6rem;
+    }
     
     .COURSEDROP {
         width: 7rem;

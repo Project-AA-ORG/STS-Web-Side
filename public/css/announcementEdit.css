@@ -2,7 +2,6 @@ body,
 html {
 
     background: #c4c4c4;
-    height: 100vh;
     margin: 0;
     overflow: auto;
     font-family: Arial, Helvetica, sans-serif;
@@ -38,7 +37,6 @@ textarea::placeholder {
     width: 60%;
     height: 35rem;
     top: calc((100vh - 80%) / 2);
-    /* max-height: 31rem; */
     border-radius: 8px;
     background-color: #3b6653;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -215,71 +213,7 @@ textarea::placeholder {
 }
 
 
-@media (max-width: 500px) {
 
-    .edit {
-        top: 0;
-        max-height: 100%;
-        overflow-x: hidden;
-    }
-
-    .INPUT2 {
-        font-size: 14px;
-    }
-
-    #mainbox {
-        text-align: center;
-        margin-top: 2rem;
-        width: 100%;
-        height: 100%;
-        border-radius: 0;
-        box-shadow: none;
-        border: none;
-    }
-
-    #backbutton1 {
-        pointer-events: none;
-        opacity: 0;
-    }
-
-    #backbutton_2 {
-        opacity: 1;
-        pointer-events: all;
-    }
-
-    .reg {
-        margin: 0.3rem;
-        max-width: 12rem;
-        margin-left: calc((100% - 12rem) / 2);
-    }
-
-    #regdiv {
-        margin-top: 0;
-    }
-
-    input[type="text"] {
-        font-size: 24px;
-    }
-}
-
-@media (min-width: 500.0001px) and (max-width: 576px) {
-    #mainbox {
-        width: 70%;
-        left: 2rem;
-        height: 37rem;
-        top: calc((100vh - 37rem) / 2);
-    }
-
-    .reg {
-        margin: 0.3rem;
-        max-width: 15rem;
-        margin-left: calc((100% - 15rem) / 2);
-    }
-
-    #regdiv {
-        margin-top: 0;
-    }
-}
 
 @media (min-width: 576px) and (max-width: 768px) {
     #mainbox {
@@ -337,4 +271,72 @@ textarea::placeholder {
         margin: 0.7rem;
     }
 
+}
+
+@media (max-width: 500px) {
+
+    .edit {
+        top: 0;
+        max-height: 100%;
+        overflow-x: hidden;
+    }
+
+    .INPUT2 {
+        font-size: 14px;
+    }
+
+    #mainbox {
+        text-align: center;
+        margin-top: 2rem;
+        width: 100%;
+        height: calc(100% - 2rem);
+        border-radius: 0;
+        box-shadow: none;
+        border: none;
+    }
+    #regdiv{
+        padding-bottom: 8rem;
+    }
+    #backbutton1 {
+        pointer-events: none;
+        opacity: 0;
+    }
+
+    #backbutton_2 {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .reg {
+        margin: 0.3rem;
+        max-width: 12rem;
+        margin-left: calc((100% - 12rem) / 2);
+    }
+
+    #regdiv {
+        margin-top: 0;
+    }
+
+    input[type="text"] {
+        font-size: 24px;
+    }
+}
+
+@media (min-width: 501px) and (max-width: 576px) {
+    #mainbox {
+        width: 70%;
+        left: 2rem;
+        height: 37rem;
+        top: calc((100vh - 37rem) / 2);
+    }
+
+    .reg {
+        margin: 0.3rem;
+        max-width: 15rem;
+        margin-left: calc((100% - 15rem) / 2);
+    }
+
+    #regdiv {
+        margin-top: 0;
+    }
 }

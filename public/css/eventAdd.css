@@ -223,7 +223,7 @@
     }
 
     #eklebutton {
-        margin-left: calc((100% - 6rem) / 2);
+        margin-left: 1%;
         font-size: 14px;
     }
 }
@@ -242,6 +242,8 @@
     .contentbox {
         width: 45%;
         height: 10rem;
+        font-size: 12px;
+
     }
 
     .eventlen {
@@ -267,7 +269,7 @@
         height: 2.3rem;
         font-size: 10px;
         width: 70%;
-        margin-left: calc((100% - 70%) / 2);
+        margin-left: 1%;
     }
 
     .buttondiv {

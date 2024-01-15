@@ -168,41 +168,39 @@
 hr {
     border: 0.5px solid black; 
     margin: 15px; 
+    
 }
+
+/* For Webkit-based browsers */
+/* Width and rounded corners of the scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
-    /* Width of the scrollbar */
     border-radius: 5px;
 }
 
-/* Handle */
+/* Scrollbar handle */
 ::-webkit-scrollbar-thumb {
     background: #888;
-    /* Color of the scrollbar handle */
     border-radius: 5px;
-    /* Rounded corners */
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
-    /* Color when hovering over scrollbar */
-    border-radius: 5px;
 }
 
-/* For horizontal scrollbar */
+/* Scrollbar track */
 ::-webkit-scrollbar-track {
     background: #f1f1f1;
-    /* Color of the scrollbar track */
     border-radius: 5px;
 }
 
-/* Handle */
+/* Space after scrollbar handle */
 ::-webkit-scrollbar-track-piece:end {
     background: #ddd;
-    /* Color of the space after the scrollbar handle */
     border-radius: 5px;
 }
+
 
 @media (max-width: 500px){
  
@@ -223,5 +221,4 @@ hr {
         pointer-events: all;
     }
     
-
 }

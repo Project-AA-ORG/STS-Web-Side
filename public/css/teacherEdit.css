@@ -12,6 +12,20 @@ html {
     height: 100vh;
 }
 
+#confirmationButton{
+    position: absolute;
+    top: 1.7rem; 
+    left: 15px;
+    z-index: 2; /* Ensure button stays above the image */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    /* border-radius: 50%; */
+    display: none;
+    opacity: 0.5;
+}
+.photo:hover #confirmationButton {
+    display: block; /* Show the button on hover */
+}
 .edit {
     overflow: auto;
     width: 80%;
@@ -21,7 +35,6 @@ html {
     border-radius: 8px;
     background-color: #3b6653;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    display: block;
     position: relative;
 
 }
@@ -132,9 +145,7 @@ html {
 }
 
 .select-classes {
-
     text-align: center;
-
 }
 
 .minibox2 {
@@ -301,204 +312,6 @@ select.form-control {
     border: none;
 }
 
-@media (max-width: 500px) {
-
-    .edit{
-        top: 0;
-        max-height: 100%;
-        overflow-x: hidden;
-    }
-
-    .regdiv {
-        display: none;
-        opacity: 0;
-        pointer-events: none;
-    }
-
-    .registerdiv2 {
-        bottom: 0;
-        display: inline-block;
-        opacity: 1;
-        pointer-events: all;
-    }
-
-    .row1 {
-        margin: 0;
-        display: block;
-    }
-
-    .col-md-4 {
-        margin: 0;
-        position: relative;
-        left: calc((100% - 16rem) / 2);
-    }
-
-    
-    .photo {
-        margin-top: 0;
-        bottom: 1.5rem;
-        width: 14rem;
-        height: 14rem;
-    }
-
-    .col-md-8 {
-        margin: 0;
-        padding: 0;
-    }
-
-    #mainbox {
-        text-align: center;
-        margin-top: 1rem;
-        width: 100%;
-        height: 100%;
-        border-radius: 0;
-        box-shadow: none;
-        border: none;    
-    }
-
-    #regdiv2{
-        margin-bottom: 4rem;
-    }
-
-
-
-    #backbutton1 {
-        pointer-events: none;
-        opacity: 0;
-    }
-
-    #backbutton_2 {
-        opacity: 1;
-        pointer-events: all;
-    }
-
-    .col-sm-7 {
-        margin: 0.2rem;
-        height: 3rem;
-    }
-
-    .col-sm-4 {
-        margin: 0.1rem;
-        height: 3rem;
-    }
-
-    .INPUT2 {
-        height: 5rem;
-    }
-
-    .row {
-        margin-top: 2rem;
-    }
-
-    #courserow{
-        margin-top: 4rem;
-    }
-
-    .reg{
-        width: 12rem;
-    }
-
-}
-    @media (min-width: 500.0001px) and (max-width: 576px) {
-        #mainbox {
-            height: 90%;
-            width: 80%;
-            text-align: center;
-            overflow-x: hidden;
-            top: calc((100vh - 90%) / 2);
-            left: 1.5rem;
-
-        }
-       
-        .centerEdit {
-            justify-content: flex-end;
-        }
-
-        .edit{
-            max-height: 90%;
-        }
-
-        .regdiv {
-            display: none;
-            opacity: 0;
-            pointer-events: none;
-        }
-    
-        .registerdiv2 {
-            bottom: 0;
-            display: inline-block;
-            opacity: 1;
-            pointer-events: all;
-        }
-    
-        .row1 {
-            margin: 0;
-            display: block;
-            height: 100%;
-            width: 100%;
-        }
-    
-        .col-md-4 {
-            margin: 0;
-            left: calc((100% - 18rem) / 2);
-        }
-    
-        
-        .photo {
-            margin-top: 0;
-        }
-    
-        .col-md-8 {
-            margin: 0;
-            padding: 0;
-        }
-  
-        #regdiv2{
-            margin-bottom: 4rem;
-        }
-    
-        .col-sm-7 {
-            margin: 0.2rem;
-            height: 3rem;
-            min-width: 90%;
-        
-        }
-    
-        .col-sm-4 {
-            margin: 0.1rem;
-            height: 3rem;
-            min-width: 90%;
-
-        }
-    
-        .INPUT2 {
-            height: 5rem;
-        }
-    
-    
-        .row {
-            margin-top: 2rem;
-        }
-    
-        #courserow{
-            margin-top: 4rem;
-        }
-    
-        .reg{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 15rem;
-        }
-        .regdesign1, .regdesign2, .regdesign3{
-            display: inline;
-        }
-
-        #backbutton1{
-            position: absolute;
-            /* float: left; */
-        }
-    }
 
     @media (min-width: 576px) and (max-width: 768px) {
         #mainbox {
@@ -644,3 +457,203 @@ select.form-control {
             height: 18rem;
         }
     }
+
+    @media (min-width: 501px) and (max-width: 576px) {
+        #mainbox {
+            height: 90%;
+            width: 80%;
+            text-align: center;
+            overflow-x: hidden;
+            top: calc((100vh - 90%) / 2);
+            left: 1.5rem;
+
+        }
+       
+        .centerEdit {
+            justify-content: flex-end;
+        }
+
+        .edit{
+            max-height: 90%;
+        }
+
+        .regdiv {
+            display: none;
+            opacity: 0;
+            pointer-events: none;
+        }
+    
+        .registerdiv2 {
+            bottom: 0;
+            display: inline-block;
+            opacity: 1;
+            pointer-events: all;
+        }
+    
+        .row1 {
+            margin: 0;
+            display: block;
+            height: 100%;
+            width: 100%;
+        }
+    
+        .col-md-4 {
+            margin: 0;
+            left: calc((100% - 18rem) / 2);
+        }
+    
+        
+        .photo {
+            margin-top: 0;
+        }
+    
+        .col-md-8 {
+            margin: 0;
+            padding: 0;
+        }
+  
+        #regdiv2{
+            margin-bottom: 4rem;
+        }
+    
+        .col-sm-7 {
+            margin: 0.2rem;
+            height: 3rem;
+            min-width: 90%;
+        
+        }
+    
+        .col-sm-4 {
+            margin: 0.1rem;
+            height: 3rem;
+            min-width: 90%;
+
+        }
+    
+        .INPUT2 {
+            height: 5rem;
+        }
+    
+    
+        .row {
+            margin-top: 2rem;
+        }
+    
+        #courserow{
+            margin-top: 4rem;
+        }
+    
+        .reg{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 15rem;
+        }
+        .regdesign1, .regdesign2, .regdesign3{
+            display: inline;
+        }
+
+        #backbutton1{
+            position: absolute;
+            /* float: left; */
+        }
+    }
+
+    
+@media (max-width: 500px) {
+
+    .edit{
+        top: 0;
+        max-height: 100%;
+        overflow-x: hidden;
+    }
+
+    .regdiv {
+        display: none;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .registerdiv2 {
+        bottom: 0;
+        display: inline-block;
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .row1 {
+        margin: 0;
+        display: block;
+    }
+
+    .col-md-4 {
+        margin: 0;
+        position: relative;
+        left: calc((100% - 16rem) / 2);
+    }
+
+    
+    .photo {
+        margin-top: 0;
+        bottom: 1.5rem;
+        width: 14rem;
+        height: 14rem;
+    }
+
+    .col-md-8 {
+        margin: 0;
+        padding: 0;
+    }
+
+    #mainbox {
+        text-align: center;
+        margin-top: 2rem;
+        width: 100%;
+        height: calc(100% - 2rem);
+        border-radius: 0;
+        box-shadow: none;
+        border: none;    
+    }
+
+    #regdiv2{
+        margin-bottom: 4rem;
+    }
+
+    #backbutton1 {
+        pointer-events: none;
+        opacity: 0;
+    }
+
+    #backbutton_2 {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .col-sm-7 {
+        margin: 0.2rem;
+        height: 3rem;
+    }
+
+    .col-sm-4 {
+        margin: 0.1rem;
+        height: 3rem;
+    }
+
+    .INPUT2 {
+        height: 5rem;
+    }
+
+    .row {
+        margin-top: 2rem;
+    }
+
+    #courserow{
+        margin-top: 4rem;
+    }
+
+    .reg{
+        width: 12rem;
+    }
+
+}
+   

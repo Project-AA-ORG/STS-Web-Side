@@ -1,7 +1,6 @@
 body,
 html {
     background-color: #C4C4C4;
-    height: 100vh;
     margin: 0;
     overflow: auto;
     font-family: Arial, Helvetica, sans-serif;
@@ -14,7 +13,9 @@ html {
     margin: 1rem;
 
 }
-
+#bar{
+    margin-left: 0.5%;
+}
 .center {
     display: flex;
     justify-content: center;
@@ -156,39 +157,45 @@ html {
         height: calc(100vh - 3rem);
         border: #888;
         border-radius: 0;
+        min-width: 16rem;
+        text-align: center;
     }
 
+    .center{
+        overflow-x: hidden;
+    }
 
     .studentline {
         margin-top: 1%;
         margin-left: 2%;
         width: 94%;
-        min-width: 255px;
+        min-width: 210px;
     }
 
     .studentlineimg {
-        width: 2.0rem;
-        height: 2.0rem;
+        width: 2rem;
+        height: 2rem;
         border-radius: 5px;
-        margin-left: 1%;
-        margin-right: calc(1% - 1.33%);
+        margin-left: 0;
+        margin-right: 0;
     }
 
 
     .studentlinetext {
-        margin-left: 3%;
+        margin-left: 1%;
         padding: 1%;
         height: 9%;
     }
+    #bar{
+        margin-left: 1%;
+    }
 }
 
-@media (min-width: 500px) and (max-width: 1100px) {
+@media (min-width: 500.1px) and (max-width: 1100px) {
 
     .Students {
 
         margin-left: 3rem;
-      
     }
 
- 
 }

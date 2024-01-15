@@ -1,7 +1,6 @@
 body,
 html {
     background-color: #C4C4C4;
-    height: 100vh;
     margin: 0;
     overflow: auto;
     font-family: Arial, Helvetica, sans-serif;
@@ -14,7 +13,9 @@ html {
     margin: 1rem;
 
 }
-
+#bar{
+    margin-left: 0.5%;
+}
 .center {
     display: flex;
     justify-content: center;
@@ -138,16 +139,21 @@ html {
     .Parents {
         width: 100%;
         top: 3rem;
-        height: calc(100vh - 3rem);
+        height: calc(100% - 3rem);
         border: #888;
         border-radius: 0;
+        min-width: 16rem;
+        text-align: center;
     }
 
+    .center{
+        overflow-x: hidden;
+    }
     .parentline {
         margin-top: 1%;
         margin-left: 2%;
         width: 96%;
-        min-width: 255px;
+        min-width: 210px;
     }
 
     .parentlinetext {
@@ -161,16 +167,15 @@ html {
     .listitems {
         height: 75%;
     }
+    #bar{
+        margin-left: 1%;
+    }
 }
 
 
-@media (min-width: 500px) and (max-width: 1100px) {
+@media (min-width: 500.1px) and (max-width: 1100px) {
 
     .Parents {
-
         margin-left: 3rem;
-      
     }
-
- 
 }

@@ -107,7 +107,7 @@ class StudentController extends Controller
                             $student->classroom_id = $request->classroom_id;
                             $student->student_no = $request->student_no;
                             if (isset($request->control)){
-                                if ($request->control){
+                                if ($request->control == "true"){
                                     $student->student_image = null;
                                 }
                             }
@@ -126,7 +126,7 @@ class StudentController extends Controller
                         $student->classroom_id = $request->classroom_id;
                         $student->student_no = $request->student_no;
                         if (isset($request->control)){
-                            if ($request->control){
+                            if ($request->control == "true"){
                                 $student->student_image = null;
                             }
                         }
