@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie-edge">
-    <title>Ders Duzenle Ekrani</title>
+    <title>Ders Düzenle</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
@@ -50,7 +50,7 @@
                             <div class="row">
                                 <div class="LABEL col-sm-4"><b>Ders Öğretmenleri</b> </div>
 
-                                <div class="INPUT2 col-sm-7">
+                                <div id="createminibox" class="INPUT2 col-sm-7">
                                     @foreach ($data['teachers'] as $item)
                                         <a class="minibox2" id="{{ $item->teacher_id }}"
                                             href="{{ route('get-update-teacher-page', ['teacherId' => $item->teacher_id]) }}">
@@ -179,5 +179,22 @@
     });
 </script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const miniboxContainer = document.getElementById('createminibox');
 
+        miniboxContainer.addEventListener('mouseenter', function() {
+            this.focus();
+        });
+
+        miniboxContainer.addEventListener('mouseleave', function() {
+            this.blur();
+        });
+
+        miniboxContainer.addEventListener('wheel', function(event) {
+            event.preventDefault();
+            this.scrollLeft += event.deltaY;
+        });
+    });
+</script>
 </html>

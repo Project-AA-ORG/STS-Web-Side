@@ -151,7 +151,6 @@
                                             <input class="childbox col-sm" maxlength="14" type="tel"
                                                 id="phone" name="phone" placeholder="8888 888 88 88"
                                                 pattern="[0-9]{4}-[0-9]{3}-[0-9]{2}-[0-9]{2}" required />
-
                                         </div>
 
                                     </div>

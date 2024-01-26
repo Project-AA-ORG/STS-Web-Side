@@ -314,7 +314,7 @@ html {
     }
 
     .col-sm-4 {
-        margin: 0.1rem;
+        margin: 0.2rem;
         height: 3rem;
         min-width: 90%;
         left: calc((100% - 90%) / 2);
@@ -439,7 +439,7 @@ html {
     }
 
     .col-sm-4 {
-        margin: 0.1rem;
+        margin: 0.2rem;
         height: 3rem;
     }
 
@@ -470,7 +470,7 @@ html {
 
 }
 
-@media (min-width: 501px) and (max-width: 576px) {
+@media (min-width: 500.1px) and (max-width: 576px) {
     #mainbox {
         height: 90%;
         width: 80%;
@@ -516,7 +516,7 @@ html {
     }
 
     .col-sm-4 {
-        margin: 0.1rem;
+        margin: 0.2rem;
         height: 3rem;
         min-width: 90%;
 
