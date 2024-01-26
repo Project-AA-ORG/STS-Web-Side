@@ -322,7 +322,7 @@ textarea::placeholder {
     }
 }
 
-@media (min-width: 501px) and (max-width: 576px) {
+@media (min-width: 500.1px) and (max-width: 576px) {
     #mainbox {
         width: 70%;
         left: 2rem;

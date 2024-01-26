@@ -336,7 +336,10 @@ select.form-control {
         left: 1.5rem;
 
     }
-
+    #confirmationButton {
+        top: 0;
+        left: 15px;
+    }
     .edit {
         max-height: 90%;
     }
@@ -387,7 +390,7 @@ select.form-control {
     }
 
     .col-sm-4 {
-        margin: 0.1rem;
+        margin: 0.2rem;
         height: 3rem;
         min-width: 90%;
         left: calc((100% - 90%) / 2);
@@ -446,7 +449,10 @@ select.form-control {
         min-width: 100%;
         margin-left: -3rem;
     }
-
+    #confirmationButton {
+        top: 0;
+        left: 39px;
+    }
 
     .col-md-8 {
         margin: 0;
@@ -481,7 +487,10 @@ select.form-control {
 }
 
 @media (max-width: 500px) {
-
+    #confirmationButton {
+        top: 0;
+        left: 15px;
+    }
     .edit {
         top: 0;
         max-height: 100%;
@@ -557,7 +566,7 @@ select.form-control {
     }
 
     .col-sm-4 {
-        margin: 0.1rem;
+        margin: 0.2rem;
         height: 3rem;
     }
 
@@ -581,7 +590,7 @@ select.form-control {
 
 }
 
-@media (min-width: 501px) and (max-width: 576px) {
+@media (min-width: 500.1px) and (max-width: 576px) {
     #mainbox {
         height: 90%;
         width: 80%;
@@ -591,7 +600,10 @@ select.form-control {
         left: 1.5rem;
 
     }
-
+    #confirmationButton {
+        top: 0;
+        left: 15px;
+    }
     .centerEdit {
         justify-content: flex-end;
     }
@@ -647,7 +659,7 @@ select.form-control {
     }
 
     .col-sm-4 {
-        margin: 0.1rem;
+        margin: 0.2rem;
         height: 3rem;
         min-width: 90%;
 

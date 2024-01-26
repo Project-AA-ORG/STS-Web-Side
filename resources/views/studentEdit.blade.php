@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie-edge">
-    <title>Ogrenci Duzenle Ekrani</title>
+    <title>Ögrenci Düzenle</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
@@ -37,7 +37,6 @@
                             <button type="button" id="confirmationButton" class="btn btn-light">&times;</button>
                             <input type="hidden" id="booleanValue" name="control" value="false">
                         </div>
-
 
                         <div class="regdiv">
                             @csrf
@@ -196,6 +195,7 @@
             displayModalForDeletion();
         });
     </script>
+
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin='anonymous'></script>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
@@ -211,6 +211,7 @@
     </script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </body>
 
 <script>
@@ -308,5 +309,6 @@
     });
 
 </script>
+
 
 </html>

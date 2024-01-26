@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie-edge">
-    <title>Ogretmen Duzenle Ekrani</title>
+    <title>Ögretmen Düzenle</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
@@ -212,7 +212,7 @@
                                 <input type="tel" name="phone" id="phone"
                                     value="{{ $data['teacher']->phone }}" required
                                     placeholder="{{ $data['teacher']->phone }}" class="INPUT col-sm-7"
-                                    maxlength="14"  pattern="[0-9]{4}-[0-9]{3}-[0-9]{2}-[0-9]{2}" required>
+                                    maxlength="14" pattern="[0-9]{4}-[0-9]{3}-[0-9]{2}-[0-9]{2}" required>
                             </div>
 
                             <div id="regdiv2" class="registerdiv2 row">
